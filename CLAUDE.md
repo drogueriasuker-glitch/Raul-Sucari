@@ -16,6 +16,20 @@ Archivos: [index.html](index.html), [css/styles.css](css/styles.css),
 [js/main.js](js/main.js), y [DATOS.md](DATOS.md) (formulario con los datos reales que
 llenó el cliente, ya aplicados a la página).
 
+## Publicación
+
+El repositorio es `drogueriasuker-glitch/Raul-Sucari` (público) y la página se sirve con
+GitHub Pages desde la raíz de `main`: https://drogueriasuker-glitch.github.io/Raul-Sucari/
+
+Publicar un cambio es `git push`: Pages reconstruye solo, tarda alrededor de un minuto.
+No hay CI ni paso de build. El destino final previsto sigue siendo Hostinger por FTP,
+así que nada puede depender de rutas propias de GitHub Pages — todas las rutas del sitio
+son relativas y deben seguir siéndolo.
+
+La autenticación de `gh` no está configurada en la máquina; el token vive en el Gestor
+de Credenciales de Windows y se recupera con `git credential fill` (usuario
+`drogueriasuker-glitch`).
+
 ## Ver los cambios
 
 No hay comando de build. Se abre el archivo:

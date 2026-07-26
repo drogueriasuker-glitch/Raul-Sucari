@@ -5,6 +5,109 @@
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- Intro de entrada ----------
+     Muestra la animación de assets/intro/ a pantalla completa y la cierra
+     al terminar. Se repite en cada visita y en cada recarga: no se guarda
+     nada en el navegador a propósito.
+
+     Si no hay archivo subido, se cierra al instante y la página abre
+     normal — por eso todo el bloque está lleno de salidas de emergencia. */
+
+  (function () {
+    var intro = document.getElementById("intro");
+    if (!intro) return;
+
+    var video = document.getElementById("introVideo");
+    var gif = document.getElementById("introGif");
+    var botonSaltar = document.getElementById("introSaltar");
+    var relojes = [];
+    var cerrada = false;
+    var arranco = false;
+    var gifFallo = false;
+
+    function esperar(ms, fn) { relojes.push(setTimeout(fn, ms)); }
+
+    function cerrar() {
+      if (cerrada) return;
+      cerrada = true;
+      relojes.forEach(clearTimeout);
+      intro.classList.add("intro--cerrada");
+      document.body.classList.remove("intro-abierta");
+      if (video) { try { video.pause(); } catch (e) {} }
+    }
+
+    /* Quien pidió menos movimiento entra directo a la página */
+    if (reducedMotion) { cerrar(); return; }
+
+    document.body.classList.add("intro-abierta");
+    botonSaltar.addEventListener("click", cerrar);
+    esperar(2000, function () { intro.classList.add("intro--saltable"); });
+    esperar(15000, cerrar);          /* tope duro: nunca se queda atascada */
+
+    function empezar(elemento) {
+      if (cerrada || arranco) return;
+      arranco = true;
+      elemento.classList.add("intro__media--activa");
+      intro.classList.add("intro--reproduciendo");
+    }
+
+    /* ---- video ---- */
+
+    video.addEventListener("playing", function () { empezar(video); });
+    video.addEventListener("ended", cerrar);
+
+    /* Ojo: no se escucha el error de cada <source>. Si hay webm y mp4, el
+       webm puede fallar y el mp4 funcionar igual; el único dato fiable de
+       "no hay video" es networkState, que se mira en el sondeo de abajo. */
+
+    try {
+      var reproduccion = video.play();
+      if (reproduccion && reproduccion.catch) { reproduccion.catch(function () {}); }
+    } catch (e) {}
+
+    /* ---- gif, si no hubo video ---- */
+
+    function mostrarGif() {
+      if (cerrada || arranco) return;
+      empezar(gif);
+      esperar(parseInt(gif.getAttribute("data-duracion"), 10) || 4000, cerrar);
+    }
+
+    gif.addEventListener("error", function () { gifFallo = true; });
+
+    /* ---- sondeo ----
+       El evento de error del <video> no llega en todos los navegadores
+       (el de cada <source> no siempre se propaga), así que en vez de
+       confiar en él se revisa el estado real cada poco: si el video se
+       quedó sin fuentes y el gif tampoco cargó, no hay animación que
+       mostrar y se entra directo a la página. */
+
+    var sondeos = 0;
+
+    var sondeo = setInterval(function () {
+      sondeos++;
+
+      if (cerrada || arranco) { clearInterval(sondeo); return; }
+
+      var sinVideo = !!video.error || video.networkState === video.NETWORK_NO_SOURCE;
+      var sinGif = gifFallo || (gif.complete && gif.naturalWidth === 0);
+
+      /* El video manda: el gif solo entra si no hay video que reproducir */
+      if (sinVideo && !sinGif && gif.complete && gif.naturalWidth > 0) {
+        clearInterval(sondeo);
+        mostrarGif();
+        return;
+      }
+
+      if (sinVideo && sinGif) { clearInterval(sondeo); cerrar(); return; }
+
+      /* 10 sondeos = 2,5 s: red muy lenta o autoplay bloqueado */
+      if (sondeos >= 10) { clearInterval(sondeo); cerrar(); }
+    }, 250);
+
+    relojes.push(sondeo);
+  })();
+
   /* ---------- Header: fondo al hacer scroll ---------- */
 
   var header = document.getElementById("header");

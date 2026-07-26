@@ -96,6 +96,81 @@ ul { list-style: none; }
 
 ::selection { background: var(--gold); color: var(--navy); }
 
+/* ---------- Intro de entrada ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--navy-deep);
+  transition: opacity 0.75s ease, visibility 0.75s ease;
+}
+
+/* Se cierra sola al terminar la animación (o si no hay archivo) */
+.intro--cerrada {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.intro-abierta { overflow: hidden; }
+
+/* El logo acompaña mientras el video carga; desaparece al arrancar */
+.intro__marca {
+  grid-area: 1 / 1;
+  width: min(42vw, 190px);
+  height: auto;
+  transition: opacity 0.5s ease;
+  animation: introLatido 2.4s ease-in-out infinite;
+}
+
+/* animation: none es obligatorio: una animación en curso gana sobre
+   la declaración de opacity y el logo no llegaría a ocultarse */
+.intro--reproduciendo .intro__marca { animation: none; opacity: 0; }
+
+@keyframes introLatido {
+  0%, 100% { transform: scale(0.97); opacity: 0.75; }
+  50%      { transform: scale(1); opacity: 1; }
+}
+
+/* La animación se ve entera, sin recortes */
+.intro__media {
+  grid-area: 1 / 1;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}
+
+.intro__media--activa { display: block; }
+
+.intro__saltar {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  padding: 0.6rem 1.3rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--paper);
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.intro--saltable .intro__saltar { opacity: 1; pointer-events: auto; }
+
+.intro__saltar:hover {
+  background: rgba(249, 197, 54, 0.14);
+  border-color: var(--gold);
+}
+
 .skip {
   position: absolute;
   left: 1rem;

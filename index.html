@@ -21,6 +21,26 @@
 </head>
 <body>
 
+  <!-- ==================== INTRO DE ENTRADA ====================
+       La animación se sube a assets/intro/ (ver LEEME.txt de esa
+       carpeta). Si no hay archivo, main.js cierra la intro al
+       instante y la página abre normal. -->
+  <div class="intro" id="intro" role="presentation">
+    <img class="intro__marca" src="assets/logo.png" alt="" width="200" height="200">
+
+    <video class="intro__media" id="introVideo" muted playsinline autoplay preload="auto">
+      <source src="assets/intro/intro.webm" type="video/webm">
+      <source src="assets/intro/intro.mp4" type="video/mp4">
+    </video>
+
+    <img class="intro__media" id="introGif" src="assets/intro/intro.gif" alt="" data-duracion="4000">
+
+    <button class="intro__saltar" id="introSaltar" type="button">Saltar intro</button>
+  </div>
+
+  <!-- Sin JavaScript la intro no podría cerrarse: se oculta de entrada -->
+  <noscript><style>.intro { display: none !important; }</style></noscript>
+
   <a href="#contenido" class="skip">Ir al contenido</a>
 
   <!-- ==================== HEADER ==================== -->
@@ -110,7 +130,7 @@
     <div class="container doctor__inner">
 
       <figure class="doctor__media reveal">
-        <img src="assets/doctor.jpg" alt="El Dr. Raúl Sucari Cruz con mandil blanco" width="900" height="1117" loading="lazy">
+        <img src="assets/doctor.jpg" alt="El Dr. Raúl Sucari Cruz con su mandil de Cirugía Bucal y Maxilofacial" width="900" height="1118" loading="lazy">
         <figcaption>Dr. Raúl Sucari Cruz — Cirujano Dentista</figcaption>
       </figure>
 

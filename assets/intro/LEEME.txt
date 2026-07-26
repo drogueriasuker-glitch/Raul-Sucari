@@ -1,0 +1,40 @@
+ANIMACIÓN DE ENTRADA
+====================
+
+Aquí va la animación que se ve al entrar a la página. Sube el archivo
+con EXACTAMENTE uno de estos nombres (en minúsculas):
+
+    intro.mp4     <- lo recomendado (video)
+    intro.webm    <- opcional, se usa antes que el mp4 si existe
+    intro.gif     <- si en vez de video tienes un GIF
+
+Cómo funciona
+-------------
+- La animación se muestra a pantalla completa sobre un fondo azul de
+  la marca, y se ve entera (no se recorta).
+- Cuando el video termina, la animación se desvanece sola y aparece
+  la página.
+- Aparece CADA VEZ que alguien entra o recarga la página.
+- Si el visitante no quiere esperar, hay un botón "Saltar" que sale a
+  los 2 segundos.
+
+Recomendaciones para el video
+-----------------------------
+- Duración: entre 3 y 6 segundos. Más largo cansa al visitante.
+- Peso: menos de 5 MB. Mientras más pesa, más tarda en aparecer.
+- Formato MP4 (H.264), sin audio: los navegadores del celular no
+  dejan reproducir sonido automáticamente, así que el audio no se
+  escucharía de todos modos.
+- Que empiece y termine en un color oscuro o en el azul de la marca,
+  para que el corte con la página no se note.
+
+Si es un GIF
+------------
+El GIF se muestra 4 segundos. Para cambiar ese tiempo, en index.html
+busca `data-duracion="4000"` y cambia el número (está en milisegundos:
+4000 = 4 segundos).
+
+Si todavía no hay archivo
+-------------------------
+No pasa nada: la página abre directo, sin intro y sin pantallas en
+negro. La animación aparece sola en cuanto subas el archivo.

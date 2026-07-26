@@ -98,6 +98,35 @@ transformación no pueden compartir la propiedad `transform`.
   `width`/`height` reales (por el CLS), y ese `height` gana sobre `aspect-ratio`. Sin
   `height: auto` la foto se estira a su alto natural — ya pasó con la del doctor.
 
+## Intro de entrada
+
+Antes de la página se muestra `.intro`, una capa a pantalla completa con la animación
+que el cliente sube a `assets/intro/` (ver [assets/intro/LEEME.txt](assets/intro/LEEME.txt)):
+`intro.webm` / `intro.mp4`, o `intro.gif` como alternativa. Aparece en cada visita y en
+cada recarga — **no se guarda nada en `sessionStorage` a propósito**, es lo que pidió
+el cliente.
+
+Lo delicado no es mostrarla sino garantizar que se cierre siempre, porque mientras está
+abierta tapa el sitio entero (`body.intro-abierta` bloquea el scroll). De ahí las
+salidas: botón "Saltar" a los 2 s, tope duro a los 15 s, `<noscript>` que la oculta si
+no hay JS, y salida inmediata con `prefers-reduced-motion`.
+
+Dos trampas ya resueltas, no reintroducirlas:
+
+- **No sirve escuchar el evento `error` del `<video>`** para saber que no hay animación:
+  el error de cada `<source>` no siempre se propaga, y si hay webm y mp4 el fallo del
+  webm no significa que no haya video. El único dato fiable es `networkState ===
+  NETWORK_NO_SOURCE`, que se consulta en un sondeo cada 250 ms.
+- `.intro--reproduciendo .intro__marca` necesita `animation: none` además de
+  `opacity: 0`: la animación `introLatido` en curso gana sobre la declaración y el logo
+  no llegaría a ocultarse.
+
+En capturas headless de ventana muy alta la intro parece quedarse abierta (se ve toda
+la página con un velo oscuro). Es un artefacto: con la ventana alta se cargan todas las
+imágenes y el iframe del mapa, el tiempo virtual se detiene mientras hay red pendiente y
+los temporizadores no llegan a dispararse. Con `--virtual-time-budget=25000` o una
+ventana normal se ve bien.
+
 ## Logos de redes sociales
 
 El pie muestra Facebook, Instagram, TikTok, X y WhatsApp. Cada enlace trae **dos**

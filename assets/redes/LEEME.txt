@@ -1,0 +1,19 @@
+LOGOS DE REDES SOCIALES
+=======================
+
+Sube aquí los logos oficiales con EXACTAMENTE estos nombres
+(en minúsculas y con la extensión .png):
+
+    facebook.png
+    instagram.png
+    tiktok.png
+    x.png
+    whatsapp.png
+
+Recomendado: PNG cuadrado con fondo transparente, de 256x256 px
+o más. Se muestran redondeados y del mismo tamaño en el pie de
+página, así que no importa si vienen un poco más grandes.
+
+Si alguno todavía no está subido, la página muestra en su lugar
+el logo dibujado de esa red; no se rompe nada. Al subir el
+archivo con el nombre correcto, aparece automáticamente.

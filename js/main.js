@@ -27,13 +27,46 @@
 
     function esperar(ms, fn) { relojes.push(setTimeout(fn, ms)); }
 
+    /* La página entra en su sitio mientras el telón se levanta */
+    function revelarPagina() {
+      var contenido = document.getElementById("contenido");
+      var cabecera = document.getElementById("header");
+      var flotante = document.querySelector(".whatsapp-float");
+
+      if (contenido) contenido.classList.add("revelar-pagina");
+      if (cabecera) cabecera.classList.add("revelar-suave");
+      if (flotante) {
+        flotante.classList.add("revelar-suave");
+        flotante.classList.add("revelar-suave--tarde");
+      }
+    }
+
+    function apagar() {
+      intro.classList.add("intro--cerrada");
+      document.body.classList.remove("intro-abierta");
+      if (video) { try { video.pause(); } catch (e) {} }
+    }
+
     function cerrar() {
       if (cerrada) return;
       cerrada = true;
       relojes.forEach(clearTimeout);
-      intro.classList.add("intro--cerrada");
-      document.body.classList.remove("intro-abierta");
-      if (video) { try { video.pause(); } catch (e) {} }
+
+      /* Si no llegó a verse nada, no hay nada que despedir: fuera de una vez */
+      if (!arranco) {
+        intro.classList.add("intro--sin-salida");
+        apagar();
+        return;
+      }
+
+      /* Tiempo 1: el video se apaga sobre el azul, sin corte seco */
+      intro.classList.add("intro--saliendo");
+
+      /* Tiempo 2: el telón se levanta y la página entra a la vez */
+      setTimeout(function () {
+        apagar();
+        revelarPagina();
+      }, 430);
     }
 
     /* Quien pidió menos movimiento entra directo a la página */
@@ -42,7 +75,6 @@
     document.body.classList.add("intro-abierta");
     botonSaltar.addEventListener("click", cerrar);
     esperar(2000, function () { intro.classList.add("intro--saltable"); });
-    esperar(15000, cerrar);          /* tope duro: nunca se queda atascada */
 
     function empezar(elemento) {
       if (cerrada || arranco) return;
@@ -53,7 +85,21 @@
 
     /* ---- video ---- */
 
-    video.addEventListener("playing", function () { empezar(video); });
+    var topePuesto = false;
+
+    video.addEventListener("playing", function () {
+      empezar(video);
+
+      /* Tope de seguridad atado a la duración real: si el video se atasca
+         a media reproducción, la página no se queda esperando para siempre.
+         Se pone una sola vez — "playing" vuelve a dispararse tras cada pausa
+         por buffer. */
+      if (!topePuesto) {
+        topePuesto = true;
+        esperar(((video.duration || 12) * 1000) + 3000, cerrar);
+      }
+    });
+
     video.addEventListener("ended", cerrar);
 
     /* Ojo: no se escucha el error de cada <source>. Si hay webm y mp4, el
@@ -101,8 +147,9 @@
 
       if (sinVideo && sinGif) { clearInterval(sondeo); cerrar(); return; }
 
-      /* 10 sondeos = 2,5 s: red muy lenta o autoplay bloqueado */
-      if (sondeos >= 10) { clearInterval(sondeo); cerrar(); }
+      /* 20 sondeos = 5 s. El video pesa varios MB: en datos móviles puede
+         tardar en llenar el buffer, así que se le da margen antes de rendirse */
+      if (sondeos >= 20) { clearInterval(sondeo); cerrar(); }
     }, 250);
 
     relojes.push(sondeo);

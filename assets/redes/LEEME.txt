@@ -1,14 +1,17 @@
 LOGOS DE REDES SOCIALES
 =======================
 
-Sube aquí los logos oficiales con EXACTAMENTE estos nombres
-(en minúsculas y con la extensión .png):
+YA ESTÁN SUBIDOS, en formato .webp:
 
-    facebook.png
-    instagram.png
-    tiktok.png
-    x.png
-    whatsapp.png
+    facebook.webp
+    instagram.webp
+    tiktok.webp
+    x.webp
+    whatsapp.webp
+
+Si los reemplazas por otros con distinta extensión (.png, .jpg),
+hay que actualizar también los cinco `src` del pie en index.html:
+busca "assets/redes/" y cambia la extensión.
 
 Recomendado: PNG cuadrado con fondo transparente, de 256x256 px
 o más. Se muestran redondeados y del mismo tamaño en el pie de

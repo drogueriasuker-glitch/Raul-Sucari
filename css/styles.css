@@ -105,15 +105,19 @@ ul { list-style: none; }
   display: grid;
   place-items: center;
   background: var(--navy-deep);
-  transition: opacity 0.75s ease, visibility 0.75s ease;
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s;
 }
 
-/* Se cierra sola al terminar la animación (o si no hay archivo) */
+/* La salida va en dos tiempos, para que nunca haya un corte seco:
+   1) el video se apaga sobre el azul de la marca  2) el telón se levanta */
 .intro--cerrada {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
+
+/* Cuando no hubo animación que mostrar, la intro desaparece sin ceremonia */
+.intro--sin-salida { transition: none; }
 
 body.intro-abierta { overflow: hidden; }
 
@@ -142,9 +146,16 @@ body.intro-abierta { overflow: hidden; }
   width: 100vw;
   height: 100vh;
   object-fit: contain;
+  transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
 .intro__media--activa { display: block; }
+
+/* Tiempo 1: el video se apaga y se asienta un poco */
+.intro--saliendo .intro__media {
+  opacity: 0;
+  transform: scale(0.985);
+}
 
 .intro__saltar {
   position: absolute;
@@ -169,6 +180,28 @@ body.intro-abierta { overflow: hidden; }
 .intro__saltar:hover {
   background: rgba(249, 197, 54, 0.14);
   border-color: var(--gold);
+}
+
+/* Selector reforzado: tiene que ganarle a .intro--saltable */
+.intro.intro--saliendo .intro__saltar { opacity: 0; pointer-events: none; }
+
+/* Tiempo 2: mientras el telón se levanta, la página entra en su sitio */
+
+.revelar-pagina {
+  animation: revelarPagina 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes revelarPagina {
+  from { opacity: 0; transform: translateY(18px) scale(1.012); }
+  to   { opacity: 1; transform: none; }
+}
+
+.revelar-suave { animation: revelarSuave 0.9s ease 0.12s both; }
+.revelar-suave--tarde { animation-delay: 0.5s; }
+
+@keyframes revelarSuave {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .skip {

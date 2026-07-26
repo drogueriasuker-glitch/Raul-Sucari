@@ -106,6 +106,19 @@ que el cliente sube a `assets/intro/` (ver [assets/intro/LEEME.txt](assets/intro
 cada recarga — **no se guarda nada en `sessionStorage` a propósito**, es lo que pidió
 el cliente.
 
+**Todo MP4 que entre aquí necesita el índice adelantado (faststart).** El que subió el
+cliente traía la caja `moov` al final, que obliga a descargar los 7,5 MB completos antes
+del primer fotograma. Se movió delante de `mdat` sin recomprimir, corrigiendo los
+desplazamientos de `stco`. No hay ffmpeg en la máquina; el script que lo hace quedó en
+el scratchpad de la sesión, y el procedimiento está explicado en el LEEME de la carpeta.
+Si se reemplaza el video, hay que repetir ese paso.
+
+La salida ocurre en dos tiempos, para que no haya corte seco entre el último fotograma
+y la página: primero `.intro--saliendo` apaga el video sobre el azul de la marca
+(450 ms), y recién después `.intro--cerrada` levanta el telón (850 ms) mientras
+`main` entra con `.revelar-pagina`. Si nunca llegó a verse nada (no hay archivo, o
+`prefers-reduced-motion`), se usa `.intro--sin-salida` y desaparece sin ceremonia.
+
 Lo delicado no es mostrarla sino garantizar que se cierre siempre, porque mientras está
 abierta tapa el sitio entero (`body.intro-abierta` bloquea el scroll). De ahí las
 salidas: botón "Saltar" a los 2 s, tope duro a los 15 s, `<noscript>` que la oculta si
@@ -121,11 +134,12 @@ Dos trampas ya resueltas, no reintroducirlas:
   `opacity: 0`: la animación `introLatido` en curso gana sobre la declaración y el logo
   no llegaría a ocultarse.
 
-En capturas headless de ventana muy alta la intro parece quedarse abierta (se ve toda
-la página con un velo oscuro). Es un artefacto: con la ventana alta se cargan todas las
-imágenes y el iframe del mapa, el tiempo virtual se detiene mientras hay red pendiente y
-los temporizadores no llegan a dispararse. Con `--virtual-time-budget=25000` o una
-ventana normal se ve bien.
+**Para ver la página en capturas headless hay que anular la intro.** Con el video de
+7,5 MB cargando, el tiempo virtual de Chrome se detiene y los temporizadores no se
+disparan, así que la intro tapa todo. La forma fiable de revisar el resto del sitio es
+generar una copia temporal con `style="display:none"` en `#intro` y capturar esa. Ojo al
+hacer esas copias: **no quitar el elemento `<video>`**, porque `main.js` le añade
+escuchas sin comprobar que exista y el script entero se cae.
 
 ## Logos de redes sociales
 

@@ -358,7 +358,7 @@ ul { list-style: none; }
 
 .hero__inner {
   display: grid;
-  grid-template-columns: 1.04fr 0.96fr;
+  grid-template-columns: 0.98fr 1.02fr;
   gap: 3rem;
   align-items: center;
 }
@@ -450,7 +450,7 @@ ul { list-style: none; }
 
 .retrato {
   position: relative;
-  width: min(100%, 520px);
+  width: min(100%, 620px);
   transform-style: preserve-3d;
   animation: retratoFlota 9s ease-in-out infinite alternate;
 }

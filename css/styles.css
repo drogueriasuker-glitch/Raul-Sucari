@@ -535,35 +535,6 @@ ul { list-style: none; }
    los rasteriza en bandas y se ve una franja cruzando la cara. El marco
    en arco con su filete y su sombra ya la separa del fondo. */
 
-.retrato__placa {
-  position: absolute;
-  left: -6%;
-  bottom: 8%;
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
-  padding: 0.7rem 1.15rem;
-  background: rgba(7, 12, 27, 0.92);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 20px 40px -22px #000;
-  transform: translateZ(70px);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.retrato__placa strong {
-  font-family: var(--font-head);
-  font-size: 0.94rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  color: var(--gold);
-}
-
 /* ---------- Barra de confianza ---------- */
 
 .trust {
@@ -1334,7 +1305,6 @@ ul { list-style: none; }
   .hero__inner { grid-template-columns: 1fr; gap: 2.8rem; }
   .hero__stage { order: -1; }
   .retrato { width: min(78%, 320px); }
-  .retrato__placa { left: -4%; }
 
   .trust__list { grid-template-columns: repeat(2, 1fr); }
 
@@ -1376,5 +1346,4 @@ ul { list-style: none; }
   .brand__tag { font-size: 0.54rem; letter-spacing: 0.22em; }
   .trust__list { grid-template-columns: 1fr; }
   .place__pin { font-size: 0.76rem; }
-  .retrato__placa { left: 0; bottom: 5%; padding: 0.55rem 0.9rem; }
 }

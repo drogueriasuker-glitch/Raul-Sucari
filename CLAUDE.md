@@ -125,8 +125,8 @@ va siempre como texto HTML al lado, nunca dentro de una imagen.
 La firma de la página es el **retrato del doctor flotando en 3D** (`.retrato`), con un
 anillo dorado orbitando por detrás — el mismo gesto que antes tenía el logo. Es 3D de
 verdad: `perspective` en `.hero__stage`, `transform-style: preserve-3d` en `.retrato`
-y `.retrato__inner`, la foto elevada con `translateZ(30px)` y la placa de colegiatura
-con `translateZ(70px)`, así que al inclinar la escena con el cursor se separan.
+y `.retrato__inner`, la foto elevada con `translateZ(30px)`, así que al inclinar la
+escena con el cursor se separa del halo y el aro que quedan detrás.
 
 Si se toca esa parte, respetar la división de roles: **el float va en `.retrato` y la
 inclinación del cursor en `.retrato__inner`**, porque una animación y una transformación

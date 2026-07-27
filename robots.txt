@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drogueriasuker-glitch.github.io/Raul-Sucari/sitemap.xml

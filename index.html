@@ -1,45 +1,37 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAXIN Centro Odontológico — Dr. Raúl Sucari Cruz | Juliaca, Puno</title>
-  <meta name="description" content="MAXIN Centro Odontológico en Juliaca, Puno. Dr. Raúl Sucari Cruz, cirujano dentista: odontología general, cirugía oral, muelas del juicio e implantes. Atención los fines de semana previa cita.">
+  <title>Dr. Raúl Sucari Cruz — Cirujano Dentista en Juliaca</title>
+  <meta name="description" content="Cirujano Dentista en Juliaca. Implantes dentales, cirugía oral y extracción de terceras molares. COP N.º 24841. Escríbeme por WhatsApp.">
   <meta name="theme-color" content="#02164A">
+  <meta name="author" content="Dr. Raúl Sucari Cruz">
 
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="MAXIN Centro Odontológico — Dr. Raúl Sucari Cruz">
-  <meta property="og:description" content="Odontología general y cirugía oral en Juliaca, Puno. Av. 3 de Octubre 322. Citas por WhatsApp.">
-  <meta property="og:image" content="assets/logo.png">
+  <!-- Absolutas solo aquí: las etiquetas sociales y el canonical las exige
+       el protocolo. Si cambia el dominio, se actualizan estas cuatro líneas
+       más sitemap.xml y robots.txt. El resto del sitio va en rutas relativas. -->
+  <link rel="canonical" href="https://drogueriasuker-glitch.github.io/Raul-Sucari/">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Dr. Raúl Sucari Cruz — Cirujano Dentista en Juliaca">
+  <meta property="og:description" content="Implantes dentales, cirugía oral y extracción de terceras molares en Juliaca, Puno. COP N.º 24841. Citas por WhatsApp.">
+  <meta property="og:image" content="https://drogueriasuker-glitch.github.io/Raul-Sucari/assets/doctor.jpg">
+  <meta property="og:url" content="https://drogueriasuker-glitch.github.io/Raul-Sucari/">
+  <meta property="og:site_name" content="Dr. Raúl Sucari Cruz">
   <meta property="og:locale" content="es_PE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dr. Raúl Sucari Cruz — Cirujano Dentista en Juliaca">
+  <meta name="twitter:description" content="Implantes dentales, cirugía oral y extracción de terceras molares en Juliaca, Puno. COP N.º 24841.">
+  <meta name="twitter:image" content="https://drogueriasuker-glitch.github.io/Raul-Sucari/assets/doctor.jpg">
 
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Outfit:wght@300;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/doctor.jpg" fetchpriority="high">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-  <!-- ==================== INTRO DE ENTRADA ====================
-       La animación se sube a assets/intro/ (ver LEEME.txt de esa
-       carpeta). Si no hay archivo, main.js cierra la intro al
-       instante y la página abre normal. -->
-  <div class="intro" id="intro" role="presentation">
-    <img class="intro__marca" src="assets/logo.png" alt="" width="200" height="200">
-
-    <video class="intro__media" id="introVideo" muted playsinline autoplay preload="auto">
-      <source src="assets/intro/intro.webm" type="video/webm">
-      <source src="assets/intro/intro.mp4" type="video/mp4">
-    </video>
-
-    <img class="intro__media" id="introGif" src="assets/intro/intro.gif" alt="" data-duracion="4000">
-
-    <button class="intro__saltar" id="introSaltar" type="button">Saltar intro</button>
-  </div>
-
-  <!-- Sin JavaScript la intro no podría cerrarse: se oculta de entrada -->
-  <noscript><style>.intro { display: none !important; }</style></noscript>
 
   <a href="#contenido" class="skip">Ir al contenido</a>
 
@@ -47,22 +39,22 @@
   <header class="header" id="header">
     <div class="container header__inner">
 
-      <a href="#inicio" class="brand" aria-label="MAXIN Centro Odontológico, inicio">
-        <img class="brand__logo" src="assets/logo.png" alt="" width="54" height="54">
+      <a href="#inicio" class="brand" aria-label="Dr. Raúl Sucari Cruz, inicio">
+        <img class="brand__logo" src="assets/marca.svg" alt="" width="54" height="54">
         <span class="brand__text">
-          <span class="brand__name">MAXIN</span>
-          <span class="brand__tag">Centro Odontológico</span>
+          <span class="brand__name">Dr. Raúl Sucari</span>
+          <span class="brand__tag">Cirujano Dentista</span>
         </span>
       </a>
 
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <a href="#inicio" class="nav__link">Inicio</a>
+        <a href="#como-trabajo" class="nav__link">Cómo trabajo</a>
         <a href="#doctor" class="nav__link">El doctor</a>
         <a href="#tratamientos" class="nav__link">Tratamientos</a>
-        <a href="#consultorio" class="nav__link">Consultorio</a>
-        <a href="#llegar" class="nav__link">Cómo llegar</a>
-        <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20quiero%20agendar%20una%20cita%20en%20MAXIN."
-           target="_blank" rel="noopener" class="btn btn--gold btn--sm nav__cta">Agendar cita</a>
+        <a href="#ubicacion" class="nav__link">Ubicación</a>
+        <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle"
+           target="_blank" rel="noopener" class="btn btn--gold btn--sm nav__cta">Escríbeme</a>
       </nav>
 
       <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
@@ -83,56 +75,100 @@
 
         <h1 class="hero__title reveal">Dr. Raúl<br><span>Sucari Cruz</span></h1>
 
-        <p class="hero__credential reveal">
-          Cirujano Dentista · COP N.º 24841
-          <span>Estudios de especialidad concluidos en Cirugía Oral y Maxilofacial</span>
-        </p>
+        <p class="hero__credential reveal">Cirujano Dentista · COP N.º 24841</p>
+
+        <ul class="hero__formacion reveal">
+          <li>Egresado de la Segunda Especialidad en Cirugía Bucal y Maxilofacial — <strong>Universidad Nacional Mayor de San Marcos</strong></li>
+          <li>Egresado de la Segunda Especialidad en Periodoncia e Implantología</li>
+          <li>Magíster en Salud Pública</li>
+        </ul>
 
         <p class="hero__subtitle reveal">
-          Más de 20 años atendiendo en Juliaca. Te explico tu caso con la radiografía
-          en la mano y te digo el costo antes de empezar.
+          Realizo extracción de terceras molares retenidas, cirugía oral e implantes
+          dentales. Te explico tu caso con la radiografía en la mano y planificamos
+          juntos el tratamiento.
         </p>
 
         <div class="hero__actions reveal">
-          <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20quiero%20agendar%20una%20cita%20en%20MAXIN."
+          <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle"
              target="_blank" rel="noopener" class="btn btn--gold">
             <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.2-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4a15 15 0 0 0 1.5.6c.6.2 1.2.2 1.7.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/></svg>
             Escribir por WhatsApp
           </a>
-          <a href="#llegar" class="btn btn--ghost">Ver dónde queda</a>
+          <a href="#ubicacion" class="btn btn--ghost">Ver dónde atiendo</a>
         </div>
       </div>
 
-      <!-- Firma visual: el anillo del logo, desplegado en 3D -->
-      <div class="hero__stage" aria-hidden="true">
-        <div class="orb" id="orb">
-          <div class="orb__inner">
-            <div class="orb__glow"></div>
-            <span class="orb__ring orb__ring--a"></span>
-            <span class="orb__ring orb__ring--b"></span>
-            <span class="orb__ring orb__ring--c"></span>
-            <img class="orb__logo" src="assets/logo.png" alt="" width="1000" height="1000">
+      <!-- Retrato: es una marca personal, la cara va sobre el pliegue -->
+      <div class="hero__stage">
+        <div class="retrato">
+          <div class="retrato__inner">
+            <span class="retrato__halo" aria-hidden="true"></span>
+            <span class="retrato__aro" aria-hidden="true"></span>
+            <img class="retrato__foto" src="assets/doctor.jpg"
+                 alt="El Dr. Raúl Sucari Cruz, Cirujano Dentista"
+                 width="1080" height="1080" fetchpriority="high" decoding="async">
+            <span class="retrato__placa">
+              <strong>COP N.º 24841</strong>
+              Cirujano Dentista
+            </span>
           </div>
         </div>
       </div>
 
     </div>
+  </section>
 
-    <ul class="hero__facts">
-      <li class="reveal"><strong>+20</strong><span>años de práctica clínica</span></li>
-      <li class="reveal"><strong>10 000</strong><span>pacientes atendidos</span></li>
-      <li class="reveal"><strong>4</strong><span>años de residencia quirúrgica</span></li>
+  <!-- ==================== BARRA DE CONFIANZA ==================== -->
+  <section class="trust" aria-label="Credenciales del profesional">
+    <ul class="container trust__list">
+      <li class="reveal">
+        <strong>COP N.º 24841</strong>
+        <span>Colegio Odontológico del Perú</span>
+      </li>
+      <li class="reveal">
+        <strong>San Marcos</strong>
+        <span>Universidad Nacional Mayor de San Marcos</span>
+      </li>
+      <li class="reveal">
+        <strong>Magíster</strong>
+        <span>Magíster en Salud Pública</span>
+      </li>
+      <li class="reveal">
+        <strong>Dos décadas</strong>
+        <span>Más de dos décadas de práctica clínica en Juliaca</span>
+      </li>
     </ul>
+  </section>
+
+  <!-- ==================== CÓMO TRABAJO ==================== -->
+  <section class="section office" id="como-trabajo">
+    <div class="container office__inner">
+
+      <div class="office__content">
+        <p class="eyebrow reveal">Cómo trabajo</p>
+        <h2 class="section__title reveal">Cómo trabajo contigo</h2>
+
+        <ul class="checks">
+          <li class="reveal"><strong>Diagnóstico con la radiografía en la mano.</strong> Antes de tocar nada te muestro qué tienes, por qué pasó y qué se puede hacer.</li>
+          <li class="reveal"><strong>Plan de tratamiento explicado paso a paso.</strong> Sabes qué se va a hacer, en cuántas sesiones y qué esperar después, antes de decidir.</li>
+          <li class="reveal"><strong>Un solo profesional de principio a fin.</strong> El que te evalúa es el que opera y el que te controla. No te pasan de mano en mano.</li>
+          <li class="reveal"><strong>Seguimiento personal después de la cirugía.</strong> Superviso yo mismo tu recuperación hasta darte el alta.</li>
+          <li class="reveal"><strong>Citas por WhatsApp.</strong> Escribes, coordinamos el horario y listo. Sin llamadas en espera ni intermediarios.</li>
+        </ul>
+      </div>
+
+      <figure class="office__media reveal">
+        <img src="assets/consultorio.jpg" alt="El Dr. Raúl Sucari Cruz en su consultorio de Juliaca, junto al sillón dental" width="1200" height="799" loading="lazy" decoding="async">
+        <figcaption>Consultorio en la Av. 3 de Octubre 322, Juliaca</figcaption>
+      </figure>
+
+    </div>
   </section>
 
   <!-- ==================== EL DOCTOR ==================== -->
   <section class="section doctor" id="doctor">
     <div class="container doctor__inner">
-
-      <figure class="doctor__media reveal">
-        <img src="assets/doctor.jpg" alt="El Dr. Raúl Sucari Cruz con su mandil de Cirugía Bucal y Maxilofacial" width="900" height="1118" loading="lazy">
-        <figcaption>Dr. Raúl Sucari Cruz — Cirujano Dentista</figcaption>
-      </figure>
 
       <div class="doctor__content">
         <p class="eyebrow reveal">El doctor</p>
@@ -140,29 +176,50 @@
 
         <div class="prose reveal">
           <p>
-            Soy cirujano dentista y concluí mis estudios de especialidad en
-            <strong>Cirugía Oral y Maxilofacial</strong>, el área que se ocupa de las extracciones
-            complejas, los dientes retenidos y la cirugía de los maxilares. Son casos que en otros
-            consultorios terminan en una derivación y que aquí se resuelven.
+            Soy <strong>Cirujano Dentista</strong> y llevo más de dos décadas atendiendo
+            en Juliaca. Realizo extracción de terceras molares retenidas, cirugía oral,
+            implantes dentales y tratamiento de encías: casos que en otros consultorios
+            terminan en una derivación y que aquí se resuelven.
           </p>
           <p>
-            En MAXIN atiendo yo mismo cada etapa del tratamiento. La consulta es directa y sin
-            apuros: primero te explico qué tienes, después qué opciones existen y cuánto cuesta
-            cada una. Recién ahí decidimos.
+            Yo mismo atiendo cada etapa de tu tratamiento. La consulta es directa y sin
+            apuros: primero te explico qué tienes, después qué opciones existen y qué
+            implica cada una. Recién ahí decidimos juntos.
+          </p>
+          <p>
+            Mi formación quirúrgica la hice en la <strong>Universidad Nacional Mayor de
+            San Marcos</strong>, con cuatro años de residencia hospitalaria.
           </p>
         </div>
+      </div>
 
-        <div class="formacion reveal">
+      <div class="doctor__cv">
+
+        <div class="formacion formacion--destacada reveal">
           <span class="formacion__rotulo">Formación</span>
           <p class="formacion__casa">Universidad Nacional Mayor de San Marcos</p>
           <p class="formacion__lugar">Lima · Decana de América, fundada en 1551</p>
           <p class="formacion__texto">
-            Ahí concluí mis estudios de especialidad en Cirugía Oral y Maxilofacial,
-            con cuatro años de residencia quirúrgica.
+            Egresado de la Segunda Especialidad en Cirugía Bucal y Maxilofacial,
+            con cuatro años de residencia hospitalaria.
           </p>
         </div>
 
-        <p class="credential reveal">Cirujano Dentista · COP N.º 24841</p>
+        <ul class="cv reveal">
+          <li>
+            <span class="cv__rotulo">Segunda Especialidad</span>
+            <span class="cv__valor">Egresado de la Segunda Especialidad en Periodoncia e Implantología</span>
+          </li>
+          <li>
+            <span class="cv__rotulo">Grado académico</span>
+            <span class="cv__valor">Magíster en Salud Pública</span>
+          </li>
+          <li>
+            <span class="cv__rotulo">Colegiatura</span>
+            <span class="cv__valor">Cirujano Dentista · COP N.º 24841</span>
+          </li>
+        </ul>
+
       </div>
 
     </div>
@@ -174,10 +231,10 @@
 
       <div class="section__head">
         <p class="eyebrow reveal">Tratamientos</p>
-        <h2 class="section__title reveal">Qué puedo hacer por tu boca</h2>
+        <h2 class="section__title reveal">Qué realizo en el consultorio</h2>
         <p class="section__lead reveal">
-          Odontología para toda la familia y, por la formación quirúrgica, también
-          los casos que otros consultorios derivan.
+          Qué es cada tratamiento, para qué sirve y cuándo hace falta.
+          Si no estás seguro de cuál es tu caso, escríbeme y lo vemos.
         </p>
       </div>
 
@@ -185,12 +242,25 @@
 
         <article class="card reveal">
           <span class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v6m0 0-3-3m3 3 3-3M11 12h10l-1.2 14a2 2 0 0 1-2 1.8h-3.6a2 2 0 0 1-2-1.8L11 12Z"/><path d="M9 12h14"/></svg>
+          </span>
+          <h3 class="card__title">Implantes dentales</h3>
+          <p class="card__text">
+            Un tornillo de titanio reemplaza la raíz del diente perdido y sostiene
+            la corona nueva. Sirve cuando falta una pieza y no quieres desgastar las
+            vecinas ni usar prótesis removible. Se planifica sobre radiografía.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true">
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4c-3 0-5 2.5-5 6 0 6 2.5 12 4.5 16 .8 1.6 2.8 1.2 3-.5.3-2.6.8-6.5 3.5-6.5s3.2 3.9 3.5 6.5c.2 1.7 2.2 2.1 3 .5C24.5 22 27 16 27 10c0-3.5-2-6-5-6-2.5 0-3.5 1.5-6 1.5S12.5 4 10 4Z"/><path d="M20 8l6-6M23 9.5 28.5 4"/></svg>
           </span>
-          <h3 class="card__title">Muelas del juicio</h3>
+          <h3 class="card__title">Terceras molares retenidas</h3>
           <p class="card__text">
-            Extracción de terceros molares, incluso retenidos o en mala posición,
-            con anestesia efectiva y un plan claro de recuperación.
+            Las muelas del juicio que no llegaron a salir o salieron torcidas empujan
+            a las demás, se infectan y duelen. Realizo la extracción quirúrgica con
+            anestesia efectiva y un plan claro de recuperación.
           </p>
         </article>
 
@@ -200,41 +270,9 @@
           </span>
           <h3 class="card__title">Cirugía oral</h3>
           <p class="card__text">
-            Dientes retenidos, frenillos, quistes y lesiones de la boca: diagnóstico
-            y cirugía en el mismo consultorio.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <span class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v6m0 0-3-3m3 3 3-3M11 12h10l-1.2 14a2 2 0 0 1-2 1.8h-3.6a2 2 0 0 1-2-1.8L11 12Z"/><path d="M9 12h14"/></svg>
-          </span>
-          <h3 class="card__title">Implantes dentales</h3>
-          <p class="card__text">
-            Reposición de dientes perdidos con implantes de titanio, planificados
-            sobre radiografía para que queden firmes y naturales.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <span class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5c-3 0-5 2.5-5 6 0 6 2.5 11.5 4.5 15.5.8 1.6 2.8 1.2 3-.5.3-2.6.8-6 3.5-6s3.2 3.4 3.5 6c.2 1.7 2.2 2.1 3 .5C24.5 22.5 27 17 27 11c0-3.5-2-6-5-6-2.5 0-3.5 1.5-6 1.5S12.5 5 10 5Z"/></svg>
-          </span>
-          <h3 class="card__title">Odontología general</h3>
-          <p class="card__text">
-            Limpiezas, curaciones y controles preventivos para toda la familia.
-            La base para no necesitar nunca una cirugía.
-          </p>
-        </article>
-
-        <article class="card reveal">
-          <span class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l2.5 5.5L24 11l-5.5 2.5L16 19l-2.5-5.5L8 11l5.5-2.5L16 3Z"/><path d="M25 20l1.2 2.8L29 24l-2.8 1.2L25 28l-1.2-2.8L21 24l2.8-1.2L25 20ZM7 21l1 2.2L10 24l-2 1-1 2.2L6 25l-2-1 2-.8L7 21Z"/></svg>
-          </span>
-          <h3 class="card__title">Estética y blanqueamiento</h3>
-          <p class="card__text">
-            Blanqueamiento profesional, resinas estéticas y carillas para mejorar
-            el color y la forma de tus dientes.
+            Dientes retenidos, restos de raíces, frenillos cortos, quistes y lesiones
+            de la boca. Son intervenciones menores que se resuelven en el mismo
+            consultorio, con diagnóstico previo por imágenes.
           </p>
         </article>
 
@@ -242,10 +280,35 @@
           <span class="card__icon" aria-hidden="true">
             <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20c0-5 4-9 10-9s10 4 10 9c0 3-2 5-4.5 5-2 0-3-1-5.5-1s-3.5 1-5.5 1C8 25 6 23 6 20Z"/><path d="M11 11V8a5 5 0 0 1 10 0v3"/></svg>
           </span>
-          <h3 class="card__title">Rehabilitación oral</h3>
+          <h3 class="card__title">Tratamiento de encías</h3>
           <p class="card__text">
-            Coronas, puentes y prótesis para devolverle a tu boca la función de
-            masticar y hablar con comodidad.
+            Encías que sangran, se retraen o aflojan los dientes: es enfermedad
+            periodontal y avanza sin doler. Se trata limpiando bajo la encía y
+            controlando la infección antes de que se pierda el hueso.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24c-1.5-3-2-6.5-1-10 1.2-4.4 5-7 9-7s7.8 2.6 9 7c1 3.5.5 7-1 10"/><path d="M12 26c-1-1.5-1.3-3.5-.6-5.4.8-2.3 2.7-3.6 4.6-3.6s3.8 1.3 4.6 3.6c.7 1.9.4 3.9-.6 5.4"/><circle cx="16" cy="21.5" r="1.6"/></svg>
+          </span>
+          <h3 class="card__title">Injertos óseos</h3>
+          <p class="card__text">
+            Cuando falta hueso donde debe ir el implante, primero se regenera. Es el
+            paso previo que permite colocar un implante firme en zonas donde el diente
+            se perdió hace mucho tiempo.
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5c-3 0-5 2.5-5 6 0 6 2.5 11.5 4.5 15.5.8 1.6 2.8 1.2 3-.5.3-2.6.8-6 3.5-6s3.2 3.4 3.5 6c.2 1.7 2.2 2.1 3 .5C24.5 22.5 27 17 27 11c0-3.5-2-6-5-6-2.5 0-3.5 1.5-6 1.5S12.5 5 10 5Z"/></svg>
+          </span>
+          <h3 class="card__title">Odontología general y rehabilitación</h3>
+          <p class="card__text">
+            Limpiezas, curaciones y controles preventivos para toda la familia, y
+            coronas, puentes y prótesis cuando ya hay piezas dañadas o ausentes que
+            devolver a la función.
           </p>
         </article>
 
@@ -253,35 +316,17 @@
     </div>
   </section>
 
-  <!-- ==================== CONSULTORIO ==================== -->
-  <section class="section office" id="consultorio">
-    <div class="container office__inner">
+  <!-- Aquí va la sección de reseñas cuando el Perfil de Empresa de Google
+       tenga reseñas que mostrar. Sin fotos de pacientes y sin textos
+       inventados: solo reseñas reales, con el nombre tal como lo publicó
+       cada paciente. -->
 
-      <div class="office__content">
-        <p class="eyebrow reveal">El consultorio</p>
-        <h2 class="section__title reveal">Así es el lugar donde te vas a atender</h2>
-
-        <ul class="checks">
-          <li class="reveal"><strong>Presupuesto claro antes de empezar.</strong> Conoces el costo completo de tu tratamiento desde la primera consulta.</li>
-          <li class="reveal"><strong>Diagnóstico honesto, sin juicios.</strong> Te digo lo que necesitas y lo que no, sin importar cuánto tiempo llevabas sin ir al dentista.</li>
-          <li class="reveal"><strong>Citas por WhatsApp.</strong> Escribes, eliges horario y listo. Sin llamadas en espera ni intermediarios.</li>
-          <li class="reveal"><strong>Seguimiento después de la cirugía.</strong> Superviso personalmente tu recuperación hasta el alta.</li>
-        </ul>
-      </div>
-
-      <figure class="office__media reveal">
-        <img src="assets/consultorio.jpg" alt="Interior del consultorio MAXIN, con el sillón dental y el equipo listo" width="1200" height="799" loading="lazy">
-      </figure>
-
-    </div>
-  </section>
-
-  <!-- ==================== CÓMO LLEGAR ==================== -->
-  <section class="section place" id="llegar">
+  <!-- ==================== UBICACIÓN ==================== -->
+  <section class="section place" id="ubicacion">
     <div class="container">
 
       <div class="section__head">
-        <p class="eyebrow reveal">Cómo llegar</p>
+        <p class="eyebrow reveal">Ubicación</p>
         <h2 class="section__title reveal">Av. 3 de Octubre 322, Juliaca</h2>
         <p class="section__lead reveal">Toca el mapa para verlo en grande o pide la ruta desde donde estás.</p>
       </div>
@@ -290,13 +335,13 @@
 
         <div class="place__map">
           <iframe
-            src="https://www.google.com/maps?q=Av.%203%20de%20Octubre%20322,%20Juliaca,%20Puno,%20Per%C3%BA&z=16&hl=es&output=embed"
-            title="Mapa con la ubicación de MAXIN Centro Odontológico en la Av. 3 de Octubre 322, Juliaca"
+            src="https://www.google.com/maps?q=-15.4792517,-70.1336446&z=17&hl=es&output=embed"
+            title="Mapa con la ubicación del consultorio del Dr. Raúl Sucari Cruz en la Av. 3 de Octubre 322, Juliaca"
             loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
 
           <span class="place__pin" aria-hidden="true">
             <span class="place__pinDot"></span>
-            MAXIN Centro Odontológico
+            Av. 3 de Octubre 322
           </span>
         </div>
 
@@ -321,13 +366,14 @@
           </ul>
 
           <div class="place__actions">
+            <!-- Un solo botón: abre la ficha del consultorio en Google Maps con
+                 el enlace que compartió el cliente. Desde ahí Google ofrece
+                 "Indicaciones" a un toque. Antes había dos botones y, al pasar
+                 los dos a este enlace, hacían exactamente lo mismo. -->
             <a class="btn btn--gold" target="_blank" rel="noopener"
-               href="https://www.google.com/maps/dir/?api=1&destination=Av.+3+de+Octubre+322,+Juliaca,+Puno,+Peru">
+               href="https://maps.app.goo.gl/Bfqwiv5R6mzu43Lx7">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
               Cómo llegar
-            </a>
-            <a class="btn btn--ghost" target="_blank" rel="noopener" href="https://maps.app.goo.gl/SqqAkjF2HiY5Bwdu6">
-              Abrir en Google Maps
             </a>
           </div>
         </aside>
@@ -339,12 +385,12 @@
   <!-- ==================== CITA ==================== -->
   <section class="cta">
     <div class="container cta__inner reveal">
-      <h2 class="cta__title">¿Agendamos tu cita?</h2>
+      <h2 class="cta__title">¿Conversamos sobre tu caso?</h2>
       <p class="cta__text">
-        Escríbeme por WhatsApp, cuéntame qué necesitas y coordinamos el horario
+        Escríbeme por WhatsApp, cuéntame qué te pasa y coordinamos el horario
         que mejor te acomode.
       </p>
-      <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20quiero%20agendar%20una%20cita%20en%20MAXIN."
+      <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle"
          target="_blank" rel="noopener" class="btn btn--gold btn--lg">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.2-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4a15 15 0 0 0 1.5.6c.6.2 1.2.2 1.7.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/></svg>
         Escribir al +51 928 471 815
@@ -359,19 +405,21 @@
     <div class="container footer__inner">
 
       <div class="footer__brand">
-        <img src="assets/logo.png" alt="" width="64" height="64">
+        <img src="assets/marca.svg" alt="" width="64" height="64">
         <p>
-          <strong>MAXIN Centro Odontológico</strong>
-          Odontología general y cirugía oral en Juliaca, Puno.
+          <strong>Dr. Raúl Sucari Cruz</strong>
+          Cirujano Dentista · COP N.º 24841. Cirugía oral, implantes dentales
+          y tratamiento de encías en Juliaca, Puno.
         </p>
       </div>
 
       <nav class="footer__nav" aria-label="Enlaces del pie de página">
         <span class="footer__label">Página</span>
+        <a href="#como-trabajo">Cómo trabajo</a>
         <a href="#doctor">El doctor</a>
         <a href="#tratamientos">Tratamientos</a>
-        <a href="#consultorio">Consultorio</a>
-        <a href="#llegar">Cómo llegar</a>
+        <a href="#ubicacion">Ubicación</a>
+        <a href="privacidad.html">Política de privacidad</a>
       </nav>
 
       <div class="footer__contact">
@@ -384,6 +432,11 @@
 
       <div class="footer__social">
         <span class="footer__label">Redes</span>
+
+        <!-- Ojo: estos <img> NO pueden llevar loading="lazy". Nacen con
+             display:none (la capa del logo dibujado) y una imagen diferida
+             sin caja no se descarga nunca: el evento load no llega, main.js
+             no quita .social--fallback y el logo oficial no aparece. -->
         <ul class="socials">
 
           <li>
@@ -443,7 +496,7 @@
           </li>
 
           <li>
-            <a class="social social--fallback" href="https://wa.me/51928471815?text=Hola%20doctor%2C%20quiero%20agendar%20una%20cita%20en%20MAXIN." target="_blank" rel="noopener" aria-label="WhatsApp del consultorio">
+            <a class="social social--fallback" href="https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle" target="_blank" rel="noopener" aria-label="WhatsApp del Dr. Raúl Sucari">
               <img class="social__img" src="assets/redes/whatsapp.webp" alt="" width="48" height="48">
               <span class="social__mark" aria-hidden="true">
                 <svg viewBox="0 0 48 48">
@@ -460,56 +513,118 @@
     </div>
 
     <div class="container footer__legal">
-      <span>© 2026 MAXIN Centro Odontológico · Dr. Raúl Sucari Cruz</span>
-      <span>Cirujano Dentista · COP N.º 24841</span>
+      <span>© 2026 Dr. Raúl Sucari Cruz — Cirujano Dentista · COP N.º 24841</span>
+      <a href="privacidad.html">Política de privacidad</a>
     </div>
   </footer>
 
   <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20quiero%20agendar%20una%20cita%20en%20MAXIN."
-     target="_blank" rel="noopener" class="whatsapp-float" aria-label="Escribir por WhatsApp">
+  <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle"
+     target="_blank" rel="noopener" class="whatsapp-float" aria-label="Escribir al Dr. Sucari por WhatsApp">
     <span class="whatsapp-float__icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.2-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4a15 15 0 0 0 1.5.6c.6.2 1.2.2 1.7.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/></svg>
     </span>
     <span class="whatsapp-float__text">
-      <strong>Agenda tu cita</strong>
-      Escríbeme ahora
+      <strong>Escríbeme</strong>
+      Consulta por WhatsApp
     </span>
   </a>
 
+  <!-- Datos estructurados: el consultorio (Dentist + Physician) y la persona,
+       enlazados por @id. El NAP tiene que ser idéntico al del Perfil de
+       Empresa de Google. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Dentist",
-    "name": "MAXIN Centro Odontológico",
-    "image": "assets/logo.png",
-    "description": "Odontología general y cirugía oral en Juliaca, Puno. Dr. Raúl Sucari Cruz, Cirujano Dentista COP 24841.",
-    "telephone": "+51928471815",
-    "email": "sucari1201@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Av. 3 de Octubre 322",
-      "addressLocality": "Juliaca",
-      "addressRegion": "Puno",
-      "addressCountry": "PE"
-    },
-    "hasMap": "https://maps.app.goo.gl/SqqAkjF2HiY5Bwdu6",
-    "sameAs": [
-      "https://www.facebook.com/raul.sucari.3",
-      "https://www.instagram.com/dr.raulsucari/",
-      "https://www.tiktok.com/@dr.raulsucari",
-      "https://x.com/drraulsucari"
-    ],
-    "founder": {
-      "@type": "Person",
-      "name": "Raúl Sucari Cruz",
-      "jobTitle": "Cirujano Dentista",
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Universidad Nacional Mayor de San Marcos",
-        "url": "https://unmsm.edu.pe/"
+    "@graph": [
+      {
+        "@type": ["Dentist", "Physician"],
+        "@id": "https://drogueriasuker-glitch.github.io/Raul-Sucari/#consultorio",
+        "name": "Dr. Raúl Sucari Cruz — Cirujano Dentista",
+        "url": "https://drogueriasuker-glitch.github.io/Raul-Sucari/",
+        "image": "https://drogueriasuker-glitch.github.io/Raul-Sucari/assets/doctor.jpg",
+        "description": "Consultorio del Dr. Raúl Sucari Cruz, Cirujano Dentista COP N.º 24841, en Juliaca (Puno). Implantes dentales, cirugía oral, extracción de terceras molares retenidas y tratamiento de encías.",
+        "telephone": "+51928471815",
+        "email": "sucari1201@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. 3 de Octubre 322",
+          "addressLocality": "Juliaca",
+          "addressRegion": "Puno",
+          "addressCountry": "PE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -15.4792517,
+          "longitude": -70.1336446
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday", "Sunday"],
+            "description": "Previa cita"
+          }
+        ],
+        "areaServed": {
+          "@type": "City",
+          "name": "Juliaca"
+        },
+        "hasMap": "https://maps.app.goo.gl/Bfqwiv5R6mzu43Lx7",
+        "medicalSpecialty": "Dentistry",
+        "availableService": [
+          { "@type": "MedicalProcedure", "name": "Implantes dentales" },
+          { "@type": "MedicalProcedure", "name": "Extracción de terceras molares retenidas" },
+          { "@type": "MedicalProcedure", "name": "Cirugía oral" },
+          { "@type": "MedicalProcedure", "name": "Tratamiento de encías" },
+          { "@type": "MedicalProcedure", "name": "Injertos óseos" }
+        ],
+        "employee": { "@id": "https://drogueriasuker-glitch.github.io/Raul-Sucari/#doctor" },
+        "sameAs": [
+          "https://www.facebook.com/raul.sucari.3",
+          "https://www.instagram.com/dr.raulsucari/",
+          "https://www.tiktok.com/@dr.raulsucari",
+          "https://x.com/drraulsucari"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://drogueriasuker-glitch.github.io/Raul-Sucari/#doctor",
+        "name": "Raúl Sucari Cruz",
+        "givenName": "Raúl",
+        "familyName": "Sucari Cruz",
+        "jobTitle": "Cirujano Dentista",
+        "image": "https://drogueriasuker-glitch.github.io/Raul-Sucari/assets/doctor.jpg",
+        "url": "https://drogueriasuker-glitch.github.io/Raul-Sucari/",
+        "telephone": "+51928471815",
+        "email": "sucari1201@gmail.com",
+        "worksFor": { "@id": "https://drogueriasuker-glitch.github.io/Raul-Sucari/#consultorio" },
+        "workLocation": { "@id": "https://drogueriasuker-glitch.github.io/Raul-Sucari/#consultorio" },
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Colegiatura",
+            "recognizedBy": { "@type": "Organization", "name": "Colegio Odontológico del Perú" },
+            "identifier": "COP N.º 24841"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Grado académico",
+            "name": "Magíster en Salud Pública"
+          }
+        ],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad Nacional Mayor de San Marcos",
+          "url": "https://unmsm.edu.pe/"
+        },
+        "sameAs": [
+          "https://www.facebook.com/raul.sucari.3",
+          "https://www.instagram.com/dr.raulsucari/",
+          "https://www.tiktok.com/@dr.raulsucari",
+          "https://x.com/drraulsucari"
+        ]
       }
-    }
+    ]
   }
   </script>
 

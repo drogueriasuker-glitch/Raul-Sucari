@@ -1,159 +1,9 @@
-/* MAXIN Centro Odontológico — interacciones de la página */
+/* Dr. Raúl Sucari Cruz — interacciones de la página */
 
 (function () {
   "use strict";
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- Intro de entrada ----------
-     Muestra la animación de assets/intro/ a pantalla completa y la cierra
-     al terminar. Se repite en cada visita y en cada recarga: no se guarda
-     nada en el navegador a propósito.
-
-     Si no hay archivo subido, se cierra al instante y la página abre
-     normal — por eso todo el bloque está lleno de salidas de emergencia. */
-
-  (function () {
-    var intro = document.getElementById("intro");
-    if (!intro) return;
-
-    var video = document.getElementById("introVideo");
-    var gif = document.getElementById("introGif");
-    var botonSaltar = document.getElementById("introSaltar");
-    var relojes = [];
-    var cerrada = false;
-    var arranco = false;
-    var gifFallo = false;
-
-    function esperar(ms, fn) { relojes.push(setTimeout(fn, ms)); }
-
-    /* La página entra en su sitio mientras el telón se levanta */
-    function revelarPagina() {
-      var contenido = document.getElementById("contenido");
-      var cabecera = document.getElementById("header");
-      var flotante = document.querySelector(".whatsapp-float");
-
-      if (contenido) contenido.classList.add("revelar-pagina");
-      if (cabecera) cabecera.classList.add("revelar-suave");
-      if (flotante) {
-        flotante.classList.add("revelar-suave");
-        flotante.classList.add("revelar-suave--tarde");
-      }
-    }
-
-    function apagar() {
-      intro.classList.add("intro--cerrada");
-      document.body.classList.remove("intro-abierta");
-      if (video) { try { video.pause(); } catch (e) {} }
-    }
-
-    function cerrar() {
-      if (cerrada) return;
-      cerrada = true;
-      relojes.forEach(clearTimeout);
-
-      /* Si no llegó a verse nada, no hay nada que despedir: fuera de una vez */
-      if (!arranco) {
-        intro.classList.add("intro--sin-salida");
-        apagar();
-        return;
-      }
-
-      /* Tiempo 1: el video se apaga sobre el azul, sin corte seco */
-      intro.classList.add("intro--saliendo");
-
-      /* Tiempo 2: el telón se levanta y la página entra a la vez */
-      setTimeout(function () {
-        apagar();
-        revelarPagina();
-      }, 430);
-    }
-
-    /* Quien pidió menos movimiento entra directo a la página */
-    if (reducedMotion) { cerrar(); return; }
-
-    document.body.classList.add("intro-abierta");
-    botonSaltar.addEventListener("click", cerrar);
-    esperar(2000, function () { intro.classList.add("intro--saltable"); });
-
-    function empezar(elemento) {
-      if (cerrada || arranco) return;
-      arranco = true;
-      elemento.classList.add("intro__media--activa");
-      intro.classList.add("intro--reproduciendo");
-    }
-
-    /* ---- video ---- */
-
-    var topePuesto = false;
-
-    video.addEventListener("playing", function () {
-      empezar(video);
-
-      /* Tope de seguridad atado a la duración real: si el video se atasca
-         a media reproducción, la página no se queda esperando para siempre.
-         Se pone una sola vez — "playing" vuelve a dispararse tras cada pausa
-         por buffer. */
-      if (!topePuesto) {
-        topePuesto = true;
-        esperar(((video.duration || 12) * 1000) + 3000, cerrar);
-      }
-    });
-
-    video.addEventListener("ended", cerrar);
-
-    /* Ojo: no se escucha el error de cada <source>. Si hay webm y mp4, el
-       webm puede fallar y el mp4 funcionar igual; el único dato fiable de
-       "no hay video" es networkState, que se mira en el sondeo de abajo. */
-
-    try {
-      var reproduccion = video.play();
-      if (reproduccion && reproduccion.catch) { reproduccion.catch(function () {}); }
-    } catch (e) {}
-
-    /* ---- gif, si no hubo video ---- */
-
-    function mostrarGif() {
-      if (cerrada || arranco) return;
-      empezar(gif);
-      esperar(parseInt(gif.getAttribute("data-duracion"), 10) || 4000, cerrar);
-    }
-
-    gif.addEventListener("error", function () { gifFallo = true; });
-
-    /* ---- sondeo ----
-       El evento de error del <video> no llega en todos los navegadores
-       (el de cada <source> no siempre se propaga), así que en vez de
-       confiar en él se revisa el estado real cada poco: si el video se
-       quedó sin fuentes y el gif tampoco cargó, no hay animación que
-       mostrar y se entra directo a la página. */
-
-    var sondeos = 0;
-
-    var sondeo = setInterval(function () {
-      sondeos++;
-
-      if (cerrada || arranco) { clearInterval(sondeo); return; }
-
-      var sinVideo = !!video.error || video.networkState === video.NETWORK_NO_SOURCE;
-      var sinGif = gifFallo || (gif.complete && gif.naturalWidth === 0);
-
-      /* El video manda: el gif solo entra si no hay video que reproducir */
-      if (sinVideo && !sinGif && gif.complete && gif.naturalWidth > 0) {
-        clearInterval(sondeo);
-        mostrarGif();
-        return;
-      }
-
-      if (sinVideo && sinGif) { clearInterval(sondeo); cerrar(); return; }
-
-      /* 20 sondeos = 5 s. El video pesa varios MB: en datos móviles puede
-         tardar en llenar el buffer, así que se le da margen antes de rendirse */
-      if (sondeos >= 20) { clearInterval(sondeo); cerrar(); }
-    }, 250);
-
-    relojes.push(sondeo);
-  })();
 
   /* ---------- Header: fondo al hacer scroll ---------- */
 
@@ -236,28 +86,30 @@
     sections.forEach(function (s) { spy.observe(s); });
   }
 
-  /* ---------- Anillo del logo: paralaje 3D con el cursor ----------
-     El logo está sobre los anillos en el eje Z, así que al inclinar la
-     escena se separan y se ve la profundidad real. */
+  /* ---------- Retrato del hero: paralaje 3D con el cursor ----------
+     La foto y la placa están por delante del anillo en el eje Z, así que
+     al inclinar la escena se separan y se ve la profundidad real.
+     El flotar va en .retrato y la inclinación en .retrato__inner: una
+     animación y una transformación no pueden compartir `transform`. */
 
-  var orb = document.querySelector(".orb__inner");
+  var retrato = document.querySelector(".retrato__inner");
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  if (orb && finePointer && !reducedMotion) {
+  if (retrato && finePointer && !reducedMotion) {
     var pending = false;
     var tiltX = 0;
     var tiltY = 0;
 
     window.addEventListener("pointermove", function (e) {
-      tiltX = ((e.clientX / window.innerWidth) - 0.5) * 24;
-      tiltY = ((e.clientY / window.innerHeight) - 0.5) * -20;
+      tiltX = ((e.clientX / window.innerWidth) - 0.5) * 14;
+      tiltY = ((e.clientY / window.innerHeight) - 0.5) * -10;
 
       if (pending) return;
       pending = true;
 
       requestAnimationFrame(function () {
-        orb.style.setProperty("--tx", tiltX.toFixed(2));
-        orb.style.setProperty("--ty", tiltY.toFixed(2));
+        retrato.style.setProperty("--tx", tiltX.toFixed(2));
+        retrato.style.setProperty("--ty", tiltY.toFixed(2));
         pending = false;
       });
     }, { passive: true });

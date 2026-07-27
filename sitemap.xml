@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Las URL de un sitemap tienen que ser absolutas: es lo único del sitio
+     que depende del dominio. Al mudarse a dominio propio hay que cambiarlas
+     aquí, en robots.txt y en las etiquetas canonical/og de los dos HTML. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://drogueriasuker-glitch.github.io/Raul-Sucari/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://drogueriasuker-glitch.github.io/Raul-Sucari/privacidad.html</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

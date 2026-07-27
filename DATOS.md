@@ -18,10 +18,12 @@ Ejemplo: `45678`
 
 → 24841
 
-**¿Ya tienes el título de especialista (RNE)?**
+**¿Ya estás inscrito como especialista en el RNE?**
 Escribe `No` o `Sí, RNE 12345`.
-*Si es "No", la página seguirá diciendo "Estudios de especialidad concluidos
-en Cirugía Oral y Maxilofacial", que es la redacción correcta mientras tanto.*
+*Mientras sea "No", la página dice **"Egresado de la Segunda Especialidad en…"**,
+que es la única fórmula permitida (Código de Ética del COP, arts. 18, 19 y 93).
+Avísame en cuanto salga la inscripción y lo cambio en la web, el JSON-LD, Google
+y las tarjetas.*
 
 → no
 
@@ -56,7 +58,7 @@ Ejemplo: `Av. Larco 345, Oficina 302, Miraflores, Lima`
 **Enlace de Google Maps** (opcional — en Google Maps busca tu consultorio,
 pulsa "Compartir" y pega aquí el enlace; si no, yo lo genero con la dirección)
 
-→ https://maps.app.goo.gl/SqqAkjF2HiY5Bwdu6
+→ https://maps.app.goo.gl/Bfqwiv5R6mzu43Lx7
 
 **Horarios de atención**
 Ejemplo: `Lunes a viernes 9:00–19:00, sábados 9:00–13:00`
@@ -66,9 +68,6 @@ Ejemplo: `Lunes a viernes 9:00–19:00, sábados 9:00–13:00`
 ---
 
 ## 4. Trayectoria (cifras de la sección "Sobre mí")
-
-Actualmente la página muestra: **+8** años de práctica clínica ·
-**+1,500** pacientes atendidos · **3** años de residencia quirúrgica.
 
 **Años de práctica clínica**
 
@@ -83,13 +82,24 @@ destacar, por ejemplo "cirugías realizadas")
 
 → 4 años
 
+> ⚠️ **Qué se publicó de esto y qué no.** El art. 93 del Código de Ética prohíbe
+> afirmar cifras que no se puedan respaldar con documentos, así que:
+>
+> - "+20 años" se publica como **"Más de dos décadas de práctica clínica en Juliaca"**.
+> - **"10 000 pacientes" no se publicó.** Si existe un registro (agenda, historias
+>   clínicas, planilla) que sustente la cifra, se puede volver a poner.
+> - Los "4 años de residencia" sí se publican, como parte de la formación en San Marcos.
+
 ---
 
-## 5. Testimonios (de 3 a 5)
+## 5. Reseñas (de 3 a 5)
 
-Lo ideal: copiar reseñas reales de Google del doctor. Por cada testimonio
-escribe el **texto**, el **nombre** (puede ser nombre y apellido abreviado,
-ej. "María F.") y el **tratamiento** que se hizo.
+**Tienen que ser reseñas reales publicadas en tu Perfil de Empresa de Google**:
+se copian tal como las escribió cada paciente, con el nombre con el que las
+publicó. No se pueden inventar textos ni acompañarlas con fotos de pacientes.
+Mientras no haya reseñas, la sección no aparece en la página.
+
+Por cada reseña: el **texto**, el **nombre** y el **tratamiento**.
 
 **Testimonio 1**
 Texto → 
@@ -134,6 +144,11 @@ y tamaño — yo las recorto, comprimo y coloco.
 
 - **Foto del doctor**: vertical (de pie o medio cuerpo), con buena luz,
   idealmente con mandil o uniforme. Nómbrala `doctor` (ej. `doctor.jpg`).
+  ⚠️ **Lo ideal es que el mandil vaya liso.** La foto actual se publica completa,
+  y en ella se lee el bordado "CIRUGÍA BUCAL Y MAXILOFACIAL" — un rótulo de
+  especialidad que, según el Código de Ética, no debería exhibirse hasta que salga
+  la inscripción en el RNE. Si consigues una foto con mandil blanco liso, se
+  cambia en un minuto.
 - **Foto del consultorio**: horizontal, mostrando el sillón dental o la
   recepción ordenada. Nómbrala `consultorio` (ej. `consultorio.jpg`).
 

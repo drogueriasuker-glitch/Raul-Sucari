@@ -9,9 +9,9 @@ texto de ejemplo en ese punto y se podrá actualizar después.
 ## 1. Identidad
 
 **Nombre para mostrar** (así aparecerá en toda la página)
-Ejemplo: `Dr. Raúl Suker`
+Ejemplo: `Dr. Raul Suker`
 
-→ Dr. Raúl Sucari Cruz
+→ Dr. Raul Sucari Cruz
 
 **Número de colegiatura COP** (solo el número)
 Ejemplo: `45678`

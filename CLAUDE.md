@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Qué es
 
-Landing de **marca personal** del **Dr. Raúl Sucari Cruz**, Cirujano Dentista en
+Landing de **marca personal** del **Dr. Raul Sucari Cruz**, Cirujano Dentista en
 Juliaca (Puno). HTML + CSS + JS puro: **sin build, sin npm, sin dependencias, sin
 tests**. Todo el contenido está en español y se sube por FTP tal cual.
 
@@ -226,7 +226,7 @@ corto de Maps que dio el cliente.
 
 ## Datos del cliente
 
-Dr. Raúl Sucari Cruz · Cirujano Dentista · COP N.º 24841 · WhatsApp +51 928 471 815 ·
+Dr. Raul Sucari Cruz · Cirujano Dentista · COP N.º 24841 · WhatsApp +51 928 471 815 ·
 sucari1201@gmail.com · Av. 3 de Octubre 322, Juliaca (Puno) · atención los fines de
 semana previa cita · Egresado de la Segunda Especialidad en Cirugía Bucal y Maxilofacial
 (UNMSM, cuatro años de residencia) · Egresado de la Segunda Especialidad en Periodoncia

@@ -1,4 +1,4 @@
-/* Dr. Raúl Sucari Cruz — interacciones de la página */
+/* Dr. Raul Sucari Cruz — interacciones de la página */
 
 (function () {
   "use strict";

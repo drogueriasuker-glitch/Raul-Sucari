@@ -1,6 +1,6 @@
-# Dr. Raúl Sucari Cruz — Cirujano Dentista
+# Dr. Raul Sucari Cruz — Cirujano Dentista
 
-Página web del **Dr. Raúl Sucari Cruz**, Cirujano Dentista (COP N.º 24841), en
+Página web del **Dr. Raul Sucari Cruz**, Cirujano Dentista (COP N.º 24841), en
 Juliaca (Puno, Perú).
 
 🔗 **Ver la página:** https://drogueriasuker-glitch.github.io/Raul-Sucari/

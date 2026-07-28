@@ -356,9 +356,12 @@ ul { list-style: none; }
   overflow: hidden;
 }
 
+/* La columna de la foto es la más ancha de las dos: es lo que hace que
+   la foto se vea grande. Al bajar la izquierda, vigilar que los dos
+   botones del hero sigan entrando en una sola línea. */
 .hero__inner {
   display: grid;
-  grid-template-columns: 0.98fr 1.02fr;
+  grid-template-columns: 0.85fr 1.15fr;
   gap: 3rem;
   align-items: center;
 }
@@ -486,53 +489,21 @@ ul { list-style: none; }
     transparent 68%);
 }
 
-/* El anillo que orbita: es el gesto del logo. El ancho va justo: la foto
-   llega al borde del contenedor, así que un porcentaje mayor sobresale
-   del viewport y `.hero { overflow: hidden }` lo corta a media curva. */
-.retrato__aro {
-  position: absolute;
-  left: 50%;
-  top: 58%;
-  width: 106%;
-  aspect-ratio: 1;
-  border: 1px dashed rgba(249, 197, 54, 0.30);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) translateZ(-40px) rotateX(76deg);
-  animation: aroGira 30s linear infinite;
-}
-
-.retrato__aro::after {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  margin-left: -4.5px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 18px 3px rgba(249, 197, 54, 0.75);
-}
-
-@keyframes aroGira {
-  from { transform: translate(-50%, -50%) translateZ(-40px) rotateX(76deg) rotateZ(0deg); }
-  to   { transform: translate(-50%, -50%) translateZ(-40px) rotateX(76deg) rotateZ(360deg); }
-}
-
 /* Marco rectangular (4:5), más alto que la foto cuadrada que hay
    dentro. object-fit: contain para que la foto se vea COMPLETA, sin
    recortar los brazos cruzados; el sobrante queda como banda arriba y
    abajo, rellena por el `background` de este mismo elemento. */
-/* Marco 4:3 para la foto del consultorio, que es apaisada (16:9). El
-   recorte es leve y le da algo de altura para que no quede una franja
-   fina al lado de la columna de texto. */
+/* Marco 3:2 para la foto del consultorio, que es apaisada (16:9). Es más
+   ancho que el 4:3 anterior, así que recorta menos la foto y, combinado
+   con la columna más ancha, su alto sigue coincidiendo con el de la
+   columna de texto: la foto va del "Juliaca · Puno" a los botones. */
 .retrato__foto {
   position: relative;
   width: 100%;
   /* height: auto es obligatorio: el atributo height del <img> gana sobre
      aspect-ratio y estiraría la foto a su alto natural */
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 34px;
@@ -1258,13 +1229,19 @@ ul { list-style: none; }
   .reveal--visible { animation: none; }
 
   .retrato { animation: none; }
-  .retrato__aro { animation: none; }
   .retrato__inner { transition: none; }
 
   .place__pinDot::after { animation: none; opacity: 0; }
 }
 
 /* ---------- Responsive ---------- */
+
+/* Por debajo de este ancho, la columna de texto del hero se queda sin
+   espacio para los dos botones en una línea y el segundo cae solo.
+   Se emparejan las columnas: la foto sigue grande y los botones entran. */
+@media (max-width: 1150px) {
+  .hero__inner { grid-template-columns: 1fr 1fr; }
+}
 
 @media (max-width: 1080px) {
   .nav { gap: 1.2rem; }

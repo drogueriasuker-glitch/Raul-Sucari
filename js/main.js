@@ -86,9 +86,9 @@
     sections.forEach(function (s) { spy.observe(s); });
   }
 
-  /* ---------- Retrato del hero: paralaje 3D con el cursor ----------
-     La foto y la placa están por delante del anillo en el eje Z, así que
-     al inclinar la escena se separan y se ve la profundidad real.
+  /* ---------- Foto del hero: paralaje 3D con el cursor ----------
+     La foto va por delante del halo en el eje Z, así que al inclinar la
+     escena se separan y se ve la profundidad real.
      El flotar va en .retrato y la inclinación en .retrato__inner: una
      animación y una transformación no pueden compartir `transform`. */
 

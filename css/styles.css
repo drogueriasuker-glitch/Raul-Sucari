@@ -647,7 +647,8 @@ ul { list-style: none; }
   border-radius: var(--radius);
 }
 
-/* San Marcos es el activo de confianza más fuerte del sitio */
+/* La formación es el activo de confianza más fuerte del sitio: va en una
+   sola tarjeta destacada, con todas sus filas dentro. */
 .formacion--destacada {
   border-color: var(--line);
   box-shadow: 0 0 0 5px rgba(249, 197, 54, 0.05), 0 30px 60px -40px #000;
@@ -675,31 +676,6 @@ ul { list-style: none; }
   color: var(--gold);
 }
 
-/* En Cinzel, como el nombre del doctor: le da el mismo peso institucional */
-.formacion__casa {
-  font-family: var(--font-brand);
-  font-size: clamp(1.05rem, 1.9vw, 1.3rem);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
-  color: var(--paper);
-}
-
-.formacion__lugar {
-  margin-top: 0.35rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  color: var(--gold);
-}
-
-.formacion__texto {
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--line-soft);
-  font-size: 0.94rem;
-  color: var(--muted);
-}
-
 .cv {
   display: grid;
   gap: 1.5rem;
@@ -709,7 +685,21 @@ ul { list-style: none; }
   border-radius: var(--radius);
 }
 
+/* Dentro de la tarjeta de formación la lista pierde su propio marco: si no,
+   queda un recuadro dibujado dentro de otro. */
+.formacion .cv {
+  margin-top: 1.3rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
 .cv li { display: flex; flex-direction: column; gap: 0.15rem; }
+
+/* Una fila puede llevar más de un dato (las dos Segundas Especialidades):
+   se separan entre sí más que del rótulo, para que se lean como dos. */
+.cv__valor + .cv__valor { margin-top: 0.6rem; }
 
 .cv li + li {
   padding-top: 1.5rem;

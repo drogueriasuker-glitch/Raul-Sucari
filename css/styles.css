@@ -517,18 +517,16 @@ ul { list-style: none; }
    dentro. object-fit: contain para que la foto se vea COMPLETA, sin
    recortar los brazos cruzados; el sobrante queda como banda arriba y
    abajo, rellena por el `background` de este mismo elemento. */
-/* Marco rectangular (9:10): la foto en sí se recorta a ese formato
-   (object-fit: cover), no se le agregan bandas ni bordes para simular
-   el rectángulo. 9:10 es el recorte más angosto que no le corta las
-   manos cruzadas de esta foto en particular — si se cambia la foto,
-   revisar de nuevo cuánto se puede angostar sin cortar brazos. */
+/* Marco 4:3 para la foto del consultorio, que es apaisada (16:9). El
+   recorte es leve y le da algo de altura para que no quede una franja
+   fina al lado de la columna de texto. */
 .retrato__foto {
   position: relative;
   width: 100%;
   /* height: auto es obligatorio: el atributo height del <img> gana sobre
      aspect-ratio y estiraría la foto a su alto natural */
   height: auto;
-  aspect-ratio: 9 / 10;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 34px;
@@ -583,10 +581,13 @@ ul { list-style: none; }
   align-items: center;
 }
 
+/* Marco 9:10 para el retrato del doctor, que es cuadrado (1080×1080).
+   9:10 es el recorte más angosto que no le corta las manos cruzadas —
+   si entra otra foto, hay que volver a medir hasta dónde se angosta. */
 .office__media img {
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 9 / 10;
   object-fit: cover;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -1300,7 +1301,9 @@ ul { list-style: none; }
   .hero { padding-top: calc(var(--header-h) + 2.2rem); }
   .hero__inner { grid-template-columns: 1fr; gap: 2.8rem; }
   .hero__stage { order: -1; }
-  .retrato { width: min(78%, 320px); }
+  /* Más ancho que antes: arriba ahora va la foto apaisada del
+     consultorio, y a 320px quedaba una franja demasiado baja. */
+  .retrato { width: min(94%, 440px); }
 
   .trust__list { grid-template-columns: repeat(2, 1fr); }
 

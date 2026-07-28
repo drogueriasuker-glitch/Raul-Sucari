@@ -156,18 +156,27 @@ no pueden compartir la propiedad `transform`.
 
 ## La foto del doctor
 
-`assets/doctor.jpg` es la foto que subió el cliente, **cuadrada (1080×1080)** y sin
-tocar. El marco (`.retrato__foto`) es un **rectángulo vertical 9:10** con las cuatro
-esquinas redondeadas por igual (`border-radius: 34px`).
+**Qué foto va en cada sitio** (el cliente pidió este orden expresamente): arriba, en el
+marco 3D del hero, va la **foto del consultorio**; abajo, en "Cómo trabajo", va el
+**retrato del doctor**. Es al revés de como nació el sitio — la nota estratégica del
+encargo dice que "el paciente elige al cirujano, no al local" —, así que si alguien lo
+ve raro, es una decisión del cliente, no un descuido.
 
-El recorte es **de la foto misma** (`object-fit: cover`), no un marco más alto con
-bandas de relleno: el cliente pidió expresamente "que sea rectangular la foto en sí, no
-que le agregues bordes". **9:10 es el recorte más angosto que no le corta las manos
-cruzadas** en esta foto concreta; si entra otra foto, hay que volver a medir hasta dónde
-se puede angostar.
+Al intercambiarlas hay que mover tres cosas juntas, o algo queda mal:
 
-Los atributos `width`/`height` del `<img>` (972×1080) van con la proporción **del
-recorte**, no con la de la foto original: es lo que evita el salto de layout.
+1. El `aspect-ratio` de cada marco, porque las dos fotos son opuestas.
+2. El `<link rel="preload">` del `<head>`, que debe apuntar **a la imagen del hero**
+   (es la que manda en el LCP).
+3. El `loading="lazy"`: lo lleva la de abajo, nunca la del hero.
+
+`assets/doctor.jpg` es **cuadrada (1080×1080)**, sin tocar. Se muestra en `9/10`, que es
+**el recorte más angosto que no le corta las manos cruzadas**; si entra otra foto, hay
+que volver a medir. `assets/consultorio.jpg` es **apaisada (1300×726)** y se muestra en
+`4/3`: recorta poco y le da altura para no quedar como una franja fina al lado del
+texto.
+
+Los atributos `width`/`height` de cada `<img>` van con las dimensiones **reales del
+archivo** (no las del marco): es lo que evita el salto de layout.
 
 ⚠️ **En esta foto el mandil lleva bordado "CIRUGÍA BUCAL Y MAXILOFACIAL — U.N.M.S.M."
 de forma legible**, que es el rótulo de especialidad que R1 no permite exhibir mientras

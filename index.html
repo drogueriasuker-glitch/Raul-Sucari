@@ -27,7 +27,9 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="assets/doctor.jpg" fetchpriority="high">
+  <!-- Precarga la imagen del hero (la que manda en el LCP). Si se cambia
+       cuál va arriba, hay que cambiar también esta línea. -->
+  <link rel="preload" as="image" href="assets/consultorio.jpg" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -98,15 +100,16 @@
         </div>
       </div>
 
-      <!-- Retrato: es una marca personal, la cara va sobre el pliegue -->
+      <!-- La foto del consultorio va arriba y el retrato del doctor abajo,
+           por pedido del cliente. El marco conserva el gesto 3D. -->
       <div class="hero__stage">
         <div class="retrato">
           <div class="retrato__inner">
             <span class="retrato__halo" aria-hidden="true"></span>
             <span class="retrato__aro" aria-hidden="true"></span>
-            <img class="retrato__foto" src="assets/doctor.jpg"
-                 alt="El Dr. Raul Sucari Cruz, Cirujano Dentista"
-                 width="972" height="1080" fetchpriority="high" decoding="async">
+            <img class="retrato__foto" src="assets/consultorio.jpg"
+                 alt="El consultorio del Dr. Raul Sucari Cruz en Juliaca, con el sillón dental"
+                 width="1300" height="726" fetchpriority="high" decoding="async">
           </div>
         </div>
       </div>
@@ -154,7 +157,7 @@
       </div>
 
       <figure class="office__media reveal">
-        <img src="assets/consultorio.jpg" alt="El Dr. Raul Sucari Cruz en su consultorio de Juliaca, junto al sillón dental" width="1300" height="726" loading="lazy" decoding="async">
+        <img src="assets/doctor.jpg" alt="El Dr. Raul Sucari Cruz, Cirujano Dentista" width="1080" height="1080" loading="lazy" decoding="async">
       </figure>
 
     </div>

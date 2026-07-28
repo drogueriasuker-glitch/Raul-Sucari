@@ -448,9 +448,13 @@ ul { list-style: none; }
   perspective: 1200px;
 }
 
+/* Sin tope de ancho: la foto ocupa toda su columna, y como va en 4:3
+   su alto queda casi igual al de la columna de texto de al lado — o
+   sea, va desde el "Juliaca · Puno" hasta los botones. Si se le pone
+   un `max-width`, se encoge y deja de alinear con el texto. */
 .retrato {
   position: relative;
-  width: min(100%, 480px);
+  width: 100%;
   transform-style: preserve-3d;
   animation: retratoFlota 9s ease-in-out infinite alternate;
 }
@@ -472,7 +476,7 @@ ul { list-style: none; }
   position: absolute;
   left: 50%;
   top: 46%;
-  width: 132%;
+  width: 118%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%) translateZ(-80px);
   border-radius: 50%;
@@ -482,12 +486,14 @@ ul { list-style: none; }
     transparent 68%);
 }
 
-/* El anillo que orbita: es el gesto del logo, ahora alrededor del doctor */
+/* El anillo que orbita: es el gesto del logo. El ancho va justo: la foto
+   llega al borde del contenedor, así que un porcentaje mayor sobresale
+   del viewport y `.hero { overflow: hidden }` lo corta a media curva. */
 .retrato__aro {
   position: absolute;
   left: 50%;
   top: 58%;
-  width: 124%;
+  width: 106%;
   aspect-ratio: 1;
   border: 1px dashed rgba(249, 197, 54, 0.30);
   border-radius: 50%;

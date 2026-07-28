@@ -85,108 +85,23 @@ cada una con su `--user-data-dir`.
 
 ## Identidad visual
 
-**Fondo predominantemente blanco**, por pedido explícito del cliente ("quiero que el
-color blanco esté más presente… con unos toques dorados y azules metálicos
-minimalistas"). Antes el sitio era de fondo navy oscuro con texto claro; se invirtió
-por completo. Navy **`#02164A`** y amarillo **`#FFC401`** siguen siendo los colores
-oficiales, pero cambiaron de rol: el navy pasó a ser el color del **texto** (no del
-fondo) y el dorado quedó **solo para acentos**, nunca como texto directo sobre blanco.
-Todos los tokens están en `:root` al inicio de `styles.css`.
+Navy **`#02164A`** y amarillo **`#FFC401`** son los colores oficiales, pero la página
+los usa rebajados: el dorado de trabajo es `#F9C536` (`--gold`) y el navy oficial vive
+dentro de degradados sobre una base más oscura y neutra. Todos los tokens están en
+`:root` al inicio de `styles.css`.
 
-### Dorado claro = pastilla navy
+Regla que sostiene ese look: **las secciones no llevan color de fondo propio**. Hay un
+solo degradado continuo en `body` más una capa de luz ambiental fija en `body::before`,
+y las secciones se separan con un filete dorado que se desvanece en los extremos
+(`.section + .section::before`). Poner un `background` plano en una sección reintroduce
+las costuras duras que se quitaron a propósito.
 
-El cliente pidió varias veces que los rótulos se vieran de un **dorado claro** y no
-marrones. Sobre blanco eso es imposible: no es una regla, es óptica. `#F9C536` sobre
-blanco da 1.6:1 y `#D4A017` da 2.4:1 — ilegibles. Pero **ese mismo dorado sobre navy da
-10.7:1**.
-
-Por eso los rótulos que llevan dorado claro van dentro de una **pastilla navy**
-(`--metal` de fondo, filo dorado, sombra corta): `.eyebrow__texto` (los "UBICACIÓN",
-"CÓMO TRABAJO", etc.) y `.trust__list strong` (los "COP N.º 24841", "2.ª Especialidad").
-Ahí el dorado va `--gold` pleno, vivo y legible.
-
-`.eyebrow__texto` es un `<span>` **dentro** de `.eyebrow`: el `<p>` sigue siendo el
-contenedor flex que dibuja los filetes laterales con `::before`/`::after`, y el `<span>`
-es solo la pastilla. Un rótulo nuevo necesita las dos capas, si no queda el texto suelto
-sin fondo.
-
-**Regla práctica:** dorado claro (`--gold`) solo sobre navy. Sobre blanco, únicamente
-`--gold-ink` o `--gold-ink-soft`.
-
-**Los dorados que sí funcionan como texto sobre blanco**: para lo que no lleva pastilla
-(el apellido del hero, el filete de la credencial, los rótulos dentro de las tarjetas)
-siguen existiendo dos dorados oscurecidos, calibrados al límite de lo permitido:
-
-| token | ratio | dónde |
-|---|---|---|
-| `--gold-ink` `#96700A` | **4.55:1** | Texto normal. Es el más claro que aún pasa AA (mínimo 4.5:1): eyebrows, rótulos, credenciales, enlaces del texto legal. |
-| `--gold-ink-soft` `#B8860B` | **3.25:1** | **Solo texto grande**, donde el mínimo baja a 3:1. Grande = ≥24px normal o ≥18.7px en negrita. Hoy solo lo usa el degradado del apellido en `.hero__title span`. |
-
-Referencias por si hay que retocar: `#A67C00` cae a 3.8:1 (ya no sirve para texto
-normal), `#DAA520` a 2.2:1 y `#FFC401` a 1.6:1 (no sirven para nada de texto sobre
-blanco — para eso está la pastilla navy).
-
-El dorado vivo (`--gold`/`--gold-vivid`) se reserva para: fondos de botón (con texto
-navy encima, sigue dando ~11:1), iconos y chips sobre superficies oscuras (nunca sobre
-blanco), y filetes/puntos decorativos donde no aplica la regla de contraste de texto.
-Si se agrega un elemento nuevo con `color: var(--gold)`, verificar primero si va sobre
-blanco (entonces no) o sobre un panel oscuro (entonces sí).
-
-**Los "toques" oscuros están concentrados, no repartidos**: en vez de salpicar navy por
-toda la página, hay exactamente dos bloques navy-metálicos (`var(--metal)`, un
-degradado navy → azul acero → navy profundo) que hacen de contrapunto al blanco: la
-**franja de cita** (`.cta`) y el **pie de página** (`.footer`). Dentro de esos dos
-bloques los roles de color se invierten otra vez: el texto va en `--on-dark` /
-`--on-dark-muted` (claros) y el dorado vuelve a ser vivo, porque ahí sí tiene contraste
-de sobra. Si se agrega un tercer bloque oscuro, no reutilizar `--muted` ni `--navy`
-para su texto — esos tokens están calibrados para fondo blanco y fallarían sobre navy.
-
-### El borde en degradado de los recuadros
-
-Todas las tarjetas (`.card`, `.checks li`, `.formacion`, `.cv`, `.place__info`,
-`.place__map`, `.legal__intro`, `.legal__datos`) comparten la misma fórmula: relleno
-blanco (`--relleno-tarjeta`) y **borde en degradado dorado → azul metálico → dorado**
-(`--borde-lujo`), más la sombra en capas de `--sombra-tarjeta`.
-
-Ese borde **no es un `border-color`** — CSS no permite degradados en bordes. Se pinta
-con la técnica de dos fondos:
-
-```css
-background:
-  var(--relleno-tarjeta) padding-box,   /* relleno, hasta el borde interior */
-  var(--borde-lujo) border-box;         /* degradado, ocupa también el borde */
-border: 1px solid transparent;          /* el borde transparente deja ver el de abajo */
-```
-
-**Consecuencia que rompe cosas si se olvida:** en `:hover` (o en cualquier variante,
-como `.formacion--destacada`) **no sirve `border-color`** — hay que volver a declarar
-las dos capas de `background` con `--borde-lujo-vivo`. Y en la `transition` va
-`background`, no `border-color`.
-
-**En `<img>` esta técnica no funciona**: la imagen tapa el `padding-box` y el degradado
-no se ve. Por eso el retrato del hero y la foto del consultorio usan otra solución para
-el mismo efecto: un `border` dorado sólido más anillos apilados de `box-shadow`
-(`0 0 0 4px` navy al 5%, `0 0 0 5px` dorado al 12%) y encima la sombra de profundidad.
-
-`.place__map` lleva el relleno en `padding-box` aunque el iframe lo tape: si Google Maps
-falla o tarda, sin ese relleno se vería el degradado del borde estirado a toda la caja.
-
-Los iconos de los tratamientos y las insignias de "Cómo trabajo" comparten un mismo
-motivo: **chip navy-metálico con icono dorado y un filo dorado fino** (`--metal` de
-fondo, `border: 1px solid rgba(249, 197, 54, 0.35)`). Se repite igual en las seis
-tarjetas de tratamientos y en los cinco puntos de "Cómo trabajo" — es el detalle que
-hace que blanco + dorado + azul metálico se lea como un solo sistema y no como
-secciones sueltas.
-
-Contraste: el sitio sigue cumpliendo **WCAG AA**, recalculado para el fondo claro.
-Combinaciones de referencia: `--navy` sobre blanco (17:1), `--muted` sobre blanco
-(6:1), `--gold-ink` sobre blanco (6.4:1), dorado de fondo con texto navy encima
-(`.btn--gold`, ~11:1, sin cambios). Texto blanco sobre amarillo o amarillo sobre
-blanco siguen prohibidos — ahora con más razón, porque el fondo por defecto es blanco.
-El verde del botón flotante de WhatsApp sigue oscurecido a propósito (`#0F7D44`): el
-`#25D366` de marca con texto blanco da 2:1 y no pasa AA; esto no depende del fondo de
-la página, así que no cambió. Los enlaces van subrayados, porque el color no puede ser
-la única señal.
+Contraste: el sitio cumple **WCAG AA**. Las combinaciones a respetar son `--muted`
+sobre el fondo (7:1), dorado sobre el fondo (11:1) y **dorado de fondo solo con texto
+navy encima** (`.btn--gold`, 11:1). Texto blanco sobre amarillo o amarillo sobre blanco
+están prohibidos. El verde del botón flotante de WhatsApp va oscurecido a propósito
+(`#0F7D44`): el `#25D366` de marca con texto blanco da 2:1 y no pasa AA. Los enlaces
+van subrayados, porque el color no puede ser la única señal.
 
 Tres tipografías, cada una con un papel: **Cinzel** para el nombre del doctor y el
 título del hero, **Outfit** para títulos y botones, **Manrope** para el cuerpo y las
@@ -242,19 +157,17 @@ no pueden compartir la propiedad `transform`.
 ## La foto del doctor
 
 `assets/doctor.jpg` es la foto que subió el cliente, **cuadrada (1080×1080)** y sin
-tocar. El marco (`.retrato__foto`), en cambio, es un **rectángulo vertical (4:5)** con
-las cuatro esquinas redondeadas por igual (`border-radius: 34px`) — pedido explícito
-del cliente: que se vea "más rectangular" y no cuadrado.
+tocar. El marco (`.retrato__foto`) es un **rectángulo vertical 9:10** con las cuatro
+esquinas redondeadas por igual (`border-radius: 34px`).
 
-Como la foto es cuadrada y el marco no, `.retrato__foto` usa `object-fit: contain` (no
-`cover`): la foto se ve **completa**, sin recortar los brazos cruzados, y el sobrante
-queda como una banda arriba y abajo, rellena por el `background` en degradado del mismo
-elemento — así no se ve un hueco vacío, se lee como una tarjeta a propósito.
+El recorte es **de la foto misma** (`object-fit: cover`), no un marco más alto con
+bandas de relleno: el cliente pidió expresamente "que sea rectangular la foto en sí, no
+que le agregues bordes". **9:10 es el recorte más angosto que no le corta las manos
+cruzadas** en esta foto concreta; si entra otra foto, hay que volver a medir hasta dónde
+se puede angostar.
 
-Si algún día entra otra foto con otra proporción, hay que revisar si conviene volver a
-`object-fit: cover` (foto llena el marco, se recorta lo que sobre) o mantener `contain`
-(foto entera, con banda). Los atributos `width`/`height` del `<img>` van junto con el
-`aspect-ratio` de la foto real (no el del marco): es lo que evita el salto de layout.
+Los atributos `width`/`height` del `<img>` (972×1080) van con la proporción **del
+recorte**, no con la de la foto original: es lo que evita el salto de layout.
 
 ⚠️ **En esta foto el mandil lleva bordado "CIRUGÍA BUCAL Y MAXILOFACIAL — U.N.M.S.M."
 de forma legible**, que es el rótulo de especialidad que R1 no permite exhibir mientras

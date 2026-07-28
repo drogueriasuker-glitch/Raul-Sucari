@@ -94,14 +94,30 @@ fondo) y el dorado quedó **solo para acentos**, nunca como texto directo sobre 
 Todos los tokens están en `:root` al inicio de `styles.css`.
 
 **Por qué el dorado nunca es texto sobre blanco**: `--gold` (`#F9C536`) sobre blanco da
-apenas **1.6:1** de contraste — casi invisible, muy lejos del mínimo AA (4.5:1). Por
-eso existe `--gold-ink` (`#7A5A0E`, un dorado oscurecido / bronce) que sí da **6.4:1** y
-es el único que se usa como texto (eyebrows, rótulos, credenciales, "strong" de la
-barra de confianza). El dorado vivo (`--gold`/`--gold-vivid`) se reserva para: fondos
-de botón (con texto navy encima, sigue dando ~11:1), iconos y chips sobre superficies
-oscuras (nunca sobre blanco), y filetes/puntos decorativos donde no aplica la regla de
-contraste de texto. Si se agrega un elemento nuevo con `color: var(--gold)`, verificar
-primero si va sobre blanco (entonces no) o sobre un panel oscuro (entonces sí).
+apenas **1.6:1** de contraste — casi invisible, muy lejos del mínimo AA (4.5:1). Por eso
+hay dos dorados de texto, y están calibrados al límite de lo permitido a propósito
+(el cliente pidió que se vieran "más amarillo a dorado metálico claro", así que se
+subieron hasta donde la norma aguanta y ni un tono más):
+
+| token | ratio | dónde |
+|---|---|---|
+| `--gold-ink` `#96700A` | **4.55:1** | Texto normal. Es el más claro que aún pasa AA (mínimo 4.5:1): eyebrows, rótulos, credenciales, enlaces del texto legal. |
+| `--gold-ink-soft` `#B8860B` | **3.25:1** | **Solo texto grande**, donde el mínimo baja a 3:1. Grande = ≥24px normal o ≥18.7px en negrita. |
+| `--veta-dorada` | tope 3.25:1 | Degradado metálico (claro→oscuro→claro) para texto grande. Lo usa `.trust__list strong`. El **tono más claro** del degradado es el que manda para el contraste. |
+
+Referencias por si hay que retocar: `#A67C00` cae a 3.8:1 (ya no sirve para texto
+normal), `#DAA520` a 2.2:1 y `#FFC401` a 1.6:1 (no sirven para nada de texto).
+
+⚠️ `--gold-ink-soft` y `--veta-dorada` **dependen del tamaño de letra**. `.trust__list
+strong` mide 1.22rem en negrita (19.5px) y por eso califica como texto grande; en el
+bloque de ≤700px hay un `font-size: 1.18rem` con un comentario que avisa de no bajarlo,
+porque por debajo de 18.7px dejaría de calificar y el dorado claro pasaría a incumplir.
+
+El dorado vivo (`--gold`/`--gold-vivid`) se reserva para: fondos de botón (con texto
+navy encima, sigue dando ~11:1), iconos y chips sobre superficies oscuras (nunca sobre
+blanco), y filetes/puntos decorativos donde no aplica la regla de contraste de texto.
+Si se agrega un elemento nuevo con `color: var(--gold)`, verificar primero si va sobre
+blanco (entonces no) o sobre un panel oscuro (entonces sí).
 
 **Los "toques" oscuros están concentrados, no repartidos**: en vez de salpicar navy por
 toda la página, hay exactamente dos bloques navy-metálicos (`var(--metal)`, un

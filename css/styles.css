@@ -27,10 +27,29 @@
   --gold-soft:   #FFE07A;   /* luces altas en degradados sobre navy */
   --gold-deep:   #C48C0E;   /* sombra del degradado dorado */
   /* El dorado vivo sobre blanco da 1.6:1 — casi invisible como texto.
-     Este dorado oscurecido es el único que se usa para TEXTO sobre
-     blanco (rótulos, eyebrows, credenciales): da 6.4:1, AA de sobra. */
-  --gold-ink:      #7A5A0E;
-  --gold-ink-soft: #B8860B; /* variante más clara, solo para texto grande (≥28px): 3.3:1 */
+     Estos son los dorados legibles sobre blanco, calibrados al límite
+     de lo que permite WCAG para verse lo más dorados posible:
+
+       --gold-ink       4.55:1 → el más claro que aún pasa AA en texto
+                        normal (mínimo 4.5:1). Rótulos, eyebrows,
+                        credenciales, enlaces del texto legal.
+       --gold-ink-soft  3.25:1 → solo para TEXTO GRANDE, donde el
+                        mínimo baja a 3:1. Grande = ≥24px normal o
+                        ≥18.7px en negrita. Si se usa en algo más
+                        chico, deja de cumplir.
+
+     No subirlos más: #A67C00 ya cae a 3.8:1 y #DAA520 a 2.2:1. */
+  --gold-ink:      #96700A;
+  --gold-ink-soft: #B8860B;
+
+  /* Veta metálica para texto grande: el reflejo va de claro a oscuro
+     y vuelve a claro. El tono más claro del degradado es el que manda
+     para el contraste, por eso no pasa de --gold-ink-soft. */
+  --veta-dorada: linear-gradient(100deg,
+    #B8860B 0%,
+    #A67C00 28%,
+    #8A6408 58%,
+    #B8860B 100%);
 
   --bg:      #FCFDFF;   /* blanco con un dejo frío, fondo general */
   --surface: #FFFFFF;   /* tarjetas */
@@ -646,12 +665,19 @@ ul { list-style: none; }
   border-left: 1px solid var(--line-soft);
 }
 
+/* Texto grande (19.5px en negrita), así que admite el dorado claro con
+   veta metálica: el mínimo de contraste baja a 3:1 y --gold-ink-soft
+   da 3.25:1. Ojo al tamaño — ver la nota del bloque responsive. */
 .trust__list strong {
   font-family: var(--font-head);
   font-size: 1.22rem;
   font-weight: 700;
   line-height: 1.15;
-  color: var(--gold-ink);
+  color: var(--gold-ink-soft);
+  background: var(--veta-dorada);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .trust__list span { font-size: 0.84rem; color: var(--muted); }
@@ -1484,7 +1510,10 @@ ul { list-style: none; }
 @media (max-width: 700px) {
   .section { padding: 5rem 0; }
   .cards { grid-template-columns: 1fr; }
-  .trust__list strong { font-size: 1.1rem; }
+  /* No bajar de 1.18rem (18.9px): por debajo de 18.7px en negrita deja
+     de contar como "texto grande" y el dorado claro con veta metálica
+     ya no cumpliría el contraste mínimo. */
+  .trust__list strong { font-size: 1.18rem; }
   .place__info { padding: 1.7rem; }
   .footer__inner { grid-template-columns: 1fr; }
 }

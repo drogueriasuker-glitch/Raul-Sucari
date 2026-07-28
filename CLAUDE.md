@@ -157,14 +157,19 @@ no pueden compartir la propiedad `transform`.
 ## La foto del doctor
 
 `assets/doctor.jpg` es la foto que subió el cliente, **cuadrada (1080×1080)** y sin
-tocar. Por eso `.retrato__foto` lleva `aspect-ratio: 1 / 1`: con el 4/5 anterior el
-`object-fit: cover` le cortaba los brazos. Si algún día entra otra foto con otra
-proporción, hay que igualar ahí el `aspect-ratio` y los atributos `width`/`height`
-del `<img>` (van juntos: el `height` real es lo que evita el salto de layout).
+tocar. El marco (`.retrato__foto`), en cambio, es un **rectángulo vertical (4:5)** con
+las cuatro esquinas redondeadas por igual (`border-radius: 34px`) — pedido explícito
+del cliente: que se vea "más rectangular" y no cuadrado.
 
-El arco superior del marco está limitado a **110 px de radio**. En esta foto la cabeza
-casi toca el borde de arriba, y un semicírculo completo (como el que había con la foto
-vertical) le recortaba el pelo.
+Como la foto es cuadrada y el marco no, `.retrato__foto` usa `object-fit: contain` (no
+`cover`): la foto se ve **completa**, sin recortar los brazos cruzados, y el sobrante
+queda como una banda arriba y abajo, rellena por el `background` en degradado del mismo
+elemento — así no se ve un hueco vacío, se lee como una tarjeta a propósito.
+
+Si algún día entra otra foto con otra proporción, hay que revisar si conviene volver a
+`object-fit: cover` (foto llena el marco, se recorta lo que sobre) o mantener `contain`
+(foto entera, con banda). Los atributos `width`/`height` del `<img>` van junto con el
+`aspect-ratio` de la foto real (no el del marco): es lo que evita el salto de layout.
 
 ⚠️ **En esta foto el mandil lleva bordado "CIRUGÍA BUCAL Y MAXILOFACIAL — U.N.M.S.M."
 de forma legible**, que es el rótulo de especialidad que R1 no permite exhibir mientras

@@ -44,6 +44,41 @@
   --line:      rgba(2, 22, 74, 0.14);
   --line-soft: rgba(2, 22, 74, 0.07);
 
+  /* Borde de los recuadros: un degradado que va de dorado a azul
+     metálico y vuelve al dorado. No es un `border-color` — se pinta
+     con la técnica de dos fondos (uno en padding-box con el relleno
+     de la tarjeta, otro en border-box con este degradado) sobre un
+     `border: 1px solid transparent`. Por eso NO se puede cambiar con
+     `border-color` en :hover: hay que volver a declarar el fondo.
+     Ver .card / .checks li como referencia. */
+  --borde-lujo: linear-gradient(140deg,
+    rgba(249, 197, 54, 0.65) 0%,
+    rgba(27, 62, 115, 0.40) 42%,
+    rgba(2, 22, 74, 0.18) 62%,
+    rgba(249, 197, 54, 0.45) 100%);
+  --borde-lujo-vivo: linear-gradient(140deg,
+    rgba(249, 197, 54, 0.95) 0%,
+    rgba(27, 62, 115, 0.70) 42%,
+    rgba(2, 22, 74, 0.35) 62%,
+    rgba(249, 197, 54, 0.80) 100%);
+
+  /* Relleno de las tarjetas, repetido en todas: se declara aquí para
+     que el degradado del borde y el del relleno no se desincronicen */
+  --relleno-tarjeta: linear-gradient(165deg, var(--surface), #F3F6FB);
+
+  /* Sombra en dos capas: un halo dorado muy tenue pegado al borde y
+     una sombra navy profunda y difusa. Las dos juntas son lo que da
+     la sensación de relieve "premium" sin ensuciar el blanco. */
+  --sombra-tarjeta:
+    0 1px 2px rgba(2, 22, 74, 0.04),
+    0 8px 18px -10px rgba(2, 22, 74, 0.16),
+    0 26px 48px -28px rgba(2, 22, 74, 0.34);
+  --sombra-tarjeta-alta:
+    0 0 0 4px rgba(249, 197, 54, 0.07),
+    0 2px 4px rgba(2, 22, 74, 0.05),
+    0 16px 30px -12px rgba(2, 22, 74, 0.2),
+    0 38px 62px -26px rgba(2, 22, 74, 0.4);
+
   /* Cinzel para el nombre, Outfit para títulos y botones,
      Manrope para el cuerpo y las versalitas espaciadas */
   --font-brand: "Cinzel", Georgia, serif;
@@ -576,8 +611,15 @@ ul { list-style: none; }
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 34px;
-  border: 1px solid var(--line);
-  box-shadow: 0 40px 70px -38px rgba(2, 22, 74, 0.45);
+  /* En un <img> la técnica de doble fondo no sirve: la imagen tapa el
+     padding-box y el degradado del borde no se ve. El filo dorado y el
+     azul se consiguen apilando anillos de box-shadow. */
+  border: 1px solid rgba(249, 197, 54, 0.5);
+  box-shadow:
+    0 0 0 4px rgba(2, 22, 74, 0.05),
+    0 0 0 5px rgba(249, 197, 54, 0.12),
+    0 30px 55px -30px rgba(2, 22, 74, 0.3),
+    0 55px 85px -45px rgba(2, 22, 74, 0.45);
   transform: translateZ(30px);
 }
 
@@ -623,13 +665,19 @@ ul { list-style: none; }
   align-items: center;
 }
 
+/* Mismos anillos que el retrato del hero, por la misma razón: es un
+   <img> y el degradado de borde no se vería */
 .office__media img {
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 2;
   object-fit: cover;
   border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(249, 197, 54, 0.5);
+  box-shadow:
+    0 0 0 4px rgba(2, 22, 74, 0.05),
+    0 0 0 5px rgba(249, 197, 54, 0.12),
+    0 26px 48px -28px rgba(2, 22, 74, 0.34);
 }
 
 .office__media figcaption {
@@ -651,18 +699,22 @@ ul { list-style: none; }
 .checks li {
   position: relative;
   padding: 1.35rem 1.6rem 1.35rem 4rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
   color: var(--muted);
   font-size: 0.97rem;
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: var(--sombra-tarjeta);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .checks li:hover {
-  border-color: var(--line);
-  box-shadow: 0 26px 46px -30px rgba(2, 22, 74, 0.32);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo-vivo) border-box;
+  box-shadow: var(--sombra-tarjeta-alta);
   transform: translateY(-3px);
 }
 
@@ -717,16 +769,21 @@ ul { list-style: none; }
 .formacion {
   position: relative;
   padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
+  box-shadow: var(--sombra-tarjeta);
 }
 
-/* San Marcos es el activo de confianza más fuerte del sitio */
+/* San Marcos es el activo de confianza más fuerte del sitio: lleva el
+   borde vivo y el halo dorado de forma permanente, no solo en hover */
 .formacion--destacada {
-  border-color: var(--line);
-  box-shadow: 0 0 0 5px rgba(249, 197, 54, 0.06), 0 30px 55px -36px rgba(2, 22, 74, 0.35);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo-vivo) border-box;
+  box-shadow: var(--sombra-tarjeta-alta);
 }
 
 /* Filete dorado, el mismo gesto que la credencial del hero */
@@ -780,10 +837,12 @@ ul { list-style: none; }
   display: grid;
   gap: 1.5rem;
   padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
+  box-shadow: var(--sombra-tarjeta);
 }
 
 .cv li { display: flex; flex-direction: column; gap: 0.15rem; }
@@ -820,12 +879,14 @@ ul { list-style: none; }
 .card {
   position: relative;
   padding: 2.6rem 2.2rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--sombra-tarjeta);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Filo dorado superior, como el borde del anillo */
@@ -841,8 +902,10 @@ ul { list-style: none; }
 
 .card:hover {
   transform: translateY(-7px);
-  border-color: var(--line);
-  box-shadow: 0 30px 54px -30px rgba(2, 22, 74, 0.32);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo-vivo) border-box;
+  box-shadow: var(--sombra-tarjeta-alta);
 }
 
 .card:hover::before { opacity: 1; }
@@ -884,13 +947,19 @@ ul { list-style: none; }
   align-items: stretch;
 }
 
+/* El relleno en padding-box no es decorativo: el iframe lo tapa cuando
+   carga, pero si Google Maps falla o tarda, deja un panel blanco en vez
+   del degradado del borde estirado a toda la caja. */
 .place__map {
   position: relative;
   min-height: 440px;
   border-radius: var(--radius);
-  border: 1px solid var(--line);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   overflow: hidden;
-  box-shadow: 0 0 0 6px rgba(2, 22, 74, 0.04), 0 30px 60px -34px rgba(2, 22, 74, 0.35);
+  box-shadow: var(--sombra-tarjeta-alta);
 }
 
 .place__map iframe {
@@ -949,10 +1018,12 @@ ul { list-style: none; }
   flex-direction: column;
   gap: 2.2rem;
   padding: 2.6rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
+  box-shadow: var(--sombra-tarjeta);
 }
 
 .place__data { display: grid; gap: 1.8rem; }
@@ -1166,11 +1237,13 @@ ul { list-style: none; }
 .legal__intro {
   padding: 1.4rem 1.6rem;
   margin-bottom: 2.6rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
   color: var(--navy);
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
+  box-shadow: var(--sombra-tarjeta);
 }
 
 .legal h2 {
@@ -1218,10 +1291,12 @@ ul { list-style: none; }
   gap: 1rem;
   padding: 1.5rem 1.7rem;
   margin-bottom: 1.2rem;
-  background: linear-gradient(165deg, var(--surface), #F3F6FB);
-  border: 1px solid var(--line-soft);
+  background:
+    var(--relleno-tarjeta) padding-box,
+    var(--borde-lujo) border-box;
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
+  box-shadow: var(--sombra-tarjeta);
 }
 
 .legal__datos li {

@@ -112,11 +112,35 @@ bloques los roles de color se invierten otra vez: el texto va en `--on-dark` /
 de sobra. Si se agrega un tercer bloque oscuro, no reutilizar `--muted` ni `--navy`
 para su texto — esos tokens están calibrados para fondo blanco y fallarían sobre navy.
 
-El resto de tarjetas (`.card`, `.checks li`, `.formacion`, `.cv`, `.place__info`,
-`.legal__intro`, `.legal__datos`) comparten la misma fórmula: fondo blanco con un
-degradado casi imperceptible hacia `#F3F6FB`, borde `--line-soft` (navy al 7%) y una
-sombra teñida de navy en vez de negro puro (`rgba(2, 22, 74, 0.3)`) — es lo que le da
-el aire "premium" en vez de una sombra genérica.
+### El borde en degradado de los recuadros
+
+Todas las tarjetas (`.card`, `.checks li`, `.formacion`, `.cv`, `.place__info`,
+`.place__map`, `.legal__intro`, `.legal__datos`) comparten la misma fórmula: relleno
+blanco (`--relleno-tarjeta`) y **borde en degradado dorado → azul metálico → dorado**
+(`--borde-lujo`), más la sombra en capas de `--sombra-tarjeta`.
+
+Ese borde **no es un `border-color`** — CSS no permite degradados en bordes. Se pinta
+con la técnica de dos fondos:
+
+```css
+background:
+  var(--relleno-tarjeta) padding-box,   /* relleno, hasta el borde interior */
+  var(--borde-lujo) border-box;         /* degradado, ocupa también el borde */
+border: 1px solid transparent;          /* el borde transparente deja ver el de abajo */
+```
+
+**Consecuencia que rompe cosas si se olvida:** en `:hover` (o en cualquier variante,
+como `.formacion--destacada`) **no sirve `border-color`** — hay que volver a declarar
+las dos capas de `background` con `--borde-lujo-vivo`. Y en la `transition` va
+`background`, no `border-color`.
+
+**En `<img>` esta técnica no funciona**: la imagen tapa el `padding-box` y el degradado
+no se ve. Por eso el retrato del hero y la foto del consultorio usan otra solución para
+el mismo efecto: un `border` dorado sólido más anillos apilados de `box-shadow`
+(`0 0 0 4px` navy al 5%, `0 0 0 5px` dorado al 12%) y encima la sombra de profundidad.
+
+`.place__map` lleva el relleno en `padding-box` aunque el iframe lo tape: si Google Maps
+falla o tarda, sin ese relleno se vería el degradado del borde estirado a toda la caja.
 
 Los iconos de los tratamientos y las insignias de "Cómo trabajo" comparten un mismo
 motivo: **chip navy-metálico con icono dorado y un filo dorado fino** (`--metal` de

@@ -5,25 +5,44 @@
    Colores de marca:
      navy     #02164A
      amarillo #FFC401
-   El amarillo va solo en acentos y botones, y siempre lleva
-   texto navy encima (contraste AA, ver CLAUDE.md).
+
+   Paleta "premium": fondo blanco en casi toda la página, navy
+   oficial como color de texto (17:1 sobre blanco), dorado solo en
+   acentos, botones e iconos — nunca como texto directo sobre blanco,
+   porque ahí casi no se ve (1.6:1, ver nota junto a --gold-ink). Los
+   "toques" de azul metálico se concentran en dos bloques oscuros
+   (la franja de cita y el pie), en vez de repartirse por toda la
+   página — así el blanco sigue siendo el protagonista.
    ============================================================ */
 
 :root {
-  --navy:       #02164A;   /* oficial — vive sobre todo dentro de degradados */
-  --navy-deep:  #060A16;   /* base de la página */
-  --navy-soft:  #0C1730;   /* superficies: tarjetas, paneles */
-  --navy-lift:  #152645;   /* hover */
-  --gold:       #F9C536;   /* dorado de trabajo: textos, filetes, iconos */
-  --gold-vivid: #FFC401;   /* oficial — acentos y degradados */
-  --gold-soft:  #FFE07A;   /* luces altas */
-  --gold-deep:  #C48C0E;   /* sombras del degradado */
-  --paper:      #ECF1F9;
-  --muted:      #93A0B5;   /* 7:1 sobre el fondo — texto de cuerpo AA */
-  --whatsapp:   #25D366;
+  --navy:        #02164A;   /* oficial — también el color del texto de cuerpo */
+  --navy-deep:   #050B1E;   /* base de los bloques oscuros (cita, pie) */
+  --navy-steel:  #1B3E73;   /* azul metálico medio, en los degradados oscuros */
+  --navy-mist:   #4A6693;   /* azul metálico claro, brillo dentro del degradado */
+  --metal:       linear-gradient(135deg, var(--navy-steel) 0%, #123058 48%, var(--navy-deep) 100%);
 
-  --line:      rgba(249, 197, 54, 0.22);
-  --line-soft: rgba(249, 197, 54, 0.10);
+  --gold:        #F9C536;   /* dorado vivo — fondos de botón, iconos e chips sobre navy */
+  --gold-vivid:  #FFC401;   /* oficial */
+  --gold-soft:   #FFE07A;   /* luces altas en degradados sobre navy */
+  --gold-deep:   #C48C0E;   /* sombra del degradado dorado */
+  /* El dorado vivo sobre blanco da 1.6:1 — casi invisible como texto.
+     Este dorado oscurecido es el único que se usa para TEXTO sobre
+     blanco (rótulos, eyebrows, credenciales): da 6.4:1, AA de sobra. */
+  --gold-ink:      #7A5A0E;
+  --gold-ink-soft: #B8860B; /* variante más clara, solo para texto grande (≥28px): 3.3:1 */
+
+  --bg:      #FCFDFF;   /* blanco con un dejo frío, fondo general */
+  --surface: #FFFFFF;   /* tarjetas */
+  --muted:   #57616F;   /* texto secundario sobre blanco — 6:1 */
+  --whatsapp: #25D366;
+
+  /* Textos e interfaz SOBRE los bloques oscuros (cita, pie, insignia del mapa) */
+  --on-dark:       #F3F1EB;
+  --on-dark-muted: #A9B3C4;
+
+  --line:      rgba(2, 22, 74, 0.14);
+  --line-soft: rgba(2, 22, 74, 0.07);
 
   /* Cinzel para el nombre, Outfit para títulos y botones,
      Manrope para el cuerpo y las versalitas espaciadas */
@@ -43,24 +62,21 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 12px);
-  scrollbar-color: #1b2743 var(--navy-deep);
+  scrollbar-color: #C7CEDB var(--bg);
 }
 
 ::-webkit-scrollbar { width: 11px; }
-::-webkit-scrollbar-track { background: var(--navy-deep); }
+::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
-  background: #1b2743;
+  background: #C7CEDB;
   border-radius: 6px;
-  border: 2px solid var(--navy-deep);
+  border: 2px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold-deep); }
 
 body {
-  /* Un solo fondo continuo para toda la página: las secciones no llevan
-     color propio, así no quedan cortes duros entre una y otra */
-  background: linear-gradient(180deg, #070C1B 0%, #0A1228 38%, #081231 64%, #060A16 100%);
-  background-attachment: fixed;
-  color: var(--paper);
+  background: var(--bg);
+  color: var(--navy);
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.68;
@@ -68,9 +84,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Capa de luz ambiental: va fija sobre el fondo y debajo de todo el
-   contenido. Al ser una sola capa continua, ninguna sección corta el
-   degradado en su borde — no quedan costuras entre secciones. */
+/* Capa ambiental: dos toques muy tenues, dorado y azul metálico, en
+   las esquinas opuestas. Minimalista a propósito — el blanco tiene
+   que seguir leyéndose como blanco, no como un degradado de color. */
 body::before {
   content: "";
   position: fixed;
@@ -78,9 +94,8 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(920px 620px at 76% 6%, rgba(249, 197, 54, 0.09), transparent 60%),
-    radial-gradient(1000px 720px at 6% 34%, rgba(2, 22, 74, 0.55), transparent 62%),
-    radial-gradient(900px 620px at 94% 74%, rgba(2, 22, 74, 0.42), transparent 62%);
+    radial-gradient(900px 600px at 90% -4%, rgba(249, 197, 54, 0.10), transparent 60%),
+    radial-gradient(900px 640px at 2% 102%, rgba(2, 22, 74, 0.06), transparent 62%);
 }
 
 img { max-width: 100%; display: block; }
@@ -119,7 +134,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 1.1rem;
 }
 
@@ -128,7 +143,7 @@ ul { list-style: none; }
   width: 2.2rem;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold));
+  background: linear-gradient(90deg, transparent, var(--gold-deep));
 }
 
 .section__head .eyebrow::after {
@@ -136,7 +151,7 @@ ul { list-style: none; }
   width: 2.2rem;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(270deg, transparent, var(--gold));
+  background: linear-gradient(270deg, transparent, var(--gold-deep));
 }
 
 .section__title {
@@ -147,6 +162,7 @@ ul { list-style: none; }
   letter-spacing: -0.015em;
   margin-bottom: 1.1rem;
   text-wrap: balance;
+  color: var(--navy);
 }
 
 .section__lead {
@@ -163,10 +179,9 @@ ul { list-style: none; }
 
 .section { position: relative; padding: 7.5rem 0; }
 
-/* Separador: un filete dorado que se desvanece hacia los extremos,
-   en lugar de un cambio de color entre secciones */
-.section + .section::before,
-.cta::before {
+/* Separador: un filete azul-navy muy tenue, en vez del cambio de
+   color entre secciones que ya no aplica sobre un fondo blanco liso */
+.section + .section::before {
   content: "";
   position: absolute;
   top: 0;
@@ -177,12 +192,26 @@ ul { list-style: none; }
   background: linear-gradient(90deg, transparent, var(--line), transparent);
 }
 
+/* El límite entre el blanco y el bloque oscuro de la cita es su propia
+   costura: un hilo dorado, el único punto donde el dorado se ve pleno
+   porque cae sobre el borde del panel navy, no sobre blanco */
+.cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--container), 100% - 2.8rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(249, 197, 54, 0.5), transparent);
+}
+
 /* Tope de medida: con el contenedor ancho, una columna de texto sin
    límite pasa de las 90 letras por línea y se vuelve incómoda de leer */
 .prose { max-width: 62ch; }
 
 .prose p { color: var(--muted); margin-bottom: 1rem; }
-.prose strong { color: var(--paper); font-weight: 600; }
+.prose strong { color: var(--navy); font-weight: 700; }
 
 .credential {
   font-family: var(--font-body);
@@ -190,7 +219,7 @@ ul { list-style: none; }
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 /* ---------- Botones ---------- */
@@ -216,27 +245,39 @@ ul { list-style: none; }
 .btn--gold {
   background: linear-gradient(135deg, var(--gold-soft), var(--gold) 52%, var(--gold-deep));
   color: #0A1226;
-  box-shadow: 0 14px 30px -18px rgba(249, 197, 54, 0.8);
+  box-shadow: 0 14px 30px -18px rgba(196, 140, 14, 0.55);
 }
 
 .btn--gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 36px -18px rgba(249, 197, 54, 0.9);
+  box-shadow: 0 20px 36px -18px rgba(196, 140, 14, 0.65);
 }
 
 .btn--ghost {
   border-color: var(--line);
-  color: var(--paper);
+  color: var(--navy);
 }
 
 .btn--ghost:hover {
-  border-color: var(--gold);
-  background: rgba(249, 197, 54, 0.12);
+  border-color: var(--gold-deep);
+  background: rgba(249, 197, 54, 0.09);
   transform: translateY(-2px);
 }
 
 .btn--sm { padding: 0.68rem 1.25rem; font-size: 0.88rem; }
 .btn--lg { padding: 1.1rem 2.2rem; font-size: 1.02rem; }
+
+/* Sobre los paneles oscuros (cita, pie) el botón fantasma necesita su
+   propio contraste: borde y texto claros, no el navy que usa en blanco */
+.cta .btn--ghost, .footer .btn--ghost {
+  border-color: rgba(243, 241, 235, 0.3);
+  color: var(--on-dark);
+}
+
+.cta .btn--ghost:hover, .footer .btn--ghost:hover {
+  border-color: var(--gold);
+  background: rgba(249, 197, 54, 0.14);
+}
 
 /* ---------- Header ---------- */
 
@@ -251,9 +292,9 @@ ul { list-style: none; }
 }
 
 .header--scrolled {
-  background: rgba(7, 11, 24, 0.85);
+  background: rgba(252, 253, 255, 0.88);
   backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 var(--line-soft), 0 18px 40px -30px #000;
+  box-shadow: 0 1px 0 var(--line), 0 18px 40px -32px rgba(2, 22, 74, 0.35);
 }
 
 .header__inner {
@@ -278,7 +319,7 @@ ul { list-style: none; }
   font-weight: 700;
   font-size: 1.14rem;
   letter-spacing: 0.055em;
-  color: var(--paper);
+  color: var(--navy);
   white-space: nowrap;
 }
 
@@ -287,7 +328,7 @@ ul { list-style: none; }
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   white-space: nowrap;
 }
 
@@ -298,7 +339,7 @@ ul { list-style: none; }
   font-family: var(--font-head);
   font-size: 0.92rem;
   font-weight: 500;
-  color: var(--paper);
+  color: var(--navy);
   padding: 0.35rem 0;
   transition: color 0.25s ease;
 }
@@ -311,14 +352,14 @@ ul { list-style: none; }
   height: 2px;
   width: 0;
   border-radius: 2px;
-  background: var(--gold);
+  background: var(--gold-deep);
   transition: width 0.28s ease;
 }
 
-.nav__link:hover { color: var(--gold); }
+.nav__link:hover { color: var(--gold-ink); }
 .nav__link:hover::after,
 .nav__link--active::after { width: 100%; }
-.nav__link--active { color: var(--gold); }
+.nav__link--active { color: var(--gold-ink); }
 
 .nav__cta { margin-left: 0.4rem; }
 
@@ -340,10 +381,11 @@ ul { list-style: none; }
   display: block;
   height: 2px;
   border-radius: 2px;
-  background: var(--gold);
-  transition: transform 0.3s ease, opacity 0.2s ease;
+  background: var(--navy);
+  transition: transform 0.3s ease, opacity 0.2s ease, background 0.2s ease;
 }
 
+.burger--open span { background: var(--gold-deep); }
 .burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .burger--open span:nth-child(2) { opacity: 0; }
 .burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -370,11 +412,14 @@ ul { list-style: none; }
   line-height: 1.02;
   letter-spacing: 0.005em;
   margin-bottom: 1.1rem;
+  color: var(--navy);
 }
 
-/* El apellido en dorado degradado */
+/* El apellido en un degradado dorado más profundo que el de trabajo:
+   sobre blanco, el dorado vivo casi no se ve (1.6:1); este, al ser
+   texto grande, solo necesita 3:1 y lo cumple con margen. */
 .hero__title span {
-  background: linear-gradient(120deg, var(--gold-soft), var(--gold) 45%, var(--gold-deep));
+  background: linear-gradient(120deg, var(--gold-ink-soft), var(--gold-deep) 55%, var(--gold-ink));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -386,7 +431,7 @@ ul { list-style: none; }
   font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--gold);
+  color: var(--gold-ink);
   text-transform: uppercase;
 }
 
@@ -398,7 +443,7 @@ ul { list-style: none; }
   bottom: 0.3em;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--gold), transparent);
+  background: linear-gradient(180deg, var(--gold-deep), transparent);
 }
 
 /* Las tres líneas de formación: son hechos verificables, no títulos */
@@ -426,10 +471,10 @@ ul { list-style: none; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--gold-deep);
 }
 
-.hero__formacion strong { color: var(--paper); font-weight: 600; }
+.hero__formacion strong { color: var(--navy); font-weight: 700; }
 
 .hero__subtitle {
   max-width: 48ch;
@@ -467,7 +512,8 @@ ul { list-style: none; }
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
-/* Luz dorada detrás de la figura */
+/* Luz dorada detrás de la figura: sobre blanco alcanza con muy poca
+   opacidad, como una viñeta de estudio */
 .retrato__halo {
   position: absolute;
   left: 50%;
@@ -477,19 +523,21 @@ ul { list-style: none; }
   transform: translate(-50%, -50%) translateZ(-80px);
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(249, 197, 54, 0.26),
-    rgba(249, 197, 54, 0.08) 46%,
+    rgba(249, 197, 54, 0.20),
+    rgba(249, 197, 54, 0.06) 46%,
     transparent 68%);
 }
 
-/* El anillo que orbita: es el gesto del logo, ahora alrededor del doctor */
+/* El anillo que orbita: es el gesto del logo, ahora alrededor del
+   doctor. En azul metálico para que se distinga sobre blanco — el
+   dorado puro ahí se perdería — con un punto dorado que marca el giro. */
 .retrato__aro {
   position: absolute;
   left: 50%;
   top: 58%;
   width: 124%;
   aspect-ratio: 1;
-  border: 1px dashed rgba(249, 197, 54, 0.30);
+  border: 1px dashed rgba(2, 22, 74, 0.22);
   border-radius: 50%;
   transform: translate(-50%, -50%) translateZ(-40px) rotateX(76deg);
   animation: aroGira 30s linear infinite;
@@ -505,7 +553,7 @@ ul { list-style: none; }
   margin-left: -4.5px;
   border-radius: 50%;
   background: var(--gold);
-  box-shadow: 0 0 18px 3px rgba(249, 197, 54, 0.75);
+  box-shadow: 0 0 18px 3px rgba(249, 197, 54, 0.55);
 }
 
 @keyframes aroGira {
@@ -513,29 +561,25 @@ ul { list-style: none; }
   to   { transform: translate(-50%, -50%) translateZ(-40px) rotateX(76deg) rotateZ(360deg); }
 }
 
-/* Marco rectangular (4:5), más alto que la foto cuadrada que hay
-   dentro. object-fit: contain para que la foto se vea COMPLETA, sin
-   recortar los brazos cruzados; el sobrante queda como banda arriba y
-   abajo, rellena por el `background` de este mismo elemento. */
+/* Marco rectangular (9:10): la foto en sí se recorta a ese formato
+   (object-fit: cover), no se le agregan bandas ni bordes para simular
+   el rectángulo. 9:10 es el recorte más angosto que no le corta las
+   manos cruzadas de esta foto en particular — si se cambia la foto,
+   revisar de nuevo cuánto se puede angostar sin cortar brazos. */
 .retrato__foto {
   position: relative;
   width: 100%;
   /* height: auto es obligatorio: el atributo height del <img> gana sobre
      aspect-ratio y estiraría la foto a su alto natural */
   height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: contain;
+  aspect-ratio: 9 / 10;
+  object-fit: cover;
   object-position: 50% 50%;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.65), rgba(8, 14, 32, 0.55));
   border-radius: 34px;
   border: 1px solid var(--line);
-  box-shadow: 0 40px 70px -40px #000;
+  box-shadow: 0 40px 70px -38px rgba(2, 22, 74, 0.45);
   transform: translateZ(30px);
 }
-
-/* Nada de velos degradados sobre la foto: dentro del contexto 3D Chrome
-   los rasteriza en bandas y se ve una franja cruzando la cara. El marco
-   en arco con su filete y su sombra ya la separa del fondo. */
 
 /* ---------- Barra de confianza ---------- */
 
@@ -565,7 +609,7 @@ ul { list-style: none; }
   font-size: 1.22rem;
   font-weight: 700;
   line-height: 1.15;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .trust__list span { font-size: 0.84rem; color: var(--muted); }
@@ -598,31 +642,41 @@ ul { list-style: none; }
   text-align: center;
 }
 
-/* Cada punto es su propio recuadro: leídos en fila corrida se apelmazaban */
+/* Cada punto es su propio recuadro: leídos en fila corrida se apelmazaban.
+   Tarjeta blanca con filete navy tenue — el mismo lenguaje que las
+   tarjetas de tratamientos, para que la página se lea como un solo
+   sistema en vez de secciones sueltas. */
 .checks { display: grid; gap: 1rem; }
 
 .checks li {
   position: relative;
   padding: 1.35rem 1.6rem 1.35rem 4rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.42), rgba(8, 14, 32, 0.24));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
   color: var(--muted);
   font-size: 0.97rem;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.checks li:hover { border-color: var(--line); }
+.checks li:hover {
+  border-color: var(--line);
+  box-shadow: 0 26px 46px -30px rgba(2, 22, 74, 0.32);
+  transform: translateY(-3px);
+}
 
 .checks strong {
   display: block;
   margin-bottom: 0.3rem;
-  color: var(--paper);
+  color: var(--navy);
   font-family: var(--font-head);
   font-weight: 600;
   font-size: 1.02rem;
 }
 
+/* Insignia navy-metal con el visto dorado — el mismo motivo que los
+   iconos de tratamientos, para que se lea como una sola familia */
 .checks li::before {
   content: "";
   position: absolute;
@@ -631,11 +685,10 @@ ul { list-style: none; }
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(249, 197, 54, 0.14);
-  border: 1px solid var(--line);
+  background: var(--metal);
+  border: 1px solid rgba(249, 197, 54, 0.35);
 }
 
-/* El pico del visto: va calzado sobre el círculo de arriba */
 .checks li::after {
   content: "";
   position: absolute;
@@ -664,15 +717,16 @@ ul { list-style: none; }
 .formacion {
   position: relative;
   padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.5), rgba(8, 14, 32, 0.3));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
 }
 
 /* San Marcos es el activo de confianza más fuerte del sitio */
 .formacion--destacada {
   border-color: var(--line);
-  box-shadow: 0 0 0 5px rgba(249, 197, 54, 0.05), 0 30px 60px -40px #000;
+  box-shadow: 0 0 0 5px rgba(249, 197, 54, 0.06), 0 30px 55px -36px rgba(2, 22, 74, 0.35);
 }
 
 /* Filete dorado, el mismo gesto que la credencial del hero */
@@ -684,7 +738,7 @@ ul { list-style: none; }
   bottom: 2rem;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(180deg, var(--gold), transparent);
+  background: linear-gradient(180deg, var(--gold-deep), transparent);
 }
 
 .formacion__rotulo {
@@ -694,7 +748,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 /* En Cinzel, como el nombre del doctor: le da el mismo peso institucional */
@@ -704,14 +758,14 @@ ul { list-style: none; }
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: 0.01em;
-  color: var(--paper);
+  color: var(--navy);
 }
 
 .formacion__lugar {
   margin-top: 0.35rem;
   font-size: 0.8rem;
   letter-spacing: 0.05em;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .formacion__texto {
@@ -726,9 +780,10 @@ ul { list-style: none; }
   display: grid;
   gap: 1.5rem;
   padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.35), rgba(8, 14, 32, 0.22));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
 }
 
 .cv li { display: flex; flex-direction: column; gap: 0.15rem; }
@@ -743,7 +798,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .cv__valor {
@@ -751,7 +806,7 @@ ul { list-style: none; }
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.4;
-  color: var(--paper);
+  color: var(--navy);
 }
 
 /* ---------- Tratamientos ---------- */
@@ -765,10 +820,11 @@ ul { list-style: none; }
 .card {
   position: relative;
   padding: 2.6rem 2.2rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.55), rgba(8, 14, 32, 0.35));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
   overflow: hidden;
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -786,11 +842,13 @@ ul { list-style: none; }
 .card:hover {
   transform: translateY(-7px);
   border-color: var(--line);
-  box-shadow: 0 26px 50px -30px #000;
+  box-shadow: 0 30px 54px -30px rgba(2, 22, 74, 0.32);
 }
 
 .card:hover::before { opacity: 1; }
 
+/* Insignia navy-metal con el icono dorado encima: el motivo se repite
+   en las seis tarjetas, con un filo dorado fino que le da el brillo */
 .card__icon {
   display: grid;
   place-items: center;
@@ -798,9 +856,10 @@ ul { list-style: none; }
   height: 56px;
   margin-bottom: 1.6rem;
   border-radius: 16px;
-  background: rgba(249, 197, 54, 0.13);
-  border: 1px solid var(--line-soft);
+  background: var(--metal);
+  border: 1px solid rgba(249, 197, 54, 0.35);
   color: var(--gold);
+  box-shadow: 0 14px 24px -16px rgba(2, 22, 74, 0.5);
 }
 
 .card__icon svg { width: 30px; height: 30px; }
@@ -811,6 +870,7 @@ ul { list-style: none; }
   font-weight: 600;
   margin-bottom: 0.55rem;
   text-wrap: balance;
+  color: var(--navy);
 }
 
 .card__text { color: var(--muted); font-size: 0.95rem; }
@@ -830,7 +890,7 @@ ul { list-style: none; }
   border-radius: var(--radius);
   border: 1px solid var(--line);
   overflow: hidden;
-  box-shadow: 0 0 0 6px rgba(249, 197, 54, 0.07), 0 40px 70px -40px #000;
+  box-shadow: 0 0 0 6px rgba(2, 22, 74, 0.04), 0 30px 60px -34px rgba(2, 22, 74, 0.35);
 }
 
 .place__map iframe {
@@ -841,6 +901,8 @@ ul { list-style: none; }
   border: 0;
 }
 
+/* La insignia del mapa se queda oscura a propósito: es un rótulo
+   flotando sobre las calles del mapa, no sobre el fondo de la página */
 .place__pin {
   position: absolute;
   top: 14px;
@@ -849,13 +911,13 @@ ul { list-style: none; }
   align-items: center;
   gap: 0.6rem;
   padding: 0.6rem 1rem 0.6rem 0.85rem;
-  background: rgba(8, 13, 28, 0.9);
-  border: 1px solid var(--line);
+  background: rgba(5, 11, 30, 0.88);
+  border: 1px solid rgba(249, 197, 54, 0.25);
   border-radius: 999px;
   font-family: var(--font-head);
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--paper);
+  color: var(--on-dark);
   pointer-events: none;
   backdrop-filter: blur(6px);
 }
@@ -887,9 +949,10 @@ ul { list-style: none; }
   flex-direction: column;
   gap: 2.2rem;
   padding: 2.6rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.55), rgba(8, 14, 32, 0.35));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
 }
 
 .place__data { display: grid; gap: 1.8rem; }
@@ -901,7 +964,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .place__value {
@@ -909,6 +972,7 @@ ul { list-style: none; }
   font-size: 1.05rem;
   font-weight: 500;
   line-height: 1.45;
+  color: var(--navy);
 }
 
 /* Los enlaces van subrayados: el color no puede ser la única señal */
@@ -918,7 +982,7 @@ ul { list-style: none; }
   text-underline-offset: 4px;
 }
 
-.place__value a:hover { color: var(--gold); text-decoration-color: var(--gold); }
+.place__value a:hover { color: var(--gold-ink); text-decoration-color: var(--gold-deep); }
 
 .place__actions {
   display: grid;
@@ -928,10 +992,13 @@ ul { list-style: none; }
 
 /* ---------- Franja de cita ---------- */
 
+/* Único bloque navy-metálico a medio camino de la página: el sitio es
+   blanco y este es uno de los dos "toques" oscuros que pediste, el
+   otro es el pie. Texto e íconos claros, botón dorado como siempre. */
 .cta {
   position: relative;
   padding: 5.5rem 0;
-  background: radial-gradient(760px 340px at 50% 50%, rgba(249, 197, 54, 0.16), transparent 70%);
+  background: var(--metal);
 }
 
 .cta__inner { text-align: center; }
@@ -942,21 +1009,25 @@ ul { list-style: none; }
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 0.7rem;
+  color: var(--on-dark);
 }
 
 .cta__text {
   max-width: 46ch;
   margin: 0 auto 2rem;
-  color: var(--muted);
+  color: var(--on-dark-muted);
 }
 
 /* ---------- Footer ---------- */
 
-/* El hueco de abajo lo pide el botón flotante de WhatsApp: sin él tapa
-   la línea legal y el enlace a la política de privacidad */
+/* El segundo bloque navy-metálico: mismo degradado que la cita, para
+   que los dos "toques" oscuros de la página se sientan de la misma
+   familia y no como dos ideas distintas */
 .footer {
+  position: relative;
   padding: 4rem 0 5.5rem;
-  border-top: 1px solid var(--line-soft);
+  background: var(--metal);
+  color: var(--on-dark-muted);
 }
 
 .footer__inner {
@@ -972,14 +1043,14 @@ ul { list-style: none; }
   margin-bottom: 1rem;
 }
 
-.footer__brand p { color: var(--muted); font-size: 0.92rem; }
+.footer__brand p { color: var(--on-dark-muted); font-size: 0.92rem; }
 
 .footer__brand strong {
   display: block;
   font-family: var(--font-brand);
   font-size: 1.02rem;
   letter-spacing: 0.04em;
-  color: var(--paper);
+  color: var(--on-dark);
   margin-bottom: 0.3rem;
 }
 
@@ -995,15 +1066,18 @@ ul { list-style: none; }
 
 .footer__nav, .footer__contact { display: flex; flex-direction: column; gap: 0.8rem; }
 
-.footer__nav a, .footer__contact a, .footer__contact span {
-  color: var(--muted);
+/* :not(.footer__label) es obligatorio: sin él, este selector le gana
+   en especificidad a .footer__label (clase+etiqueta vence a una sola
+   clase) y el rótulo "Contacto" pierde el dorado. */
+.footer__nav a, .footer__contact a, .footer__contact span:not(.footer__label) {
+  color: var(--on-dark-muted);
   font-size: 0.92rem;
   transition: color 0.2s ease;
 }
 
 .footer__nav a, .footer__contact a {
   text-decoration: underline;
-  text-decoration-color: rgba(147, 160, 181, 0.4);
+  text-decoration-color: rgba(169, 179, 196, 0.4);
   text-underline-offset: 4px;
 }
 
@@ -1025,7 +1099,7 @@ ul { list-style: none; }
 
 .social:hover {
   transform: translateY(-5px) scale(1.06);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
 }
 
 .social__img, .social__mark svg { width: 100%; height: 100%; display: block; }
@@ -1043,14 +1117,14 @@ ul { list-style: none; }
   gap: 0.5rem;
   margin-top: 3rem;
   padding-top: 1.6rem;
-  border-top: 1px solid var(--line-soft);
+  border-top: 1px solid rgba(243, 241, 235, 0.14);
   font-size: 0.8rem;
-  color: var(--muted);
+  color: var(--on-dark-muted);
 }
 
 .footer__legal a {
   text-decoration: underline;
-  text-decoration-color: rgba(147, 160, 181, 0.4);
+  text-decoration-color: rgba(169, 179, 196, 0.4);
   text-underline-offset: 4px;
 }
 
@@ -1062,9 +1136,9 @@ ul { list-style: none; }
 
 .legal-page .header {
   position: sticky;
-  background: rgba(7, 11, 24, 0.9);
+  background: rgba(252, 253, 255, 0.92);
   backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 var(--line-soft);
+  box-shadow: 0 1px 0 var(--line);
 }
 
 .legal { padding: 3.4rem 0 5rem; }
@@ -1079,22 +1153,24 @@ ul { list-style: none; }
   letter-spacing: -0.015em;
   margin-bottom: 0.6rem;
   text-wrap: balance;
+  color: var(--navy);
 }
 
 .legal__fecha {
   font-size: 0.8rem;
   letter-spacing: 0.06em;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 2rem;
 }
 
 .legal__intro {
   padding: 1.4rem 1.6rem;
   margin-bottom: 2.6rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.5), rgba(8, 14, 32, 0.3));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
-  color: var(--paper);
+  color: var(--navy);
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
 }
 
 .legal h2 {
@@ -1102,18 +1178,18 @@ ul { list-style: none; }
   font-size: 1.16rem;
   font-weight: 600;
   margin: 2.4rem 0 0.8rem;
-  color: var(--paper);
+  color: var(--navy);
 }
 
 .legal p { color: var(--muted); margin-bottom: 1rem; }
-.legal strong { color: var(--paper); font-weight: 600; }
+.legal strong { color: var(--navy); font-weight: 700; }
 
 /* Solo los enlaces del texto: si el selector fuera `.legal a` le ganaría
    por especificidad a `.btn--gold` y dejaría el botón dorado con el
    texto dorado encima */
 .legal p a,
 .legal li a {
-  color: var(--gold);
+  color: var(--gold-ink);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -1134,7 +1210,7 @@ ul { list-style: none; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--gold-deep);
 }
 
 .legal__datos {
@@ -1142,15 +1218,16 @@ ul { list-style: none; }
   gap: 1rem;
   padding: 1.5rem 1.7rem;
   margin-bottom: 1.2rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.35), rgba(8, 14, 32, 0.22));
+  background: linear-gradient(165deg, var(--surface), #F3F6FB);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
+  box-shadow: 0 20px 40px -34px rgba(2, 22, 74, 0.3);
 }
 
 .legal__datos li {
   font-family: var(--font-head);
   font-size: 1rem;
-  color: var(--paper);
+  color: var(--navy);
 }
 
 .legal__datos span {
@@ -1160,7 +1237,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .legal__cierre {
@@ -1176,7 +1253,8 @@ ul { list-style: none; }
 
 /* El verde va oscurecido a propósito: el #25D366 de marca con texto
    blanco encima da 2:1 y no llega al mínimo AA (4.5:1). Así da 5.2:1
-   y sigue leyéndose como WhatsApp. */
+   y sigue leyéndose como WhatsApp. Funciona igual sobre fondo blanco
+   u oscuro porque no depende del fondo de la página, solo del suyo. */
 .whatsapp-float {
   position: fixed;
   right: 1.5rem;
@@ -1191,7 +1269,7 @@ ul { list-style: none; }
   color: #fff;
   box-shadow:
     0 0 0 7px rgba(37, 211, 102, 0.12),
-    0 18px 38px -14px rgba(10, 92, 49, 0.75);
+    0 18px 38px -14px rgba(10, 92, 49, 0.55);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1199,7 +1277,7 @@ ul { list-style: none; }
   transform: translateY(-3px);
   box-shadow:
     0 0 0 9px rgba(37, 211, 102, 0.18),
-    0 22px 44px -14px rgba(10, 92, 49, 0.85);
+    0 22px 44px -14px rgba(10, 92, 49, 0.65);
 }
 
 .whatsapp-float__icon {
@@ -1245,9 +1323,16 @@ ul { list-style: none; }
 /* ---------- Accesibilidad ---------- */
 
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--navy);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* Dentro de los bloques navy-metálicos un contorno navy se pierde:
+   ahí el foco se marca en dorado, que sobre ese fondo sí resalta */
+.cta :focus-visible,
+.footer :focus-visible {
+  outline-color: var(--gold);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1283,9 +1368,9 @@ ul { list-style: none; }
     align-items: flex-start;
     gap: 0;
     padding: 1.8rem;
-    background: rgba(8, 13, 28, 0.97);
+    background: rgba(252, 253, 255, 0.98);
     backdrop-filter: blur(16px);
-    border-left: 1px solid var(--line-soft);
+    border-left: 1px solid var(--line);
     transform: translateX(100%);
     transition: transform 0.35s ease;
     overflow-y: auto;

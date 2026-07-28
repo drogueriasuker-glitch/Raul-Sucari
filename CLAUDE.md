@@ -85,23 +85,55 @@ cada una con su `--user-data-dir`.
 
 ## Identidad visual
 
-Navy **`#02164A`** y amarillo **`#FFC401`** son los colores oficiales, pero la página
-los usa rebajados: el dorado de trabajo es `#F9C536` (`--gold`) y el navy oficial vive
-dentro de degradados sobre una base más oscura y neutra. Todos los tokens están en
-`:root` al inicio de `styles.css`.
+**Fondo predominantemente blanco**, por pedido explícito del cliente ("quiero que el
+color blanco esté más presente… con unos toques dorados y azules metálicos
+minimalistas"). Antes el sitio era de fondo navy oscuro con texto claro; se invirtió
+por completo. Navy **`#02164A`** y amarillo **`#FFC401`** siguen siendo los colores
+oficiales, pero cambiaron de rol: el navy pasó a ser el color del **texto** (no del
+fondo) y el dorado quedó **solo para acentos**, nunca como texto directo sobre blanco.
+Todos los tokens están en `:root` al inicio de `styles.css`.
 
-Regla que sostiene ese look: **las secciones no llevan color de fondo propio**. Hay un
-solo degradado continuo en `body` más una capa de luz ambiental fija en `body::before`,
-y las secciones se separan con un filete dorado que se desvanece en los extremos
-(`.section + .section::before`). Poner un `background` plano en una sección reintroduce
-las costuras duras que se quitaron a propósito.
+**Por qué el dorado nunca es texto sobre blanco**: `--gold` (`#F9C536`) sobre blanco da
+apenas **1.6:1** de contraste — casi invisible, muy lejos del mínimo AA (4.5:1). Por
+eso existe `--gold-ink` (`#7A5A0E`, un dorado oscurecido / bronce) que sí da **6.4:1** y
+es el único que se usa como texto (eyebrows, rótulos, credenciales, "strong" de la
+barra de confianza). El dorado vivo (`--gold`/`--gold-vivid`) se reserva para: fondos
+de botón (con texto navy encima, sigue dando ~11:1), iconos y chips sobre superficies
+oscuras (nunca sobre blanco), y filetes/puntos decorativos donde no aplica la regla de
+contraste de texto. Si se agrega un elemento nuevo con `color: var(--gold)`, verificar
+primero si va sobre blanco (entonces no) o sobre un panel oscuro (entonces sí).
 
-Contraste: el sitio cumple **WCAG AA**. Las combinaciones a respetar son `--muted`
-sobre el fondo (7:1), dorado sobre el fondo (11:1) y **dorado de fondo solo con texto
-navy encima** (`.btn--gold`, 11:1). Texto blanco sobre amarillo o amarillo sobre blanco
-están prohibidos. El verde del botón flotante de WhatsApp va oscurecido a propósito
-(`#0F7D44`): el `#25D366` de marca con texto blanco da 2:1 y no pasa AA. Los enlaces
-van subrayados, porque el color no puede ser la única señal.
+**Los "toques" oscuros están concentrados, no repartidos**: en vez de salpicar navy por
+toda la página, hay exactamente dos bloques navy-metálicos (`var(--metal)`, un
+degradado navy → azul acero → navy profundo) que hacen de contrapunto al blanco: la
+**franja de cita** (`.cta`) y el **pie de página** (`.footer`). Dentro de esos dos
+bloques los roles de color se invierten otra vez: el texto va en `--on-dark` /
+`--on-dark-muted` (claros) y el dorado vuelve a ser vivo, porque ahí sí tiene contraste
+de sobra. Si se agrega un tercer bloque oscuro, no reutilizar `--muted` ni `--navy`
+para su texto — esos tokens están calibrados para fondo blanco y fallarían sobre navy.
+
+El resto de tarjetas (`.card`, `.checks li`, `.formacion`, `.cv`, `.place__info`,
+`.legal__intro`, `.legal__datos`) comparten la misma fórmula: fondo blanco con un
+degradado casi imperceptible hacia `#F3F6FB`, borde `--line-soft` (navy al 7%) y una
+sombra teñida de navy en vez de negro puro (`rgba(2, 22, 74, 0.3)`) — es lo que le da
+el aire "premium" en vez de una sombra genérica.
+
+Los iconos de los tratamientos y las insignias de "Cómo trabajo" comparten un mismo
+motivo: **chip navy-metálico con icono dorado y un filo dorado fino** (`--metal` de
+fondo, `border: 1px solid rgba(249, 197, 54, 0.35)`). Se repite igual en las seis
+tarjetas de tratamientos y en los cinco puntos de "Cómo trabajo" — es el detalle que
+hace que blanco + dorado + azul metálico se lea como un solo sistema y no como
+secciones sueltas.
+
+Contraste: el sitio sigue cumpliendo **WCAG AA**, recalculado para el fondo claro.
+Combinaciones de referencia: `--navy` sobre blanco (17:1), `--muted` sobre blanco
+(6:1), `--gold-ink` sobre blanco (6.4:1), dorado de fondo con texto navy encima
+(`.btn--gold`, ~11:1, sin cambios). Texto blanco sobre amarillo o amarillo sobre
+blanco siguen prohibidos — ahora con más razón, porque el fondo por defecto es blanco.
+El verde del botón flotante de WhatsApp sigue oscurecido a propósito (`#0F7D44`): el
+`#25D366` de marca con texto blanco da 2:1 y no pasa AA; esto no depende del fondo de
+la página, así que no cambió. Los enlaces van subrayados, porque el color no puede ser
+la única señal.
 
 Tres tipografías, cada una con un papel: **Cinzel** para el nombre del doctor y el
 título del hero, **Outfit** para títulos y botones, **Manrope** para el cuerpo y las

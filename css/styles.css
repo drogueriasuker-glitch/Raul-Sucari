@@ -592,16 +592,6 @@ ul { list-style: none; }
   border: 1px solid var(--line);
 }
 
-.office__media figcaption {
-  margin-top: 0.9rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-align: center;
-}
-
 /* Cada punto es su propio recuadro: leídos en fila corrida se apelmazaban */
 .checks { display: grid; gap: 1rem; }
 

@@ -42,15 +42,6 @@
   --gold-ink:      #96700A;
   --gold-ink-soft: #B8860B;
 
-  /* Veta metálica para texto grande: el reflejo va de claro a oscuro
-     y vuelve a claro. El tono más claro del degradado es el que manda
-     para el contraste, por eso no pasa de --gold-ink-soft. */
-  --veta-dorada: linear-gradient(100deg,
-    #B8860B 0%,
-    #A67C00 28%,
-    #8A6408 58%,
-    #B8860B 100%);
-
   --bg:      #FCFDFF;   /* blanco con un dejo frío, fondo general */
   --surface: #FFFFFF;   /* tarjetas */
   --muted:   #57616F;   /* texto secundario sobre blanco — 6:1 */
@@ -180,6 +171,10 @@ ul { list-style: none; }
 
 /* ---------- Tipografía común ---------- */
 
+/* Pastilla navy con el dorado claro de marca encima. El dorado claro
+   sobre blanco da 2:1 y es ilegible; sobre este navy da 10.7:1. Es la
+   única forma de que el dorado se vea vivo y siga siendo legible.
+   Los filetes laterales van fuera de la pastilla, como remate. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -190,6 +185,18 @@ ul { list-style: none; }
   text-transform: uppercase;
   color: var(--gold-ink);
   margin-bottom: 1.1rem;
+}
+
+.eyebrow__texto {
+  display: inline-block;
+  padding: 0.42rem 1rem 0.42rem 1.06rem; /* +0.06 a la izquierda: lo pide el letter-spacing del final */
+  border-radius: 999px;
+  background: var(--metal);
+  border: 1px solid rgba(249, 197, 54, 0.35);
+  box-shadow:
+    0 1px 2px rgba(2, 22, 74, 0.18),
+    0 8px 18px -10px rgba(2, 22, 74, 0.4);
+  color: var(--gold);
 }
 
 .eyebrow::before {
@@ -665,19 +672,22 @@ ul { list-style: none; }
   border-left: 1px solid var(--line-soft);
 }
 
-/* Texto grande (19.5px en negrita), así que admite el dorado claro con
-   veta metálica: el mínimo de contraste baja a 3:1 y --gold-ink-soft
-   da 3.25:1. Ojo al tamaño — ver la nota del bloque responsive. */
+/* Pastilla navy con el dorado claro de marca, igual que los eyebrow.
+   Sobre blanco este dorado daría 2:1; sobre el navy da 10.7:1. */
 .trust__list strong {
+  align-self: flex-start;
+  padding: 0.4rem 0.95rem;
+  border-radius: 12px;
+  background: var(--metal);
+  border: 1px solid rgba(249, 197, 54, 0.35);
+  box-shadow:
+    0 1px 2px rgba(2, 22, 74, 0.18),
+    0 8px 18px -10px rgba(2, 22, 74, 0.4);
   font-family: var(--font-head);
-  font-size: 1.22rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  line-height: 1.15;
-  color: var(--gold-ink-soft);
-  background: var(--veta-dorada);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1.25;
+  color: var(--gold);
 }
 
 .trust__list span { font-size: 0.84rem; color: var(--muted); }
@@ -1510,10 +1520,7 @@ ul { list-style: none; }
 @media (max-width: 700px) {
   .section { padding: 5rem 0; }
   .cards { grid-template-columns: 1fr; }
-  /* No bajar de 1.18rem (18.9px): por debajo de 18.7px en negrita deja
-     de contar como "texto grande" y el dorado claro con veta metálica
-     ya no cumpliría el contraste mínimo. */
-  .trust__list strong { font-size: 1.18rem; }
+  .trust__list strong { font-size: 1rem; padding: 0.35rem 0.8rem; }
   .place__info { padding: 1.7rem; }
   .footer__inner { grid-template-columns: 1fr; }
 }

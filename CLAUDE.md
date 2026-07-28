@@ -93,25 +93,38 @@ oficiales, pero cambiaron de rol: el navy pasó a ser el color del **texto** (no
 fondo) y el dorado quedó **solo para acentos**, nunca como texto directo sobre blanco.
 Todos los tokens están en `:root` al inicio de `styles.css`.
 
-**Por qué el dorado nunca es texto sobre blanco**: `--gold` (`#F9C536`) sobre blanco da
-apenas **1.6:1** de contraste — casi invisible, muy lejos del mínimo AA (4.5:1). Por eso
-hay dos dorados de texto, y están calibrados al límite de lo permitido a propósito
-(el cliente pidió que se vieran "más amarillo a dorado metálico claro", así que se
-subieron hasta donde la norma aguanta y ni un tono más):
+### Dorado claro = pastilla navy
+
+El cliente pidió varias veces que los rótulos se vieran de un **dorado claro** y no
+marrones. Sobre blanco eso es imposible: no es una regla, es óptica. `#F9C536` sobre
+blanco da 1.6:1 y `#D4A017` da 2.4:1 — ilegibles. Pero **ese mismo dorado sobre navy da
+10.7:1**.
+
+Por eso los rótulos que llevan dorado claro van dentro de una **pastilla navy**
+(`--metal` de fondo, filo dorado, sombra corta): `.eyebrow__texto` (los "UBICACIÓN",
+"CÓMO TRABAJO", etc.) y `.trust__list strong` (los "COP N.º 24841", "2.ª Especialidad").
+Ahí el dorado va `--gold` pleno, vivo y legible.
+
+`.eyebrow__texto` es un `<span>` **dentro** de `.eyebrow`: el `<p>` sigue siendo el
+contenedor flex que dibuja los filetes laterales con `::before`/`::after`, y el `<span>`
+es solo la pastilla. Un rótulo nuevo necesita las dos capas, si no queda el texto suelto
+sin fondo.
+
+**Regla práctica:** dorado claro (`--gold`) solo sobre navy. Sobre blanco, únicamente
+`--gold-ink` o `--gold-ink-soft`.
+
+**Los dorados que sí funcionan como texto sobre blanco**: para lo que no lleva pastilla
+(el apellido del hero, el filete de la credencial, los rótulos dentro de las tarjetas)
+siguen existiendo dos dorados oscurecidos, calibrados al límite de lo permitido:
 
 | token | ratio | dónde |
 |---|---|---|
 | `--gold-ink` `#96700A` | **4.55:1** | Texto normal. Es el más claro que aún pasa AA (mínimo 4.5:1): eyebrows, rótulos, credenciales, enlaces del texto legal. |
-| `--gold-ink-soft` `#B8860B` | **3.25:1** | **Solo texto grande**, donde el mínimo baja a 3:1. Grande = ≥24px normal o ≥18.7px en negrita. |
-| `--veta-dorada` | tope 3.25:1 | Degradado metálico (claro→oscuro→claro) para texto grande. Lo usa `.trust__list strong`. El **tono más claro** del degradado es el que manda para el contraste. |
+| `--gold-ink-soft` `#B8860B` | **3.25:1** | **Solo texto grande**, donde el mínimo baja a 3:1. Grande = ≥24px normal o ≥18.7px en negrita. Hoy solo lo usa el degradado del apellido en `.hero__title span`. |
 
 Referencias por si hay que retocar: `#A67C00` cae a 3.8:1 (ya no sirve para texto
-normal), `#DAA520` a 2.2:1 y `#FFC401` a 1.6:1 (no sirven para nada de texto).
-
-⚠️ `--gold-ink-soft` y `--veta-dorada` **dependen del tamaño de letra**. `.trust__list
-strong` mide 1.22rem en negrita (19.5px) y por eso califica como texto grande; en el
-bloque de ≤700px hay un `font-size: 1.18rem` con un comentario que avisa de no bajarlo,
-porque por debajo de 18.7px dejaría de calificar y el dorado claro pasaría a incumplir.
+normal), `#DAA520` a 2.2:1 y `#FFC401` a 1.6:1 (no sirven para nada de texto sobre
+blanco — para eso está la pastilla navy).
 
 El dorado vivo (`--gold`/`--gold-vivid`) se reserva para: fondos de botón (con texto
 navy encima, sigue dando ~11:1), iconos y chips sobre superficies oscuras (nunca sobre

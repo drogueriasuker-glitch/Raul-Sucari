@@ -551,20 +551,26 @@ ul { list-style: none; }
 
 /* ---------- Cómo trabajo ---------- */
 
+/* `stretch` en vez de `center`: la foto ocupa exactamente el alto de la
+   columna de al lado, del rótulo "Cómo trabajo" al final de la última
+   tarjeta. Es lo que la mantiene simétrica aunque cambie el número de
+   tarjetas o el largo de sus textos. */
 .office__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4.8rem;
-  align-items: center;
+  align-items: stretch;
 }
 
-/* Marco 9:10 para el retrato del doctor, que es cuadrado (1080×1080).
-   9:10 es el recorte más angosto que no le corta las manos cruzadas —
-   si entra otra foto, hay que volver a medir hasta dónde se angosta. */
+.office__media { display: flex; }
+
+/* Sin `aspect-ratio`: el alto lo pone la columna (100%) y el recorte lo
+   resuelve `cover`. El retrato es cuadrado (1080×1080) y aquí se ve a
+   una proporción de ~0,82, todavía por dentro de los codos; si se
+   alarga mucho esta sección, revisar que no empiece a cortarlos. */
 .office__media img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 9 / 10;
+  height: 100%;
   object-fit: cover;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -1292,6 +1298,10 @@ ul { list-style: none; }
 
   .doctor__inner, .office__inner { grid-template-columns: 1fr; gap: 3.2rem; }
   .office__media { order: -1; }
+
+  /* En una sola columna no hay alto que igualar: sin esto, el
+     `height: 100%` de la foto se queda sin referencia y colapsa. */
+  .office__media img { height: auto; aspect-ratio: 9 / 10; }
 
   .cards { grid-template-columns: repeat(2, 1fr); }
 

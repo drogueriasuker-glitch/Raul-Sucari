@@ -44,7 +44,16 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* El color de fondo va aquí y no solo en body: el navegador tiñe con el
+   fondo de html las zonas que no son la página — la barra de direcciones
+   de Safari en iOS y el rebote del scroll. El degradado del body no sirve
+   para eso (es una imagen, no un color), así que sin esta línea esas
+   zonas salen blancas. */
 html {
+  /* La página es oscura siempre: así el navegador pinta en oscuro lo que
+     dibuja él (barras, controles) y no mete un fondo claro por debajo. */
+  color-scheme: dark;
+  background: var(--navy-deep);
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-h) + 12px);
   scrollbar-color: #1b2743 var(--navy-deep);
@@ -61,8 +70,12 @@ html {
 
 body {
   /* Un solo fondo continuo para toda la página: las secciones no llevan
-     color propio, así no quedan cortes duros entre una y otra */
-  background: linear-gradient(180deg, #070C1B 0%, #0A1228 38%, #081231 64%, #060A16 100%);
+     color propio, así no quedan cortes duros entre una y otra.
+     El color y la imagen van en propiedades separadas a propósito: la
+     forma corta `background:` borraría el color y dejaría el degradado
+     sobre blanco mientras carga o si el navegador no lo pinta. */
+  background-color: var(--navy-deep);
+  background-image: linear-gradient(180deg, #070C1B 0%, #0A1228 38%, #081231 64%, #060A16 100%);
   background-attachment: fixed;
   color: var(--paper);
   font-family: var(--font-body);

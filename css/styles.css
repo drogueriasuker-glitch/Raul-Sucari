@@ -200,22 +200,6 @@ ul { list-style: none; }
   background: linear-gradient(90deg, transparent, var(--line), transparent);
 }
 
-/* Tope de medida: con el contenedor ancho, una columna de texto sin
-   límite pasa de las 90 letras por línea y se vuelve incómoda de leer */
-.prose { max-width: 62ch; }
-
-.prose p { color: var(--muted); margin-bottom: 1rem; }
-.prose strong { color: var(--paper); font-weight: 600; }
-
-.credential {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
 /* ---------- Botones ---------- */
 
 .btn {
@@ -779,9 +763,13 @@ ul { list-style: none; }
   align-items: stretch;
 }
 
+/* El fondo importa: el iframe va con loading="lazy", así que hasta que
+   Google responde este bloque está vacío. Sin color propio se veía el
+   blanco del hueco — un recuadro claro que saltaba al llegar scrolleando. */
 .place__map {
   position: relative;
   min-height: 440px;
+  background: var(--navy-soft);
   border-radius: var(--radius);
   border: 1px solid var(--line);
   overflow: hidden;

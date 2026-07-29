@@ -70,6 +70,12 @@ Invoke-Item index.html
 
 Al editar CSS/JS hace falta recarga forzada (Ctrl+F5).
 
+En el móvil no hay recarga forzada que valga: Safari en iOS se queda con el CSS viejo
+durante días y un arreglo publicado parece no haber llegado. Por eso los dos HTML piden
+la hoja como `css/styles.css?v=N`. **Al corregir algo que solo se ve en el teléfono, hay
+que subir el número en `index.html` y en `privacidad.html` a la vez**, o el cliente
+seguirá viendo el fallo y dirá que no se arregló.
+
 Para capturas headless (Chrome está en `C:\Program Files\Google\Chrome\Application`):
 
 ```powershell
@@ -90,11 +96,20 @@ los usa rebajados: el dorado de trabajo es `#F9C536` (`--gold`) y el navy oficia
 dentro de degradados sobre una base más oscura y neutra. Todos los tokens están en
 `:root` al inicio de `styles.css`.
 
-Regla que sostiene ese look: **las secciones no llevan color de fondo propio**. Hay un
-solo degradado continuo en `body` más una capa de luz ambiental fija en `body::before`,
-y las secciones se separan con un filete dorado que se desvanece en los extremos
-(`.section + .section::before`). Poner un `background` plano en una sección reintroduce
-las costuras duras que se quitaron a propósito.
+Regla que sostiene ese look: **las secciones no llevan color de fondo propio**. Todo el
+fondo —el degradado de base y la luz ambiental— vive en una sola capa, `body::before`,
+fija al viewport y con `z-index: -1`; las secciones se separan con un filete dorado que
+se desvanece en los extremos (`.section + .section::before`). Poner un `background`
+plano en una sección reintroduce las costuras duras que se quitaron a propósito.
+
+⚠️ **Nunca `background-attachment: fixed`.** El degradado estuvo así y en iOS Safari
+dejaba una banda blanca al bajar: la propiedad está rota ahí, y cuando la barra de
+direcciones se colapsa y el viewport crece, la franja recién descubierta no se repinta.
+El elemento fijo hace lo mismo y lo pintan todos los navegadores. Por el mismo motivo
+`html` lleva `background` sólido y `color-scheme: dark` —tiñe la barra del navegador y
+el rebote del scroll— y **todo hueco que tarde en llenarse necesita fondo propio**: le
+pasó a `.place__map`, que con el iframe en `loading="lazy"` enseñaba 440 px de blanco
+hasta que Google respondía.
 
 Contraste: el sitio cumple **WCAG AA**. Las combinaciones a respetar son `--muted`
 sobre el fondo (7:1), dorado sobre el fondo (11:1) y **dorado de fondo solo con texto

@@ -103,10 +103,22 @@ están prohibidos. El verde del botón flotante de WhatsApp va oscurecido a prop
 (`#0F7D44`): el `#25D366` de marca con texto blanco da 2:1 y no pasa AA. Los enlaces
 van subrayados, porque el color no puede ser la única señal.
 
-Tres tipografías, cada una con un papel: **Cinzel** para el nombre del doctor y el
-título del hero, **Outfit** para títulos y botones, **Manrope** para el cuerpo y las
-versalitas espaciadas. Se piden como rangos variables (`wght@400..700`), que Google
+Tres tipografías, cada una con un papel: **Playfair Display** para el nombre del doctor
+y el título del hero, **Outfit** para títulos y botones, **Manrope** para el cuerpo y
+las versalitas espaciadas. Se piden como rangos variables (`wght@400..700`), que Google
 sirve en un solo archivo por familia.
+
+La serif de marca **fue Cinzel y no debe volver**: Cinzel está dibujada solo con
+versalitas, así que "Dr. Raul Sucari Cruz" se leía todo en mayúsculas. Playfair tiene
+minúsculas de verdad. El cambio arrastra el interletrado, que va junto con la familia:
+Cinzel pedía tracking abierto (`letter-spacing` positivo) porque iba en caja alta;
+Playfair lo pide **casi nulo en el nombre** (header y pie) y **negativo en
+`.hero__title`**, donde a ese cuerpo una serif de alto contraste se ve suelta.
+
+⚠️ **La URL de Google Fonts está duplicada en `index.html` y en `privacidad.html`** y
+tiene que ser idéntica en las dos. Cambiar una familia son tres sitios: el `<link>` de
+cada HTML más `--font-brand` en `:root`; si se olvida `privacidad.html`, la legal cae al
+`Georgia` de respaldo sin que nada falle a la vista.
 
 ### La marca
 
@@ -138,9 +150,14 @@ no pueden compartir la propiedad `transform`.
   sin comprobar que existen `#header`, `#burger` y `#nav`: si se renombran, el script
   entero deja de correr. **Por eso `privacidad.html` no carga `main.js`** — no tiene
   menú; su cabecera se queda arriba con `position: sticky` vía `.legal-page .header`.
-- Cada `<section>` tiene `id` (`inicio`, `como-trabajo`, `doctor`, `tratamientos`,
-  `ubicacion`) y un `.nav__link` con `href="#id"`. El scrollspy compara ambos, así que
-  una sección nueva necesita las dos cosas.
+- Cada `<section>` tiene `id` (`inicio`, `como-trabajo`, `tratamientos`, `ubicacion`) y
+  un `.nav__link` con `href="#id"`. El scrollspy compara ambos, así que una sección nueva
+  necesita las dos cosas.
+- **Hubo una sección "El doctor" (`#doctor`) y el cliente pidió quitarla.** Se fue entera
+  con su CSS (`.doctor__*`, `.actos*`, `.formacion*`, `.cv*`) y con sus enlaces de menú y
+  de pie. La formación completa y el COP siguen visibles en `.hero__formacion`, así que no
+  se perdió ningún dato exigible. El JSON-LD **sí conserva** `@id … #doctor`: ahí es el
+  identificador de la entidad `Person`, no un ancla de la página, y sigue siendo válido.
 - **Contrato `.reveal`**: el CSS deja el elemento invisible y un IntersectionObserver le
   añade `.reveal--visible` al entrar en pantalla, escalonando con la custom property
   `--rd`. Es repetible: al salir se quita la clase. Markup nuevo sin `.reveal` aparece

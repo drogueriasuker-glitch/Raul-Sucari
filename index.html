@@ -30,7 +30,7 @@
   <!-- Precarga la imagen del hero (la que manda en el LCP). Si se cambia
        cuál va arriba, hay que cambiar también esta línea. -->
   <link rel="preload" as="image" href="assets/consultorio.jpg" fetchpriority="high">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500..700&family=Outfit:wght@400..700&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -52,7 +52,6 @@
       <nav class="nav" id="nav" aria-label="Navegación principal">
         <a href="#inicio" class="nav__link">Inicio</a>
         <a href="#como-trabajo" class="nav__link">Cómo trabajo</a>
-        <a href="#doctor" class="nav__link">El doctor</a>
         <a href="#tratamientos" class="nav__link">Tratamientos</a>
         <a href="#ubicacion" class="nav__link">Ubicación</a>
         <a href="https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle"
@@ -162,101 +161,6 @@
       <figure class="office__media reveal">
         <img src="assets/doctor.jpg" alt="El Dr. Raul Sucari Cruz, Cirujano Dentista" width="1080" height="1080" loading="lazy" decoding="async">
       </figure>
-
-    </div>
-  </section>
-
-  <!-- ==================== EL DOCTOR ==================== -->
-  <section class="section doctor" id="doctor">
-    <div class="container">
-
-      <div class="doctor__inner">
-
-        <div class="doctor__content">
-          <p class="eyebrow reveal">El doctor</p>
-          <h2 class="section__title reveal">Un equipo multidisciplinario, desde la primera consulta al último control</h2>
-
-          <div class="prose reveal">
-            <p>
-              Soy <strong>Cirujano Dentista colegiado y habilitado</strong>, con estudios
-              de segunda especialidad en Cirugía Bucal y Maxilofacial y en Periodoncia e
-              Implantología Oral. Llevo más de dos décadas atendiendo en la región de Puno
-              (Juliaca), a pacientes de todas las edades, y resuelvo casos que en otros
-              consultorios terminan en una derivación.
-            </p>
-            <p>
-              Dirijo cada etapa de tu tratamiento, apoyado cuando el caso lo requiere por
-              un equipo multidisciplinario. La consulta es directa y sin apuros: primero
-              te explico el diagnóstico, después las opciones de tratamiento y lo que
-              implica cada una. Recién ahí decidimos juntos.
-            </p>
-          </div>
-        </div>
-
-        <div class="doctor__cv">
-          <div class="formacion formacion--destacada reveal">
-            <span class="formacion__rotulo">Formación</span>
-
-            <ul class="cv">
-              <li>
-                <span class="cv__rotulo">Pregrado</span>
-                <span class="cv__valor"><strong>Cirujano Dentista:</strong> Titulado por la Universidad Nacional del Altiplano (UNA – Puno)</span>
-              </li>
-              <li>
-                <span class="cv__rotulo">Segunda Especialidad (egresado)</span>
-                <span class="cv__valor"><strong>Cirugía Bucal y Maxilofacial:</strong> Universidad Nacional Mayor de San Marcos (Lima). Cuatro años de residencia hospitalaria.</span>
-                <span class="cv__valor"><strong>Periodoncia e Implantología Oral:</strong> Por la universidad de la región de Puno.</span>
-              </li>
-              <li>
-                <span class="cv__rotulo">Grado académico</span>
-                <span class="cv__valor"><strong>Magíster en Salud, mención Salud Pública.</strong></span>
-              </li>
-              <li>
-                <span class="cv__rotulo">Colegiatura</span>
-                <span class="cv__valor">Cirujano Dentista · C.O.P. N.º 24841.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Los actos van encabezados por "Como egresado de la Especialidad en…
-           realizo:", que es la fórmula que pide R1: describe lo que hace, no
-           un título de especialista que todavía no está inscrito en el RNE. -->
-      <div class="doctor__actos">
-
-        <article class="actos reveal">
-          <h3 class="actos__titulo">Como egresado de la Especialidad en Cirugía Bucal y Maxilofacial realizo:</h3>
-          <ul class="actos__lista">
-            <li><strong>Exodoncia de terceros molares retenidos</strong> (cordales), simple y compleja</li>
-            <li><strong>Implantes dentales osteointegrados</strong>, injertos óseos y reconstrucción de maxilares</li>
-            <li><strong>Cirugía de quistes y tumores</strong> de los maxilares y tejidos blandos, con biopsia</li>
-            <li><strong>Manejo de trauma facial</strong> e infecciones odontogénicas de urgencia</li>
-            <li><strong>Cirugía ortognática y del perfil facial</strong>, mentoplastia</li>
-            <li>Frenectomía lingual y labial, tracción quirúrgica de dientes retenidos, bichectomía y manejo de trastornos de la ATM</li>
-          </ul>
-        </article>
-
-        <article class="actos reveal">
-          <h3 class="actos__titulo">Como egresado de la Especialidad en Periodoncia e Implantología Oral realizo:</h3>
-          <ul class="actos__lista">
-            <li><strong>Tratamiento de la enfermedad periodontal</strong> (gingivitis y periodontitis) y cirugía periodontal</li>
-            <li><strong>Implantes dentales</strong> y rehabilitación sobre implantes</li>
-            <li>Injertos de encía y manejo estético del contorno gingival</li>
-          </ul>
-        </article>
-
-        <article class="actos reveal">
-          <h3 class="actos__titulo">Odontología general y rehabilitación:</h3>
-          <ul class="actos__lista">
-            <li><strong>Restauraciones (curaciones), profilaxis</strong> y controles preventivos para toda la familia</li>
-            <li><strong>Tratamiento de conductos</strong> (endodoncia)</li>
-            <li><strong>Coronas, puentes y prótesis</strong> fija y removible</li>
-          </ul>
-        </article>
-
-      </div>
 
     </div>
   </section>
@@ -532,7 +436,6 @@
       <nav class="footer__nav" aria-label="Enlaces del pie de página">
         <span class="footer__label">Página</span>
         <a href="#como-trabajo">Cómo trabajo</a>
-        <a href="#doctor">El doctor</a>
         <a href="#tratamientos">Tratamientos</a>
         <a href="#ubicacion">Ubicación</a>
         <a href="privacidad.html">Política de privacidad</a>

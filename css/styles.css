@@ -27,7 +27,11 @@
 
   /* Cinzel para el nombre, Outfit para títulos y botones,
      Manrope para el cuerpo y las versalitas espaciadas */
-  --font-brand: "Cinzel", Georgia, serif;
+  /* Playfair Display y no Cinzel: Cinzel está dibujada con versalitas, o
+     sea que las minúsculas le salen como mayúsculas pequeñas y "Dr. Raul
+     Sucari Cruz" se leía todo en mayúsculas. Playfair tiene minúsculas
+     de verdad y mantiene el aire serif elegante. */
+  --font-brand: "Playfair Display", Georgia, serif;
   --font-head:  "Outfit", "Segoe UI", sans-serif;
   --font-body:  "Manrope", "Segoe UI", sans-serif;
 
@@ -273,11 +277,13 @@ ul { list-style: none; }
 
 .brand__text { display: flex; flex-direction: column; line-height: 1.15; }
 
+/* El tracking abierto lo pedía Cinzel, que iba toda en mayúsculas.
+   Con minúsculas de verdad, separar las letras las desarma. */
 .brand__name {
   font-family: var(--font-brand);
   font-weight: 700;
-  font-size: 1.14rem;
-  letter-spacing: 0.055em;
+  font-size: 1.2rem;
+  letter-spacing: 0.005em;
   color: var(--paper);
   white-space: nowrap;
 }
@@ -366,12 +372,14 @@ ul { list-style: none; }
   align-items: center;
 }
 
+/* A este tamaño una serif de alto contraste pide tracking negativo:
+   con el espaciado por defecto las palabras se ven sueltas. */
 .hero__title {
   font-family: var(--font-brand);
   font-weight: 700;
-  font-size: clamp(2.4rem, 5.4vw, 3.9rem);
-  line-height: 1.02;
-  letter-spacing: 0.005em;
+  font-size: clamp(2.3rem, 5.1vw, 3.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
   margin-bottom: 1.1rem;
 }
 
@@ -643,155 +651,6 @@ ul { list-style: none; }
   transform: rotate(-45deg);
 }
 
-/* ---------- El doctor ---------- */
-
-.doctor__inner {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 4.8rem;
-  align-items: center;
-}
-
-/* Los tres bloques de actos van debajo, a lo ancho de la sección, y no
-   dentro de la columna de texto: ahí alargarían la columna y dejarían
-   la ficha de formación flotando en un hueco enorme. */
-.doctor__actos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.8rem;
-  align-items: start;
-  margin-top: 4.8rem;
-}
-
-.actos {
-  padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.42), rgba(8, 14, 32, 0.24));
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
-}
-
-.actos__titulo {
-  margin-bottom: 1.3rem;
-  padding-bottom: 1.3rem;
-  border-bottom: 1px solid var(--line-soft);
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  line-height: 1.6;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.actos__lista { display: grid; gap: 0.9rem; }
-
-.actos__lista li {
-  position: relative;
-  padding-left: 1.3rem;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.actos__lista li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.62em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-}
-
-.actos__lista strong { color: var(--paper); font-weight: 600; }
-
-.doctor__cv { display: grid; gap: 1.6rem; }
-
-/* Formación: el peso lo pone la institución, no los adjetivos */
-
-.formacion {
-  position: relative;
-  padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.5), rgba(8, 14, 32, 0.3));
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
-}
-
-/* La formación es el activo de confianza más fuerte del sitio: va en una
-   sola tarjeta destacada, con todas sus filas dentro. */
-.formacion--destacada {
-  border-color: var(--line);
-  box-shadow: 0 0 0 5px rgba(249, 197, 54, 0.05), 0 30px 60px -40px #000;
-}
-
-/* Filete dorado, el mismo gesto que la credencial del hero */
-.formacion::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 2rem;
-  bottom: 2rem;
-  width: 2px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--gold), transparent);
-}
-
-.formacion__rotulo {
-  display: block;
-  margin-bottom: 0.7rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.cv {
-  display: grid;
-  gap: 1.5rem;
-  padding: 2rem 2.1rem;
-  background: linear-gradient(165deg, rgba(18, 34, 70, 0.35), rgba(8, 14, 32, 0.22));
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
-}
-
-/* Dentro de la tarjeta de formación la lista pierde su propio marco: si no,
-   queda un recuadro dibujado dentro de otro. */
-.formacion .cv {
-  margin-top: 1.3rem;
-  padding: 0;
-  background: none;
-  border: 0;
-  border-radius: 0;
-}
-
-.cv li { display: flex; flex-direction: column; gap: 0.15rem; }
-
-/* Una fila puede llevar más de un dato (las dos Segundas Especialidades):
-   se separan entre sí más que del rótulo, para que se lean como dos. */
-.cv__valor + .cv__valor { margin-top: 0.6rem; }
-
-.cv li + li {
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--line-soft);
-}
-
-.cv__rotulo {
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.cv__valor {
-  font-family: var(--font-head);
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--paper);
-}
-
 /* ---------- Tratamientos ---------- */
 
 /* La frase de entrada de la sección va en cursiva: enmarca lo que sigue
@@ -1054,8 +913,9 @@ ul { list-style: none; }
 .footer__brand strong {
   display: block;
   font-family: var(--font-brand);
-  font-size: 1.02rem;
-  letter-spacing: 0.04em;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
   color: var(--paper);
   margin-bottom: 0.3rem;
 }
@@ -1395,7 +1255,7 @@ ul { list-style: none; }
 
   .trust__list { grid-template-columns: repeat(2, 1fr); }
 
-  .doctor__inner, .office__inner { grid-template-columns: 1fr; gap: 3.2rem; }
+  .office__inner { grid-template-columns: 1fr; gap: 3.2rem; }
   .office__media { order: -1; }
 
   /* En una sola columna no hay alto que igualar: sin esto, el

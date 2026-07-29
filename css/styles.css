@@ -434,11 +434,28 @@ ul { list-style: none; }
 
 .hero__formacion strong { color: var(--paper); font-weight: 600; }
 
-.hero__subtitle {
-  max-width: 48ch;
+/* Lema de cierre del hero. Va en cursiva y con el mismo filete dorado
+   que la línea de credencial, para que se lea como una firma y no como
+   otro párrafo más de la lista de arriba. */
+.hero__lema {
+  position: relative;
+  padding-left: 1.1rem;
+  max-width: 46ch;
   margin-bottom: 2.1rem;
-  color: var(--muted);
-  font-size: 1.04rem;
+  color: var(--paper);
+  font-size: 1.02rem;
+  font-style: italic;
+}
+
+.hero__lema::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  bottom: 0.3em;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--gold), transparent);
 }
 
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
@@ -635,6 +652,59 @@ ul { list-style: none; }
   align-items: center;
 }
 
+/* Los tres bloques de actos van debajo, a lo ancho de la sección, y no
+   dentro de la columna de texto: ahí alargarían la columna y dejarían
+   la ficha de formación flotando en un hueco enorme. */
+.doctor__actos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  align-items: start;
+  margin-top: 4.8rem;
+}
+
+.actos {
+  padding: 2rem 2.1rem;
+  background: linear-gradient(165deg, rgba(18, 34, 70, 0.42), rgba(8, 14, 32, 0.24));
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+
+.actos__titulo {
+  margin-bottom: 1.3rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.actos__lista { display: grid; gap: 0.9rem; }
+
+.actos__lista li {
+  position: relative;
+  padding-left: 1.3rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.actos__lista li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.actos__lista strong { color: var(--paper); font-weight: 600; }
+
 .doctor__cv { display: grid; gap: 1.6rem; }
 
 /* Formación: el peso lo pone la institución, no los adjetivos */
@@ -724,10 +794,49 @@ ul { list-style: none; }
 
 /* ---------- Tratamientos ---------- */
 
+/* La frase de entrada de la sección va en cursiva: enmarca lo que sigue
+   en vez de leerse como un tratamiento más. */
+.section__lead--lema { font-style: italic; }
+
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.8rem;
+}
+
+/* Para un grupo con una sola tarjeta: a un tercio de ancho quedaría
+   descolgada al lado de dos huecos vacíos. */
+.cards--ancha { grid-template-columns: 1fr; }
+
+/* Los tratamientos van agrupados por especialidad. El rótulo del grupo
+   lleva un filete que se desvanece, como los separadores de sección. */
+.grupo + .grupo { margin-top: 3.6rem; }
+
+.grupo__titulo {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.8rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.grupo__titulo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+/* La consulta es la puerta de entrada a todo lo demás: va sola y a lo
+   ancho, antes de los grupos. */
+.card--puerta {
+  margin-bottom: 3.6rem;
+  border-color: var(--line);
 }
 
 .card {

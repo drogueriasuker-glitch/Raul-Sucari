@@ -69,14 +69,12 @@ html {
 ::-webkit-scrollbar-thumb:hover { background: var(--gold-deep); }
 
 body {
-  /* Un solo fondo continuo para toda la página: las secciones no llevan
-     color propio, así no quedan cortes duros entre una y otra.
-     El color y la imagen van en propiedades separadas a propósito: la
-     forma corta `background:` borraría el color y dejaría el degradado
-     sobre blanco mientras carga o si el navegador no lo pinta. */
+  /* Solo color plano aquí. El degradado vive en la capa fija de abajo,
+     no en `background-attachment: fixed`: iOS Safari no implementa bien
+     esa propiedad y, al colapsar la barra de direcciones durante el
+     scroll, dejaba sin pintar la franja que acababa de descubrir — la
+     banda blanca que aparecía al bajar. */
   background-color: var(--navy-deep);
-  background-image: linear-gradient(180deg, #070C1B 0%, #0A1228 38%, #081231 64%, #060A16 100%);
-  background-attachment: fixed;
   color: var(--paper);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -85,19 +83,27 @@ body {
   overflow-x: hidden;
 }
 
-/* Capa de luz ambiental: va fija sobre el fondo y debajo de todo el
-   contenido. Al ser una sola capa continua, ninguna sección corta el
-   degradado en su borde — no quedan costuras entre secciones. */
+/* El fondo entero de la página: el degradado de base más la luz ambiental,
+   en una sola capa fija al viewport y debajo de todo el contenido. Al ser
+   continua, ninguna sección corta el degradado en su borde — no quedan
+   costuras entre secciones.
+
+   Es un elemento fijo, y no el `background-attachment: fixed` que había
+   antes, porque esa propiedad está rota en iOS. Un elemento con
+   `position: fixed` da el mismo resultado y lo pintan todos los
+   navegadores. El `-1rem` de margen cubre la franja extra que aparece
+   mientras la barra del navegador móvil se colapsa. */
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -1rem;
   z-index: -1;
   pointer-events: none;
   background:
     radial-gradient(920px 620px at 76% 6%, rgba(249, 197, 54, 0.09), transparent 60%),
     radial-gradient(1000px 720px at 6% 34%, rgba(2, 22, 74, 0.55), transparent 62%),
-    radial-gradient(900px 620px at 94% 74%, rgba(2, 22, 74, 0.42), transparent 62%);
+    radial-gradient(900px 620px at 94% 74%, rgba(2, 22, 74, 0.42), transparent 62%),
+    linear-gradient(180deg, #070C1B 0%, #0A1228 38%, #081231 64%, #060A16 100%);
 }
 
 img { max-width: 100%; display: block; }

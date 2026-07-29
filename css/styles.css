@@ -1243,6 +1243,25 @@ ul { list-style: none; }
 
   .nav--open { transform: translateX(0); }
 
+  /* ⚠️ Con el menú abierto el header tiene que soltar su `backdrop-filter`,
+     y no es un detalle estético: esa propiedad lo convierte en el bloque
+     contenedor de sus descendientes `position: fixed`, y el panel es uno.
+     Su `bottom: 0` dejaba entonces de medirse contra el viewport y pasaba a
+     medirse contra los 76 px del header, así que el menú aparecía cortado
+     justo debajo de "Inicio". Solo pasaba al bajar, porque el filtro llega
+     con `.header--scrolled`, a partir de 20 px de scroll.
+
+     De paso arregla lo segundo que se veía: al filtrar, el header se vuelve
+     "backdrop root" y el `backdrop-filter` del propio panel deja de
+     difuminar bien lo que hay detrás — la foto del hero se transparentaba
+     por encima del menú. */
+  .menu-abierto .header--scrolled { backdrop-filter: none; }
+
+  /* Aquí NO va un `overflow: hidden` que bloquee la página por detrás del
+     panel: el comportamiento pedido es el contrario, que al desplazarse el
+     menú se cierre solo. De eso se encarga `onScroll` en main.js, y con el
+     scroll bloqueado no llegaría a dispararse nunca. */
+
   .nav__link {
     width: 100%;
     padding: 1rem 0;

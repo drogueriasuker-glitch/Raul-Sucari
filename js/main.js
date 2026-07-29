@@ -5,34 +5,53 @@
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Header: fondo al hacer scroll ---------- */
+  /* ---------- Header y menú móvil ----------
+     Van juntos porque el scroll cierra el menú: las tres referencias tienen
+     que existir antes de que `onScroll` corra por primera vez. */
 
   var header = document.getElementById("header");
+  var burger = document.getElementById("burger");
+  var nav = document.getElementById("nav");
+
+  /* Dónde estaba el scroll al abrir el panel. El cierre se decide contra
+     esta marca y no contra el scroll anterior, para que el panel aguante
+     los pocos píxeles que se mueve la página cuando la barra del navegador
+     móvil se colapsa, y se cierre solo cuando el dedo arrastra de verdad. */
+  var scrollAlAbrir = 0;
+  var MARGEN_CIERRE = 10;
 
   function onScroll() {
     header.classList.toggle("header--scrolled", window.scrollY > 20);
+
+    /* Con el menú abierto, desplazarse lo cierra: el panel tapa media
+       pantalla y quedarse colgado sobre un contenido que ya pasó no tiene
+       sentido. Volver a tocar la hamburguesa lo abre otra vez, y el ciclo
+       se repite. */
+    if (nav.classList.contains("nav--open") &&
+        Math.abs(window.scrollY - scrollAlAbrir) > MARGEN_CIERRE) {
+      closeMenu();
+    }
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- Menú móvil ---------- */
-
-  var burger = document.getElementById("burger");
-  var nav = document.getElementById("nav");
-
-  function closeMenu() {
-    nav.classList.remove("nav--open");
-    burger.classList.remove("burger--open");
-    burger.setAttribute("aria-expanded", "false");
-    burger.setAttribute("aria-label", "Abrir menú");
-  }
-
-  burger.addEventListener("click", function () {
-    var open = nav.classList.toggle("nav--open");
+  /* La clase en <html> le quita al header su `backdrop-filter` mientras el
+     panel está abierto: si no, el header se vuelve bloque contenedor del
+     panel y lo deja cortado. Ver el bloque @media (max-width: 980px). */
+  function setMenu(open) {
+    if (open) scrollAlAbrir = window.scrollY;
+    nav.classList.toggle("nav--open", open);
     burger.classList.toggle("burger--open", open);
     burger.setAttribute("aria-expanded", String(open));
     burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    document.documentElement.classList.toggle("menu-abierto", open);
+  }
+
+  function closeMenu() { setMenu(false); }
+
+  burger.addEventListener("click", function () {
+    setMenu(!nav.classList.contains("nav--open"));
   });
 
   nav.addEventListener("click", function (e) {

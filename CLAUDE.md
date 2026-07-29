@@ -42,6 +42,11 @@ solo para esa especialidad (primero Periodoncia e Implantología, después Cirug
 Bucal y Maxilofacial) y hay que actualizar en este orden: web → JSON-LD → Perfil de
 Empresa de Google → redes → tarjetas. R2 a R6 siguen vigentes de forma permanente.
 
+Dentro de la web esa redacción vive en **dos** sitios, no en uno: la lista
+`.hero__formacion` y la barra de confianza (`.trust__list`, "2.ª Especialidad"). En el
+JSON-LD no hay nada que corregir sino que **añadir**: hoy solo declara como
+`hasCredential` la colegiatura y el Magíster, ninguna de las dos especialidades.
+
 ## Publicación
 
 El repositorio es `drogueriasuker-glitch/Raul-Sucari` (público) y la página se sirve con
@@ -55,6 +60,11 @@ son relativas y deben seguir siéndolo.
 **La única excepción son las URL absolutas que exige el protocolo**: `canonical`, las
 etiquetas `og:`/`twitter:`, los `@id` del JSON-LD, `sitemap.xml` y `robots.txt`. Al
 mudarse a dominio propio hay que cambiarlas en esos sitios y en `privacidad.html`.
+
+`sitemap.xml` lleva un `<lastmod>` por página (hoy `2026-07-27` en las dos); al cambiar
+el contenido de una, se actualiza el suyo. `privacidad.html` tiene además su propia
+fecha visible, "Última actualización", que va junto con el texto legal, no con el
+sitemap.
 
 La autenticación de `gh` no está configurada en la máquina; el token vive en el Gestor
 de Credenciales de Windows y se recupera con `git credential fill` (usuario
@@ -72,11 +82,14 @@ Al editar CSS/JS hace falta recarga forzada (Ctrl+F5).
 
 En el móvil no hay recarga forzada que valga: Safari en iOS se queda con el CSS viejo
 durante días y un arreglo publicado parece no haber llegado. Por eso los dos HTML piden
-la hoja como `css/styles.css?v=N`. **Al corregir algo que solo se ve en el teléfono, hay
-que subir el número en `index.html` y en `privacidad.html` a la vez**, o el cliente
-seguirá viendo el fallo y dirá que no se arregló.
+la hoja como `css/styles.css?v=N`, e `index.html` pide igual `js/main.js?v=N`. **Al
+corregir algo que solo se ve en el teléfono, hay que subir el número en los tres sitios
+a la vez** —la hoja en los dos HTML y el script en `index.html`—, o el cliente seguirá
+viendo el fallo y dirá que no se arregló. Hoy los tres van en `?v=5`; si no coinciden,
+alguno está sirviendo un archivo viejo.
 
-Para capturas headless (Chrome está en `C:\Program Files\Google\Chrome\Application`):
+Para capturas headless (Chrome está en `C:\Program Files\Google\Chrome\Application`;
+el comando que localiza ese ejecutable está preaprobado en `.claude/settings.json`):
 
 ```powershell
 & $chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --virtual-time-budget=9000 `
@@ -173,6 +186,24 @@ no pueden compartir la propiedad `transform`.
   de pie. La formación completa y el COP siguen visibles en `.hero__formacion`, así que no
   se perdió ningún dato exigible. El JSON-LD **sí conserva** `@id … #doctor`: ahí es el
   identificador de la entidad `Person`, no un ancla de la página, y sigue siendo válido.
+- ⚠️ **Nada de `backdrop-filter`, `filter` ni `transform` en `.header`** mientras el menú
+  móvil pueda estar abierto. El panel del menú es un `position: fixed` **hijo del
+  header**, y cualquiera de esas propiedades convierte al header en su bloque contenedor:
+  el `bottom: 0` del panel deja de medirse contra el viewport y pasa a medirse contra los
+  76 px del header, así que el menú sale cortado justo debajo de "Inicio". Además el
+  header se vuelve *backdrop root* y el `backdrop-filter` del propio panel deja de
+  difuminar bien: la foto del hero se transparenta encima del menú. Pasaba solo **al
+  bajar**, porque el filtro llega con `.header--scrolled` a partir de 20 px de scroll, y
+  por eso no se veía nunca en escritorio ni con la página arriba del todo. La salida es
+  la clase `.menu-abierto` que `main.js` pone en `<html>` mientras el panel está abierto:
+  le quita el filtro al header.
+- **El menú móvil se cierra solo al desplazarse**, y es a propósito: lo pidió el cliente.
+  Lo hace `onScroll` en `main.js`, comparando contra la posición que había al abrirlo
+  (`scrollAlAbrir`) con un margen de 10 px, para que no lo cierren los pocos píxeles que
+  se mueve la página cuando se colapsa la barra del navegador móvil. Por eso **no hay que
+  bloquear el scroll** (`overflow: hidden`) con el panel abierto: con la página quieta el
+  cierre no se dispararía nunca. El header y el menú comparten bloque al inicio del
+  archivo porque `onScroll` usa `nav`, y corre una vez nada más cargar.
 - **Contrato `.reveal`**: el CSS deja el elemento invisible y un IntersectionObserver le
   añade `.reveal--visible` al entrar en pantalla, escalonando con la custom property
   `--rd`. Es repetible: al salir se quita la clase. Markup nuevo sin `.reveal` aparece
@@ -201,11 +232,26 @@ Al intercambiarlas hay que mover tres cosas juntas, o algo queda mal:
    (es la que manda en el LCP).
 3. El `loading="lazy"`: lo lleva la de abajo, nunca la del hero.
 
-`assets/doctor.jpg` es **cuadrada (1080×1080)**, sin tocar. Se muestra en `9/10`, que es
-**el recorte más angosto que no le corta las manos cruzadas**; si entra otra foto, hay
-que volver a medir. `assets/consultorio.jpg` es **apaisada (1300×726)** y se muestra en
-`4/3`: recorta poco y le da altura para no quedar como una franja fina al lado del
-texto.
+El `og:image`/`twitter:image` **no entra en el intercambio**: sigue apuntando a
+`assets/doctor.jpg` en los dos HTML, porque en redes se comparte a la persona.
+
+`assets/doctor.jpg` es **cuadrada (1080×1080)**, sin tocar, y **su marco no lleva
+`aspect-ratio` en escritorio**: `.office__inner` va con `align-items: stretch` y la foto
+se estira al alto de la columna de texto (`height: 100%` + `object-fit: cover`), lo que
+da un recorte de ~0,82 — todavía por dentro de los codos. `aspect-ratio: 9 / 10` está
+**solo por debajo de 980 px** ([styles.css:1270](css/styles.css#L1270)), donde la sección
+pasa a una columna y ese alto de referencia desaparece; sin él la foto colapsa. Si crece
+mucho el texto de "Cómo trabajo", hay que comprobar que el estirado no empiece a cortarle
+las manos cruzadas.
+
+`assets/consultorio.jpg` es **apaisada (1300×726)** y su marco va en `aspect-ratio: 3 / 2`
+([styles.css:534](css/styles.css#L534)): recorta poco y deja el alto de la foto a la par
+del de la columna de texto, del "Juliaca · Puno" a los botones. Fue `4/3` mientras el hero
+tenía la columna más angosta. Por lo mismo `.retrato` **no lleva `max-width`**: al
+encogerlo se pierde esa alineación.
+
+Los archivos originales sin recortar están en `assets/originales/` — es de ahí de donde
+se vuelve a salir si hay que remedir un encuadre.
 
 Los atributos `width`/`height` de cada `<img>` van con las dimensiones **reales del
 archivo** (no las del marco): es lo que evita el salto de layout.
@@ -276,7 +322,9 @@ semana previa cita · Egresado de la Segunda Especialidad en Cirugía Bucal y Ma
 (UNMSM, cuatro años de residencia) · Egresado de la Segunda Especialidad en Periodoncia
 e Implantología · Magíster en Salud Pública.
 
-El mensaje prellenado de WhatsApp es el mismo en los cinco enlaces del sitio:
+El mensaje prellenado de WhatsApp es el mismo en los **seis** enlaces del sitio —cinco en
+`index.html` (menú, hero, franja de cita, pie y botón flotante) y uno en
+`privacidad.html`—, así que cambiarlo es buscar `wa.me/51928471815` en los dos archivos:
 `https://wa.me/51928471815?text=Hola%20doctor%2C%20vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultarle`
 
 ## Lo que falta (no está hecho)

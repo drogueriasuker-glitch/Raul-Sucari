@@ -132,7 +132,7 @@ Tratamiento →
 
 **Instagram** → https://www.instagram.com/dr.raulsucari/
 **Facebook** → https://www.facebook.com/raul.sucari.3
-**TikTok** → https://www.tiktok.com/@dr.raulsucari?lang=es-419
+**TikTok** → https://www.tiktok.com/@dr.raul.sucari
 
 ---
 

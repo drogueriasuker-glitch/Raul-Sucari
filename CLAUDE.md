@@ -49,19 +49,31 @@ JSON-LD no hay nada que corregir sino que **añadir**: hoy solo declara como
 
 ## Publicación
 
-El repositorio es `drogueriasuker-glitch/Raul-Sucari` (público) y la página se sirve con
-GitHub Pages desde la raíz de `main`: https://drogueriasuker-glitch.github.io/Raul-Sucari/
+El dominio es **https://drsucari.com** (comprado en Vercel el 30-07-2026, con
+renovación automática) y lo sirve **Vercel** desde el repositorio
+`drogueriasuker-glitch/Raul-Sucari` (público), rama `main`, en el equipo **Suker**.
+`www.drsucari.com` va con un **308 permanente** hacia el dominio sin www.
 
-Publicar un cambio es `git push`: Pages reconstruye solo, tarda alrededor de un minuto.
-No hay CI ni paso de build. El destino final previsto sigue siendo Hostinger por FTP,
-así que nada puede depender de rutas propias de GitHub Pages — todas las rutas del sitio
-son relativas y deben seguir siéndolo.
+Publicar un cambio sigue siendo `git push`: Vercel reconstruye solo en menos de un
+minuto. No hay CI ni paso de build; Vercel detecta que es HTML plano y lo sirve tal cual.
+Nada puede depender de rutas propias del alojamiento — todas las rutas del sitio son
+relativas y deben seguir siéndolo.
 
-**La única excepción son las URL absolutas que exige el protocolo**: `canonical`, las
-etiquetas `og:`/`twitter:`, los `@id` del JSON-LD, `sitemap.xml` y `robots.txt`. Al
-mudarse a dominio propio hay que cambiarlas en esos sitios y en `privacidad.html`.
+⚠️ **GitHub Pages sigue activo** en
+https://drogueriasuker-glitch.github.io/Raul-Sucari/ y eso es contenido duplicado: dos
+direcciones sirviendo la misma web. Los `canonical` ya apuntan todos a `drsucari.com`,
+que es lo que lo neutraliza, pero **queda pendiente apagar Pages** en Settings → Pages
+del repositorio.
 
-`sitemap.xml` lleva un `<lastmod>` por página (hoy `2026-07-27` en las dos); al cambiar
+**Las URL absolutas que exige el protocolo** son la única excepción a lo de las rutas
+relativas: `canonical`, las etiquetas `og:`/`twitter:`, los `@id` y las `url`/`image` del
+JSON-LD (13 en `index.html`), el `canonical` de `privacidad.html`, las dos `<loc>` de
+`sitemap.xml` y la línea `Sitemap:` de `robots.txt`. Si el dominio vuelve a cambiar, hay
+que tocar los seis archivos —esos cinco más el enlace del `README.md`— y **todas tienen
+que decir exactamente lo mismo**: `https://drsucari.com`, sin www y con la barra final
+donde toque. Una sola discrepancia le da a Google dos direcciones distintas.
+
+`sitemap.xml` lleva un `<lastmod>` por página (hoy `2026-07-30` en las dos); al cambiar
 el contenido de una, se actualiza el suyo. `privacidad.html` tiene además su propia
 fecha visible, "Última actualización", que va junto con el texto legal, no con el
 sitemap.

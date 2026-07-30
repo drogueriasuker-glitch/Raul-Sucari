@@ -242,6 +242,15 @@ ul { list-style: none; }
   transform: translateY(-2px);
 }
 
+/* El pin va dorado aunque la etiqueta del botón sea clara: es el acento de
+   la marca y ata el icono al filete dorado del propio botón. `flex-shrink`
+   porque a 460 px los botones pasan a ancho completo y el icono no debe
+   ceder espacio antes que el texto. */
+.btn__pin {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
 .btn--sm { padding: 0.68rem 1.25rem; font-size: 0.88rem; }
 .btn--lg { padding: 1.1rem 2.2rem; font-size: 1.02rem; }
 

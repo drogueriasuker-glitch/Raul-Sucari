@@ -85,7 +85,7 @@ durante días y un arreglo publicado parece no haber llegado. Por eso los dos HT
 la hoja como `css/styles.css?v=N`, e `index.html` pide igual `js/main.js?v=N`. **Al
 corregir algo que solo se ve en el teléfono, hay que subir el número en los tres sitios
 a la vez** —la hoja en los dos HTML y el script en `index.html`—, o el cliente seguirá
-viendo el fallo y dirá que no se arregló. Hoy los tres van en `?v=5`; si no coinciden,
+viendo el fallo y dirá que no se arregló. Hoy los tres van en `?v=6`; si no coinciden,
 alguno está sirviendo un archivo viejo.
 
 Para capturas headless (Chrome está en `C:\Program Files\Google\Chrome\Application`;
@@ -150,15 +150,40 @@ cada HTML más `--font-brand` en `:root`; si se olvida `privacidad.html`, la leg
 
 ### La marca
 
-El logo del consultorio (`assets/logo.png`) **ya no se usa en la página**: lleva
-escrito "MAXIN CENTRO ODONTOLÓGICO" dentro de la imagen y eso incumple R2. Se
-conserva el archivo por si el cliente lo necesita para otra cosa.
+La marca es el **monograma RS** que subió el cliente: R dorada y S navy. No lleva texto
+dentro de la imagen, así que no anuncia ninguna categoría de establecimiento (R2). El
+nombre del doctor va siempre como texto HTML al lado, nunca dentro de una imagen.
 
-En su lugar está `assets/marca.svg`: el mismo gesto del logo (anillo navy → dorado con
-un diente dentro) pero **sin texto**, así que no anuncia ninguna categoría de
-establecimiento. Se usa en el header, en el pie y como base del favicon
-(`assets/favicon.svg`, el mismo diente sobre un cuadrado navy). El nombre del doctor
-va siempre como texto HTML al lado, nunca dentro de una imagen.
+Hay tres archivos y conviene no confundirlos:
+
+| Archivo | Para qué |
+|---|---|
+| `assets/logo.PNG` | El original del cliente, 2168×1984. **No se enlaza desde ninguna página**: es la fuente de la que salen los otros dos. |
+| `assets/marca.png` | 128×128 con transparencia. Header de los **dos** HTML y pie de `index.html`. |
+| `assets/favicon.png` | 64×64 **con fondo oscuro sólido**, a propósito: en una pestaña clara un PNG transparente dejaría el monograma suelto; así se lee como pastilla en claro y en oscuro. |
+
+⚠️ El original **no tiene canal alfa** (`Format24bppRgb`): el fondo es negro opaco. Puesto
+tal cual en el header se ve un cuadrado negro sobre el degradado. Si hay que regenerar
+`marca.png`, el arte es luz sobre negro —o sea, ya premultiplicado por su propio alfa—,
+así que la conversión correcta es **`alfa = max(R,G,B)` y el color dividido por ese
+alfa**, con un piso (~26) por debajo del cual el píxel se va del todo. Un recorte por
+umbral duro deja halo negro; sin el piso queda un cuadrado con un 5 % de opacidad que se
+nota sobre cualquier fondo claro. La caja de las letras se busca con umbral alto (~70),
+porque el glow llega hasta el borde del lienzo y con umbral bajo la caja sale siendo la
+imagen entera.
+
+Los `width`/`height` de esos `<img>` van a 128×128 (las dimensiones reales), pero **quien
+manda es el CSS**: 54 px en `.brand__logo` y 62 px en `.footer__brand img`.
+
+**La S navy pierde legibilidad a tamaño pequeño**, sobre todo en escritorio: sobre el
+fondo de la página, que es casi negro, queda como una mancha oscura y el monograma se lee
+casi como una "R" sola. Es una propiedad del logo, no del código. Si molesta, las salidas
+son aclarar la S o devolverle al header la pastilla de fondo oscuro que lleva el favicon.
+
+`assets/logo.png` **era** el logo del consultorio con "MAXIN CENTRO ODONTOLÓGICO" escrito
+dentro (incumplía R2) y el cliente lo sobrescribió con el monograma. Si alguna vez hace
+falta, sigue en el historial de git. `assets/marca.svg` y `assets/favicon.svg` —el anillo
+con el diente— ya no se usan; se conservan por si acaso.
 
 ### El retrato del hero
 

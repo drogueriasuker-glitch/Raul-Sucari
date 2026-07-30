@@ -241,6 +241,14 @@ no pueden compartir la propiedad `transform`.
   bloquear el scroll** (`overflow: hidden`) con el panel abierto: con la página quieta el
   cierre no se dispararía nunca. El header y el menú comparten bloque al inicio del
   archivo porque `onScroll` usa `nav`, y corre una vez nada más cargar.
+- **Jerarquía de encabezados en Tratamientos**: `h2` la sección, `h3` cada
+  `.grupo__titulo` y **`h4` las `.card__title` que van dentro de un grupo**. La única
+  `.card__title` que es `h3` es la de "Consulta y diagnóstico", porque esa tarjeta no
+  cuelga de ningún grupo. Estuvieron todas en `h3` y Google leía "Implantes dentales"
+  como hermano de "Periodoncia e Implantología Oral" en vez de como parte suya. El
+  estilo va por clase, así que el nivel de etiqueta no cambia nada visualmente: una
+  tarjeta nueva dentro de un grupo se ve igual con `h3` o con `h4`, y por eso es fácil
+  equivocarse sin notarlo.
 - **Contrato `.reveal`**: el CSS deja el elemento invisible y un IntersectionObserver le
   añade `.reveal--visible` al entrar en pantalla, escalonando con la custom property
   `--rd`. Es repetible: al salir se quita la clase. Markup nuevo sin `.reveal` aparece
